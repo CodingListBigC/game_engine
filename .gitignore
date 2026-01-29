@@ -45,6 +45,5 @@ bin/
 
 gradlew.bat
 gradlew
-.idea/*
 *.log
 gradle/*
