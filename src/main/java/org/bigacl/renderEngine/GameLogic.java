@@ -3,7 +3,9 @@ package org.bigacl.renderEngine;
 import org.bigacl.renderEngine.logic.IGameLogic;
 import org.bigacl.renderEngine.camera.Camera;
 import org.bigacl.renderEngine.mesh.Mesh;
+import org.bigacl.renderEngine.mesh.OBJLoader;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
+import org.bigacl.renderEngine.texture.Texture;
 import org.bigacl.renderEngine.window.WindowMaster;
 import org.joml.Matrix4f;
 
@@ -14,12 +16,15 @@ public class GameLogic implements IGameLogic {
   private WindowMaster window;
   private ShaderMaster shader;
   private Mesh mesh;
+  private Mesh ground;
 
   public GameLogic(WindowMaster window, ShaderMaster shader, Mesh mesh) {
     this.window = window;
     this.shader = shader;
     this.mesh = mesh;
     this.camera = new Camera(1600,900);
+    this.ground = OBJLoader.loadOBJ("models/plane.obj");
+    this.ground.setColor(0.0f, 1.0f, 0.0f);
   }
 
   @Override
@@ -27,19 +32,6 @@ public class GameLogic implements IGameLogic {
     float moveSpeed = 0.02f;
     float rotateSpeed = 2.0f;
     camera.CameraInput(window, moveSpeed, rotateSpeed);
-
-    if (window.isKeyPressed(GLFW_KEY_1)){
-      mesh.setColor(0.0f,0.0f,0.0f);
-    }
-    if (window.isKeyPressed(GLFW_KEY_2)){
-      mesh.setColor(1.0f,0.0f,0.0f);
-    }
-    if (window.isKeyPressed(GLFW_KEY_3)){
-      mesh.setColor(0.0f,1.0f,0.0f);
-    }
-    if (window.isKeyPressed(GLFW_KEY_4)){
-      mesh.setColor(0.0f,0.0f,1.0f);
-    }
   }
   @Override
   public void update(float delta) {
@@ -56,11 +48,16 @@ public class GameLogic implements IGameLogic {
     Matrix4f modelMatrix = new Matrix4f().identity();
     shader.setUniformMatrix4f("model", modelMatrix);
     mesh.render();
+    ground.render();
     shader.unbind();
   }
 
   @Override
   public void cleanup() {
     // Clean up resources
+  }
+
+  public Camera getCamera() {
+    return camera;
   }
 }

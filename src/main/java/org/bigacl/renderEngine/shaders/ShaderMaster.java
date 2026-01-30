@@ -44,4 +44,28 @@ public class ShaderMaster {
     }
     glUniform3f(location, x, y, z);
   }
+  public void setUniform1i(String uniformName, int value) {
+    // 1. Find the location of the uniform in the shader program
+    int location = org.lwjgl.opengl.GL20.glGetUniformLocation(shaderLoader.getProgramId(), uniformName);
+
+    // 2. Send the integer value to that location
+    if (location != -1) {
+      org.lwjgl.opengl.GL20.glUniform1i(location, value);
+    } else {
+      System.err.println("Could not find uniform: " + uniformName);
+    }
+  }
+  public void setUniform1b(String uniformName, boolean value) {
+    // 1. Get the location of the uniform in the compiled shader program
+    int location = org.lwjgl.opengl.GL20.glGetUniformLocation(shaderLoader.getProgramId(), uniformName);
+
+    // 2. Check if the uniform exists to avoid silent failures
+    if (location != -1) {
+      // 3. Convert boolean to 1 (true) or 0 (false) and send to GPU
+      org.lwjgl.opengl.GL20.glUniform1i(location, value ? 1 : 0);
+    } else {
+      // Optional: Log a warning if you can't find the variable in the shader
+      // System.err.println("Could not find uniform: " + uniformName);
+    }
+  }
 }

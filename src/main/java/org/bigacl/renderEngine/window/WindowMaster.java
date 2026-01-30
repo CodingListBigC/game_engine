@@ -50,6 +50,9 @@ public class WindowMaster {
 
     // This is critical - creates the OpenGL capabilities instance
     GL.createCapabilities();
+
+    glEnable(GL_DEPTH_TEST);
+    glDisable(GL_CULL_FACE);
   }
   public void loop(IGameLogic gameLogic) {
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
