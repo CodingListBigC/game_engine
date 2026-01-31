@@ -5,7 +5,7 @@ import org.bigacl.renderEngine.item.placeable.house.House;
 import java.util.ArrayList;
 
 public class ItemManger {
-  private ArrayList<House> houseList = new ArrayList<>();
+  private final ArrayList<House> houseList = new ArrayList<>();
   public void addHouse(House house){
     houseList.add(house);
   }
