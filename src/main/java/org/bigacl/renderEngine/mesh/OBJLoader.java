@@ -12,13 +12,16 @@ import java.util.List;
 public class OBJLoader {
 
   public static Mesh loadOBJ(String filePath) {
-    List<Vector3f> vertices = new ArrayList<>();
-    List<Vector2f> textures = new ArrayList<>();
-    List<Vector3f> normals = new ArrayList<>();
-    List<Integer> indices = new ArrayList<>();
-    List<Integer> textureIndices = new ArrayList<>();
+    List<Vector3f> rawVertices = new ArrayList<>();
+    List<Vector2f> rawTextures = new ArrayList<>();
+    List<Vector3f> rawNormals = new ArrayList<>();
 
-    // Size Variable
+    // These lists will store the final, reordered data
+    List<Float> verticesList = new ArrayList<>();
+    List<Float> texCoordsList = new ArrayList<>();
+    List<Integer> indicesList = new ArrayList<>();
+
+    // Bounds for MeshSize
     float minX = Float.MAX_VALUE, maxX = Float.MIN_VALUE;
     float minY = Float.MAX_VALUE, maxY = Float.MIN_VALUE;
     float minZ = Float.MAX_VALUE, maxZ = Float.MIN_VALUE;
@@ -32,17 +35,18 @@ public class OBJLoader {
       String line;
 
       while ((line = reader.readLine()) != null) {
-        String[] tokens = line.split(" ");
+        String[] tokens = line.split("\\s+"); // Handles multiple spaces
+        if (tokens.length < 1) continue;
 
         switch (tokens[0]) {
           case "v":
-            // Vertex position
             Vector3f vertex = new Vector3f(
                     Float.parseFloat(tokens[1]),
                     Float.parseFloat(tokens[2]),
                     Float.parseFloat(tokens[3])
             );
-            vertices.add(vertex);
+            rawVertices.add(vertex);
+            // Calculate bounds
             if (vertex.x < minX) minX = vertex.x;
             if (vertex.x > maxX) maxX = vertex.x;
             if (vertex.y < minY) minY = vertex.y;
@@ -52,27 +56,23 @@ public class OBJLoader {
             break;
 
           case "vt":
-            // Texture coordinate
-            Vector2f texture = new Vector2f(
+            rawTextures.add(new Vector2f(
                     Float.parseFloat(tokens[1]),
                     Float.parseFloat(tokens[2])
-            );
-            textures.add(texture);
+            ));
             break;
 
           case "vn":
-            // Normal
-            Vector3f normal = new Vector3f(
+            rawNormals.add(new Vector3f(
                     Float.parseFloat(tokens[1]),
                     Float.parseFloat(tokens[2]),
                     Float.parseFloat(tokens[3])
-            );
-            normals.add(normal);
+            ));
             break;
 
           case "f":
-            // Face - handle v/vt/vn format
-            processFace(tokens, indices, textureIndices);
+            // Process the face and build the final lists immediately
+            processFace(tokens, rawVertices, rawTextures, verticesList, texCoordsList, indicesList);
             break;
 
           default:
@@ -86,90 +86,63 @@ public class OBJLoader {
       throw new RuntimeException("Error loading OBJ file: " + filePath, e);
     }
 
-    // Convert lists to arrays
-    float[] verticesArray = new float[vertices.size() * 3];
-    float[] texCoordsArray = new float[vertices.size() * 2];
-    int[] indicesArray = new int[indices.size()];
+    // Convert Lists to primitive arrays for the Mesh
+    float[] verticesArray = new float[verticesList.size()];
+    for (int i = 0; i < verticesList.size(); i++) verticesArray[i] = verticesList.get(i);
 
-    int vertexPointer = 0;
-    for (Vector3f vertex : vertices) {
-      verticesArray[vertexPointer++] = vertex.x;
-      verticesArray[vertexPointer++] = vertex.y;
-      verticesArray[vertexPointer++] = vertex.z;
-    }
+    float[] texCoordsArray = new float[texCoordsList.size()];
+    for (int i = 0; i < texCoordsList.size(); i++) texCoordsArray[i] = texCoordsList.get(i);
 
-    // Reorder texture coordinates to match vertices
-    for (int i = 0; i < indices.size(); i++) {
-      int currentVertexIndex = indices.get(i);
-      int currentTexIndex = textureIndices.get(i);
-
-      if (currentTexIndex >= 0 && currentTexIndex < textures.size()) {
-        Vector2f currentTex = textures.get(currentTexIndex);
-        texCoordsArray[currentVertexIndex * 2] = currentTex.x;
-        texCoordsArray[currentVertexIndex * 2 + 1] = 1.0f - currentTex.y;  // Flip Y for OpenGL
-      }
-    }
-
-    for (int i = 0; i < indices.size(); i++) {
-      indicesArray[i] = indices.get(i);
-    }
+    int[] indicesArray = new int[indicesList.size()];
+    for (int i = 0; i < indicesList.size(); i++) indicesArray[i] = indicesList.get(i);
 
     float width  = maxX - minX;
     float height = maxY - minY;
     float depth  = maxZ - minZ;
 
-    MeshSize meshSize = new MeshSize(width,height,depth);
-    return MeshLoader.createMesh(verticesArray, indicesArray, texCoordsArray, meshSize);
+    return MeshLoader.createMesh(verticesArray, indicesArray, texCoordsArray, new MeshSize(width, height, depth));
   }
 
-  private static void processFace(String[] tokens, List<Integer> indices, List<Integer> textureIndices) {
-    int vertexCount = tokens.length - 1;
+  private static void processFace(String[] tokens, List<Vector3f> rawV, List<Vector2f> rawT,
+                                  List<Float> finalV, List<Float> finalT, List<Integer> finalI) {
 
-    if (vertexCount == 3) {
-      // Triangle
-      for (int i = 1; i <= 3; i++) {
-        String[] parts = tokens[i].split("/");
-        int vertexIndex = Integer.parseInt(parts[0]) - 1;
-        indices.add(vertexIndex);
+    // This helper converts the "v/vt/vn" string into actual final vertex data
+    // We use a simple triangulation: every 3 points in a face = 1 triangle
+    int numVertices = tokens.length - 1;
 
-        // Add texture index if it exists
-        if (parts.length > 1 && !parts[1].isEmpty()) {
-          textureIndices.add(Integer.parseInt(parts[1]) - 1);
-        } else {
-          textureIndices.add(0);
-        }
-      }
-    } else if (vertexCount == 4) {
-      // Quad - split into two triangles
-      int[] quadVertices = new int[4];
-      int[] quadTextures = new int[4];
-
-      for (int i = 0; i < 4; i++) {
-        String[] parts = tokens[i + 1].split("/");
-        quadVertices[i] = Integer.parseInt(parts[0]) - 1;
-
-        if (parts.length > 1 && !parts[1].isEmpty()) {
-          quadTextures[i] = Integer.parseInt(parts[1]) - 1;
-        } else {
-          quadTextures[i] = 0;
-        }
-      }
-
-      // First triangle: 0, 1, 2
-      indices.add(quadVertices[0]);
-      indices.add(quadVertices[1]);
-      indices.add(quadVertices[2]);
-      textureIndices.add(quadTextures[0]);
-      textureIndices.add(quadTextures[1]);
-      textureIndices.add(quadTextures[2]);
-
-      // Second triangle: 0, 2, 3
-      indices.add(quadVertices[0]);
-      indices.add(quadVertices[2]);
-      indices.add(quadVertices[3]);
-      textureIndices.add(quadTextures[0]);
-      textureIndices.add(quadTextures[2]);
-      textureIndices.add(quadTextures[3]);
+    // Triangulation for quads or polygons (Fans out from the first vertex)
+    for (int i = 2; i < numVertices; i++) {
+      addVertex(tokens[1], rawV, rawT, finalV, finalT, finalI); // First vertex
+      addVertex(tokens[i], rawV, rawT, finalV, finalT, finalI); // Previous vertex
+      addVertex(tokens[i + 1], rawV, rawT, finalV, finalT, finalI); // Current vertex
     }
+  }
+
+  private static void addVertex(String token, List<Vector3f> rawV, List<Vector2f> rawT,
+                                List<Float> finalV, List<Float> finalT, List<Integer> finalI) {
+
+    String[] parts = token.split("/");
+
+    // Vertex Index (OBJ is 1-based)
+    int vIdx = Integer.parseInt(parts[0]) - 1;
+    Vector3f v = rawV.get(vIdx);
+    finalV.add(v.x);
+    finalV.add(v.y);
+    finalV.add(v.z);
+
+    // Texture Index
+    if (parts.length > 1 && !parts[1].isEmpty()) {
+      int tIdx = Integer.parseInt(parts[1]) - 1;
+      Vector2f t = rawT.get(tIdx);
+      finalT.add(t.x);
+      finalT.add(1.0f - t.y); // Flipped for OpenGL
+    } else {
+      finalT.add(0.0f);
+      finalT.add(0.0f);
+    }
+
+    // Add index (since we are duplicating vertices for simplicity,
+    // the index is just the current size of the list / 3)
+    finalI.add((finalV.size() / 3) - 1);
   }
 }

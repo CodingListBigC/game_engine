@@ -3,6 +3,7 @@ package org.bigacl.renderEngine.item.placeable.house;
 import com.google.gson.Gson;
 import org.bigacl.renderEngine.item.placeable.BasePlaceableItem;
 import org.bigacl.renderEngine.mesh.OBJLoader;
+import org.bigacl.renderEngine.texture.Texture;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -42,8 +43,12 @@ public class House extends BasePlaceableItem {
     String levelNumberString = String.valueOf(this.currentLevel);
     String modelFileName = this.level.get(levelNumberString).model;
     // IMPORTANT: Make sure this path matches where your .obj actually is!
-    String fullModelPath = "gameData/buildings/home/" + modelFileName;
+    String fullModelPath = folderPath +"/" + modelFileName;
     // Load it into the variable defined in BasePlaceableItem
     this.currentMesh = OBJLoader.loadOBJ(fullModelPath);
+    String textureFileName= this.level.get(levelNumberString).texture;
+    String fullTexturePath = folderPath +"/" +textureFileName;
+    this.currentMeshTexture = new Texture(fullTexturePath);
+    this.currentMesh.setTexture(this.currentMeshTexture);
   }
 }

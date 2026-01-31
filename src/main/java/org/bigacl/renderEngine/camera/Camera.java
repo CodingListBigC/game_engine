@@ -132,4 +132,17 @@ public class Camera {
       this.addRotation(0, rotateSpeed);   // Look right
     }
   }
+
+  public void setPosition(float x, float y, float z, float pitch, float yaw){
+    position.x = x;
+    position.y = y;
+    position.z = z;
+    this.pitch = pitch;
+    this.yaw = yaw;
+    updateViewMatrix();
+  }
+
+  public void printPosition() {
+    System.out.println("Camera Location, x: "+ position.x + ", y: " + position.y + ", z: " + position.z + ". pitch" + pitch + ", yaw: " + yaw );
+  }
 }

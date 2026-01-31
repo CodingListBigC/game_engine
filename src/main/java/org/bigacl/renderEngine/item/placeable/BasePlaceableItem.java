@@ -2,6 +2,7 @@ package org.bigacl.renderEngine.item.placeable;
 
 import org.bigacl.renderEngine.item.ItemInterface;
 import org.bigacl.renderEngine.mesh.Mesh;
+import org.bigacl.renderEngine.texture.Texture;
 import org.joml.Vector3f;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
   protected int currentLevel = 1;
   protected Mesh currentMesh;
   protected boolean isPlaced;
+  protected Texture currentMeshTexture;
 
   protected abstract void loadModel();
 

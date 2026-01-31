@@ -24,8 +24,9 @@ public class GameLogic implements IGameLogic {
     this.shader = shader;
     this.itemManger = itemManger;
     this.camera = new Camera(1600,900);
+    this.camera.setPosition(4.0f,4.0f,-3.25f,28.0f,-126.0f);
     this.ground = OBJLoader.loadOBJ("models/plane.obj");
-    this.ground.setColor(0.0f, 1.0f, 0.0f);
+    this.ground.setColor(0.004f, 0.05f, 0.0f);
   }
 
   @Override
@@ -34,6 +35,9 @@ public class GameLogic implements IGameLogic {
     float rotateSpeed = 2.0f;
     if (window.isKeyPressed(GLFW_KEY_LEFT_CONTROL)){
       moveSpeed = 0.02f * 10;
+    }
+    if (window.isKeyPressed(GLFW_KEY_P)){
+      camera.printPosition();
     }
     camera.CameraInput(window, moveSpeed, rotateSpeed);
   }

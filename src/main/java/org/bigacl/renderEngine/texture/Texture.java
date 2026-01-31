@@ -1,8 +1,12 @@
 package org.bigacl.renderEngine.texture;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.stb.STBImage;
 import org.lwjgl.system.MemoryStack;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
@@ -27,11 +31,11 @@ public class Texture {
       IntBuffer h = stack.mallocInt(1);
       IntBuffer channels = stack.mallocInt(1);
 
+      ByteBuffer resourceBuffer = ioResourceToByteBuffer(filePath);
       // Load image
-      String path = "textures/" + filePath;
-      STBImage.stbi_set_flip_vertically_on_load(true);
+      STBImage.stbi_set_flip_vertically_on_load(false);
       imageBuffer = STBImage.stbi_load_from_memory(
-              loadResource(path),
+              resourceBuffer,
               w, h, channels, 4
       );
 
@@ -44,6 +48,8 @@ public class Texture {
       height = h.get();
       this.width = width;
       this.height = height;
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
 
     // Create OpenGL texture
@@ -68,7 +74,19 @@ public class Texture {
 
     return textureId;
   }
+  public static ByteBuffer ioResourceToByteBuffer(String resourcePath) throws IOException {
+    ByteBuffer buffer;
+    // Get the file from your resources folder
+    try (InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(resourcePath)) {
+      if (is == null) throw new FileNotFoundException("Resource not found: " + resourcePath);
 
+      byte[] bytes = is.readAllBytes();
+      buffer = BufferUtils.createByteBuffer(bytes.length); // Creates a Direct Buffer
+      buffer.put(bytes);
+      buffer.flip(); // Resets position to 0 for reading
+    }
+    return buffer;
+  }
   private ByteBuffer loadResource(String path) {
     try {
       var in = getClass().getClassLoader().getResourceAsStream(path);
