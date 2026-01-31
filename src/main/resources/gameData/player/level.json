@@ -1,0 +1,20 @@
+{
+  "number_of_levels": 2,
+  "levels": {
+  "1": {
+    "amount_of_xp": 1000,
+    "itemAvailable": {
+      "house": {
+        "level": 2
+      }
+    }
+  },
+  "2": {
+    "amount_of_xp": 2000,
+    "itemAvailable": {
+      "house": {
+        "level": 3
+      }
+    }
+  }
+}}
