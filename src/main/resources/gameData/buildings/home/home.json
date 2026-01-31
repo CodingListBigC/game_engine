@@ -1,0 +1,19 @@
+{
+  "name": {
+    "main": "Home",
+    "plura": "Homes"
+  },
+  "amount_of_levels": 1,
+  "type": "home",
+
+  "level": {
+    "1": {
+      "price": 1000,
+      "model": "level-1.obj",
+      "texture":"level-1.png",
+      "stats": {
+        "people_can_hold": 4
+      }
+    }
+  }
+}

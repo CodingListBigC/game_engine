@@ -1,10 +1,9 @@
 package org.bigacl.renderEngine;
 
+import org.bigacl.renderEngine.item.ItemManger;
+import org.bigacl.renderEngine.item.placeable.house.House;
 import org.bigacl.renderEngine.logic.IGameLogic;
-import org.bigacl.renderEngine.mesh.Mesh;
-import org.bigacl.renderEngine.mesh.OBJLoader;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
-import org.bigacl.renderEngine.texture.Texture;
 import org.bigacl.renderEngine.window.WindowMaster;
 
 public class Launcher {
@@ -16,14 +15,13 @@ public class Launcher {
 
     // Shader Init
     shaderMaster = new ShaderMaster("shaders/vertex.glsl", "shaders/fragment.glsl");
+    House house = new House();
+
+    ItemManger itemManger = new ItemManger();
+    itemManger.addHouse(house);
 
 
-    Mesh house = OBJLoader.loadOBJ("models/house_small-1.obj");
-    Texture houseTexture = new Texture("house_small-1.png");
-    house.setTexture(houseTexture);
-
-
-    IGameLogic gameLogic = new GameLogic(window, shaderMaster, house);
+    IGameLogic gameLogic = new GameLogic(window, shaderMaster, itemManger);
     // Render loop
     window.loop(gameLogic);
 

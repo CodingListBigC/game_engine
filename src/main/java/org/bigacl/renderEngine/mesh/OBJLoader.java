@@ -18,6 +18,11 @@ public class OBJLoader {
     List<Integer> indices = new ArrayList<>();
     List<Integer> textureIndices = new ArrayList<>();
 
+    // Size Variable
+    float minX = Float.MAX_VALUE, maxX = Float.MIN_VALUE;
+    float minY = Float.MAX_VALUE, maxY = Float.MIN_VALUE;
+    float minZ = Float.MAX_VALUE, maxZ = Float.MIN_VALUE;
+
     try {
       InputStream in = OBJLoader.class.getClassLoader().getResourceAsStream(filePath);
       if (in == null) {
@@ -38,6 +43,12 @@ public class OBJLoader {
                     Float.parseFloat(tokens[3])
             );
             vertices.add(vertex);
+            if (vertex.x < minX) minX = vertex.x;
+            if (vertex.x > maxX) maxX = vertex.x;
+            if (vertex.y < minY) minY = vertex.y;
+            if (vertex.y > maxY) maxY = vertex.y;
+            if (vertex.z < minZ) minZ = vertex.z;
+            if (vertex.z > maxZ) maxZ = vertex.z;
             break;
 
           case "vt":
@@ -103,10 +114,12 @@ public class OBJLoader {
       indicesArray[i] = indices.get(i);
     }
 
-    System.out.println("Loaded OBJ: " + vertices.size() + " vertices, " +
-            textures.size() + " tex coords, " + indices.size() + " indices");
+    float width  = maxX - minX;
+    float height = maxY - minY;
+    float depth  = maxZ - minZ;
 
-    return MeshLoader.createMesh(verticesArray, indicesArray, texCoordsArray);
+    MeshSize meshSize = new MeshSize(width,height,depth);
+    return MeshLoader.createMesh(verticesArray, indicesArray, texCoordsArray, meshSize);
   }
 
   private static void processFace(String[] tokens, List<Integer> indices, List<Integer> textureIndices) {

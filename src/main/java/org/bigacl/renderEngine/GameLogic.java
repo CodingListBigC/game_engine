@@ -1,5 +1,6 @@
 package org.bigacl.renderEngine;
 
+import org.bigacl.renderEngine.item.ItemManger;
 import org.bigacl.renderEngine.logic.IGameLogic;
 import org.bigacl.renderEngine.camera.Camera;
 import org.bigacl.renderEngine.mesh.Mesh;
@@ -15,13 +16,13 @@ public class GameLogic implements IGameLogic {
   private Camera camera;
   private WindowMaster window;
   private ShaderMaster shader;
-  private Mesh mesh;
+  private ItemManger itemManger;
   private Mesh ground;
 
-  public GameLogic(WindowMaster window, ShaderMaster shader, Mesh mesh) {
+  public GameLogic(WindowMaster window, ShaderMaster shader, ItemManger itemManger) {
     this.window = window;
     this.shader = shader;
-    this.mesh = mesh;
+    this.itemManger = itemManger;
     this.camera = new Camera(1600,900);
     this.ground = OBJLoader.loadOBJ("models/plane.obj");
     this.ground.setColor(0.0f, 1.0f, 0.0f);
@@ -31,6 +32,9 @@ public class GameLogic implements IGameLogic {
   public void input() {
     float moveSpeed = 0.02f;
     float rotateSpeed = 2.0f;
+    if (window.isKeyPressed(GLFW_KEY_LEFT_CONTROL)){
+      moveSpeed = 0.02f * 10;
+    }
     camera.CameraInput(window, moveSpeed, rotateSpeed);
   }
   @Override
@@ -47,7 +51,7 @@ public class GameLogic implements IGameLogic {
     shader.setUniformMatrix4f("view", camera.getViewMatrix());
     Matrix4f modelMatrix = new Matrix4f().identity();
     shader.setUniformMatrix4f("model", modelMatrix);
-    mesh.render();
+    itemManger.renderAll();
     ground.render();
     shader.unbind();
   }

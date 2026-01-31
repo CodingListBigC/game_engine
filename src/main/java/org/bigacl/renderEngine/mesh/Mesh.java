@@ -20,13 +20,15 @@ public class Mesh {
   private float[] color;
   private ShaderMaster shader;
   private Texture texture;  // Add this
-  public Mesh(int vao, int vbo, int ebo, int indexCount, int tbo) {
+  private final MeshSize meshSize;
+  public Mesh(int vao, int vbo, int ebo, int indexCount, int tbo, MeshSize meshSize) {
     this.vao = vao;
     this.vbo = vbo;
     this.ebo = ebo;
     this.tbo = tbo;
     this.indexCount = indexCount;
     this.color = new float[]{1.0f, 1.0f, 1.0f};
+    this.meshSize = meshSize;
   }
 
 
@@ -97,4 +99,7 @@ public class Mesh {
     color[2] = b;
   }
 
+  public void printSize() {
+    meshSize.printSize();
+  }
 }

@@ -7,6 +7,7 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.sql.Types.NULL;
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
@@ -15,13 +16,13 @@ public class MeshLoader {
   private static List<Integer> vaos = new ArrayList<>();
   private static List<Integer> vbos = new ArrayList<>();
 
-  public static Mesh createMesh(float[] positions, int[] indices, float[] texCords) {
+  public static Mesh createMesh(float[] positions, int[] indices, float[] texCords, MeshSize meshSize) {
     int vao = genVAO();
     int vbo = storeData(0, 3, positions);
     int tbo = storeData(1,2, texCords);
     int ebo = bindIndices(indices);
     glBindVertexArray(0);
-    return new Mesh(vao, vbo, ebo, indices.length, tbo);
+    return new Mesh(vao, vbo, ebo, indices.length, tbo, meshSize);
   }
 
   private static int genVAO() {
