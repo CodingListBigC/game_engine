@@ -14,12 +14,12 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_SPACE;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_UP;
 
 public class Camera {
-  private Vector3f position;
+  private final Vector3f position;
   private float pitch;  // Rotation around X axis (up/down)
   private float yaw;    // Rotation around Y axis (left/right)
 
-  private Matrix4f viewMatrix;
-  private Matrix4f projectionMatrix;
+  private final Matrix4f viewMatrix;
+  private final Matrix4f projectionMatrix;
 
   public Camera(int width, int height) {
     position = new Vector3f(0, 0, 5);
@@ -77,8 +77,25 @@ public class Camera {
     yaw += yawChange;
     updateViewMatrix();
   }
+  private void checkPitchAndYawAmount() {
+    while (pitch < 0 || pitch > 360) {
+      if (pitch < 0){
+        pitch += 360;
+      }else {
+        pitch -= 360;
+      }
+    }
+    while (yaw < 0 || yaw > 360) {
+      if (yaw < 0){
+        yaw += 360;
+      }else {
+        yaw -= 360;
+      }
+    }
+  }
 
   private void updateViewMatrix() {
+    checkPitchAndYawAmount();
     viewMatrix.identity();
     viewMatrix.rotate((float) Math.toRadians(pitch), new Vector3f(1, 0, 0));
     viewMatrix.rotate((float) Math.toRadians(yaw), new Vector3f(0, 1, 0));
