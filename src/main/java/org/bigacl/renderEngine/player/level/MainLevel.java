@@ -56,6 +56,9 @@ public class MainLevel {
 
   public boolean checkLevelUp(int currentLevel, int amountOfExperience) {
     String nextLevelKey = String.valueOf(currentLevel + 1);
+    if (currentLevel >= number_of_levels){
+      return false;
+    }
     if (levels != null && levels.containsKey(nextLevelKey)) {
       return amountOfExperience >= levels.get(nextLevelKey).amount_of_xp;
     }
