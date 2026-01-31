@@ -1,15 +1,8 @@
 package org.bigacl.renderEngine.window;
 
-import org.bigacl.renderEngine.Launcher;
 import org.bigacl.renderEngine.logic.IGameLogic;
-import org.bigacl.renderEngine.mesh.Mesh;
-import org.bigacl.renderEngine.shaders.ShaderMaster;
 import org.bigacl.renderEngine.utils.consts.Const;
-import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.opengl.GL;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GL30;
 
 import static java.sql.Types.NULL;
 import static org.lwjgl.glfw.GLFW.*;
@@ -19,7 +12,7 @@ public class WindowMaster {
   long window;
 
   public void init() {
-    // Using X11 instad of wayland
+    // Using X11 instead of Wayland
     glfwInitHint(GLFW_PLATFORM, GLFW_PLATFORM_X11);
     if (!glfwInit()) {
       throw new IllegalStateException("Unable to initialize GLFW");
@@ -78,10 +71,6 @@ public class WindowMaster {
   public void cleanup() {
     glfwDestroyWindow(window);
     glfwTerminate();
-  }
-
-  public long getWindow() {
-    return window;
   }
 
   public boolean isKeyPressed(int keyCode) {
