@@ -31,4 +31,8 @@ public class Level {
   public int getCurrentLevel() {
     return currentLevel;
   }
+
+  public int amountOfExperienceForNextLevel() {
+    return mainLevel.amountOfExperienceForNextLevel(currentLevel);
+  }
 }

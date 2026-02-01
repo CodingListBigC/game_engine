@@ -18,6 +18,17 @@ public class MainLevel {
     loadData();
   }
 
+  public int amountOfExperienceForNextLevel(int currentLevel) {
+    String nextLevelKey = String.valueOf(currentLevel + 1);
+    if (currentLevel >= number_of_levels) {
+      return -1;
+    }
+    if (levels != null && levels.containsKey(nextLevelKey)) {
+      return levels.get(nextLevelKey).amount_of_xp;
+    }
+    return -1;
+  }
+
   // This is the "Container" that Gson will use
   private static class LevelDataContainer {
     int number_of_levels;

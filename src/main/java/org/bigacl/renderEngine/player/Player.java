@@ -45,4 +45,8 @@ public class Player {
   public void addExperience(int experience){
     level.addAmountOfExperience(experience);
   }
+
+  public PlayerStats getPlayerStats(){
+    return new PlayerStats(this.username, this.color, this.money, this.level);
+  }
 }

@@ -1,53 +1,68 @@
 package org.bigacl.renderEngine;
 
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
+import org.bigacl.renderEngine.gui.menu.MainHud;
 import org.bigacl.renderEngine.item.ItemManger;
 import org.bigacl.renderEngine.logic.IGameLogic;
 import org.bigacl.renderEngine.camera.Camera;
 import org.bigacl.renderEngine.mesh.Mesh;
 import org.bigacl.renderEngine.mesh.OBJLoader;
+import org.bigacl.renderEngine.player.Player;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
-import org.bigacl.renderEngine.texture.Texture;
 import org.bigacl.renderEngine.window.WindowMaster;
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
 public class GameLogic implements IGameLogic {
-  private Camera camera;
-  private WindowMaster window;
-  private ShaderMaster shader;
-  private ItemManger itemManger;
+  private final Camera camera;
+  private final WindowMaster window;
+  private final ShaderMaster shader3d;
+  private final ItemManger itemManger;
   private Mesh ground;
-  private NanoVGUI gui;
   private int windowWidth = 1600;
   private int windowHeight = 900;
 
-  public GameLogic(WindowMaster window, ShaderMaster shader, ItemManger itemManger) {
+  // Player Variables
+  private final Player player;
+
+
+  // HUD Variables;
+  private final NanoVGUI gui;
+  private final MainHud mainHud;
+
+  GameLogic(WindowMaster window, ShaderMaster shader3d, ItemManger itemManger) {
     this.window = window;
-    this.shader = shader;
+    this.shader3d = shader3d;
     this.itemManger = itemManger;
-    this.camera = new Camera(1600,900);
-    this.camera.setPosition(4.0f,4.0f,-3.25f,28.0f,-126.0f);
+    this.camera = new Camera(1600, 900);
+    this.camera.setPosition(4.0f, 4.0f, -3.25f, 28.0f, -126.0f);
     this.ground = OBJLoader.loadOBJ("models/plane.obj");
     this.ground.setColor(0.004f, 0.05f, 0.0f);
+    // Gui overlaed setup
     gui = new NanoVGUI();
     gui.init();
+    mainHud = new MainHud(this, this.gui);
+
+    //Player Setup
+    this.player = new Player("Bigacl", "Christian", new Vector3f(1.0f, 0.0f, 0.0f));
   }
 
   @Override
   public void input() {
     float moveSpeed = 0.02f;
     float rotateSpeed = 2.0f;
-    if (window.isKeyPressed(GLFW_KEY_LEFT_CONTROL)){
+    if (window.isKeyPressed(GLFW_KEY_LEFT_CONTROL)) {
       moveSpeed = 0.02f * 10;
     }
-    if (window.isKeyPressed(GLFW_KEY_P)){
+    if (window.isKeyPressed(GLFW_KEY_P)) {
       camera.printPosition();
     }
     camera.CameraInput(window, moveSpeed, rotateSpeed);
   }
+
   @Override
   public void update(float delta) {
     // Update game objects (physics, AI, etc)
@@ -57,38 +72,43 @@ public class GameLogic implements IGameLogic {
   @Override
   public void render() {
     // Render your scene
-    shader.bind();
-    shader.setUniformMatrix4f("projection", camera.getProjectionMatrix());
-    shader.setUniformMatrix4f("view", camera.getViewMatrix());
+    shader3d.bind();
+    shader3d.setUniformMatrix4f("projection", camera.getProjectionMatrix());
+    shader3d.setUniformMatrix4f("view", camera.getViewMatrix());
     Matrix4f modelMatrix = new Matrix4f().identity();
-    shader.setUniformMatrix4f("model", modelMatrix);
-    itemManger.renderAll();
-    //ground.render();
-    shader.unbind();
+    shader3d.setUniformMatrix4f("model", modelMatrix);
+    render3dModels();
+    shader3d.unbind();
+
+    // Make widnow ready to render HUD
     glDisable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 
     gui.beginFrame(windowWidth, windowHeight, 1.0f);
-
-    // Draw HUD background
-    gui.drawRoundedRect(10, 10, 200, 100, 5, 0.2f, 0.2f, 0.2f, 0.8f);
-
-    // Draw text
-    gui.drawText("Health: 100", 20, 40, 20, 1.0f, 1.0f, 1.0f);
-
-    // Draw Nerd Font icons
-    gui.drawNerdIcon("\uF004", 20, 70, 24, 1.0f, 0.0f, 0.0f); // Heart icon
-    gui.drawNerdIcon("\uF005", 60, 70, 24, 0.0f, 1.0f, 0.0f); // Star icon
-
+    renderHud();
     gui.endFrame();
     glEnable(GL_DEPTH_TEST);
+  }
+  @Override
+  public void render3dModels(){
+    itemManger.renderAll();
+    ground.render();
+  }
+
+  @Override
+  public void renderHud() {
+    mainHud.renderAll();
   }
 
   @Override
   public void cleanup() {
     // Clean up resources
+  }
+
+  public Player getPlayer() {
+    return player;
   }
 
   public Camera getCamera() {
