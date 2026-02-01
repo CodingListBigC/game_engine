@@ -1,12 +1,8 @@
 package org.bigacl.renderEngine.mesh;
 
-import org.bigacl.renderEngine.GameLogic;
 import org.bigacl.renderEngine.Launcher;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
 import org.bigacl.renderEngine.texture.Texture;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL13;
-import org.lwjgl.opengl.GL30;
 
 import static org.lwjgl.opengl.GL15.glDeleteBuffers;
 import static org.lwjgl.opengl.GL30.glDeleteVertexArrays;

@@ -1,15 +1,15 @@
 package org.bigacl.renderEngine.gui.menu;
 
-import org.bigacl.renderEngine.GameLogic;
+import org.bigacl.renderEngine.MainGame;
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
 import org.bigacl.renderEngine.player.PlayerStats;
 
 public class PlayerStatsGui {
-  private final GameLogic gameLogic;
+  private final MainGame mainGame;
   private final NanoVGUI nanoVGUI;
 
-  public PlayerStatsGui(GameLogic gameLogic, NanoVGUI nanoVGUI) {
-    this.gameLogic = gameLogic;
+  public PlayerStatsGui(MainGame mainGame, NanoVGUI nanoVGUI) {
+    this.mainGame = mainGame;
     this.nanoVGUI = nanoVGUI;
   }
 
@@ -17,7 +17,7 @@ public class PlayerStatsGui {
     * Render Player Stats on top left of the screen
    */
   public void renderStats(){
-    PlayerStats stats = gameLogic.getPlayer().getPlayerStats();
+    PlayerStats stats = mainGame.getPlayer().getPlayerStats();
     String playerUsername = stats.getUsername();
     String playerLevel = "Level: "+ stats.getLevel().getCurrentLevel();
     String playerExperience = "XP: " + stats.getLevel().getAmountOfExperience();

@@ -16,7 +16,7 @@ import org.joml.Vector3f;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
-public class GameLogic implements IGameLogic {
+public class MainGame implements IGameLogic {
   private final Camera camera;
   private final WindowMaster window;
   private final ShaderMaster shader3d;
@@ -33,7 +33,7 @@ public class GameLogic implements IGameLogic {
   private final NanoVGUI gui;
   private final MainHud mainHud;
 
-  GameLogic(WindowMaster window, ShaderMaster shader3d, ItemManger itemManger) {
+  MainGame(WindowMaster window, ShaderMaster shader3d, ItemManger itemManger) {
     this.window = window;
     this.shader3d = shader3d;
     this.itemManger = itemManger;

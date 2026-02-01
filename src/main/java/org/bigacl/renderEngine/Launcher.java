@@ -1,6 +1,5 @@
 package org.bigacl.renderEngine;
 
-import com.sun.tools.javac.Main;
 import org.bigacl.renderEngine.item.ItemManger;
 import org.bigacl.renderEngine.item.placeable.house.House;
 import org.bigacl.renderEngine.logic.IGameLogic;
@@ -25,7 +24,7 @@ public class Launcher {
     itemManger.addHouse(house);
 
     // GameLogicMenu
-    IGameLogic gameLogic = new GameLogic(window, shaderMaster, itemManger);
+    IGameLogic gameLogic = new MainGame(window, shaderMaster, itemManger);
     // Render loop
     window.loop(gameLogic);
 

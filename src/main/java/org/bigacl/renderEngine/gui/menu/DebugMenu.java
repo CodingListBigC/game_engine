@@ -1,14 +1,13 @@
 package org.bigacl.renderEngine.gui.menu;
 
-import org.bigacl.renderEngine.GameLogic;
-import org.bigacl.renderEngine.Launcher;
+import org.bigacl.renderEngine.MainGame;
 
 
 public class DebugMenu {
-  private GameLogic gameLogic;
+  private MainGame mainGame;
 
-  public DebugMenu(GameLogic gameLogic) {
-    this.gameLogic = gameLogic;
+  public DebugMenu(MainGame mainGame) {
+    this.mainGame = mainGame;
   }
 
   public void renderMenu(){

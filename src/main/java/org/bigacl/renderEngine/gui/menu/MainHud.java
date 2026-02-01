@@ -1,11 +1,11 @@
 package org.bigacl.renderEngine.gui.menu;
 
-import org.bigacl.renderEngine.GameLogic;
+import org.bigacl.renderEngine.MainGame;
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
 
 public class MainHud {
-  // GameLogic Variables Get
-  private final GameLogic gameLogic;
+  // MainGame Variables Get
+  private final MainGame mainGame;
   private final NanoVGUI nanoVGUI;
 
   // Status Variables
@@ -14,10 +14,10 @@ public class MainHud {
   // Ui Menu Varaible
   private final PlayerStatsGui playerStatsGui;
 
-  public MainHud(GameLogic gameLogic, NanoVGUI nanoVGUI) {
-    this.gameLogic = gameLogic;
+  public MainHud(MainGame mainGame, NanoVGUI nanoVGUI) {
+    this.mainGame = mainGame;
     this.nanoVGUI = nanoVGUI;
-    this.playerStatsGui = new PlayerStatsGui(this.gameLogic, this.nanoVGUI);
+    this.playerStatsGui = new PlayerStatsGui(this.mainGame, this.nanoVGUI);
   }
   public void toogleDebugMenu(){
     // Flips debugMenuStatus
