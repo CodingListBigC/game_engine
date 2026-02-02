@@ -1,5 +1,6 @@
 package org.bigacl.renderEngine.player;
 
+import org.bigacl.renderEngine.Launcher;
 import org.bigacl.renderEngine.item.ItemManger;
 import org.bigacl.renderEngine.player.level.Level;
 import org.joml.Vector3f;
@@ -8,15 +9,14 @@ public class Player {
   private final String username;
   private final String name;
   private final Vector3f color;
-  private final Inventory inventory;
+  private final Inventory inventory = new Inventory();
   private int money = 1000;
-  private Level level;
+  private final Level level = new Level(Launcher.getMainLevel());
 
   public Player(String username, String name, Vector3f color) {
     this.username = username;
     this.name = name;
     this.color = color;
-    this.inventory = new Inventory();
   }
   public void addItem(ItemManger item){
     inventory.addItem(item);

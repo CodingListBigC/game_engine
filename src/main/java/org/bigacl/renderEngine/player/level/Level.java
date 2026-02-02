@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class Level {
   private int amountOfExperience = 0;
-  private int currentLevel = 1;
+  private int currentLevel = 0;
   private final MainLevel mainLevel;
 
   public Level(MainLevel mainLevel) {
@@ -23,7 +23,7 @@ public class Level {
 
   public void addAmountOfExperience(int amountOfExperience) {
     this.amountOfExperience += amountOfExperience;
-    if (mainLevel.checkLevelUp(currentLevel,amountOfExperience)){
+    if (mainLevel.checkLevelUp(currentLevel,this.amountOfExperience)){
       currentLevel++;
     }
   }
@@ -32,7 +32,25 @@ public class Level {
     return currentLevel;
   }
 
-  public int amountOfExperienceForNextLevel() {
+  /**
+   * To get the next level experience
+   * @return -1 if no more level or does not exist
+   */
+  public int getAmountOfExperienceForNextLevel() {
     return mainLevel.amountOfExperienceForNextLevel(currentLevel);
+  }
+
+
+
+  public int getExperienceToNextLevel() {
+    return mainLevel.amountOfExperienceForNextLevel(currentLevel);
+  }
+
+  /**
+   * Function to experience in current level to next level
+   * @return -1 if not more level or does not exist
+   */
+  public int getExperienceInNextLevel() {
+    return mainLevel.getExperienceInNextLevel(currentLevel);
   }
 }

@@ -41,7 +41,7 @@ public class MainGame implements IGameLogic {
     this.camera.setPosition(4.0f, 4.0f, -3.25f, 28.0f, -126.0f);
     this.ground = OBJLoader.loadOBJ("models/plane.obj");
     this.ground.setColor(0.004f, 0.05f, 0.0f);
-    // Gui overlaed setup
+    // HUd setup
     gui = new NanoVGUI();
     gui.init();
     mainHud = new MainHud(this, this.gui);
@@ -59,6 +59,9 @@ public class MainGame implements IGameLogic {
     }
     if (window.isKeyPressed(GLFW_KEY_P)) {
       camera.printPosition();
+    }
+    if (window.isKeyPressed(GLFW_KEY_O)){
+      player.addExperience(10);
     }
     camera.CameraInput(window, moveSpeed, rotateSpeed);
   }

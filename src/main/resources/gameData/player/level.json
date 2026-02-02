@@ -1,20 +1,29 @@
 {
   "number_of_levels": 2,
   "levels": {
-  "1": {
-    "amount_of_xp": 1000,
-    "itemAvailable": {
-      "house": {
-        "level": 2
+    "0": {
+      "amount_of_xp": 0,
+      "itemAvailable": {
+        "house": {
+          "level": 1
+        }
       }
-    }
-  },
-  "2": {
-    "amount_of_xp": 2000,
-    "itemAvailable": {
-      "house": {
-        "level": 3
+    },
+    "1": {
+      "amount_of_xp": 1000,
+      "itemAvailable": {
+        "house": {
+          "level": 2
+        }
+      }
+    },
+    "2": {
+      "amount_of_xp": 2000,
+      "itemAvailable": {
+        "house": {
+          "level": 2
+        }
       }
     }
   }
-}}
+}
