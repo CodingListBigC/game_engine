@@ -2,6 +2,7 @@ package org.bigacl.renderEngine.gui.menu;
 
 import org.bigacl.renderEngine.MainGame;
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
+import org.bigacl.renderEngine.player.Player;
 
 public class MainHud {
   // MainGame Variables Get
@@ -24,11 +25,11 @@ public class MainHud {
     debugMenuStatus = !debugMenuStatus;
   }
 
-  public void renderAll(){
+  public void renderAll(Player player){
     if (debugMenuStatus){
       // TODO: Add debug Menu here
       return;
     }
-    playerStatsGui.renderStats();
+    playerStatsGui.renderStats(player);
   }
 }

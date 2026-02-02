@@ -61,7 +61,7 @@ public class MainGame implements IGameLogic {
       camera.printPosition();
     }
     if (window.isKeyPressed(GLFW_KEY_O)){
-      player.addExperience(10);
+      player.addExperience(1);
     }
     camera.CameraInput(window, moveSpeed, rotateSpeed);
   }
@@ -102,16 +102,12 @@ public class MainGame implements IGameLogic {
 
   @Override
   public void renderHud() {
-    mainHud.renderAll();
+    mainHud.renderAll(player);
   }
 
   @Override
   public void cleanup() {
     // Clean up resources
-  }
-
-  public Player getPlayer() {
-    return player;
   }
 
   public Camera getCamera() {

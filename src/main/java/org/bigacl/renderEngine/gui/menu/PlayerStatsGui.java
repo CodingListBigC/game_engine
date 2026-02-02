@@ -2,9 +2,12 @@ package org.bigacl.renderEngine.gui.menu;
 
 import org.bigacl.renderEngine.MainGame;
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
+import org.bigacl.renderEngine.player.Player;
 import org.bigacl.renderEngine.player.PlayerStats;
 import org.bigacl.renderEngine.player.level.Level;
+import org.bigacl.renderEngine.utils.consts.Const;
 import org.joml.Vector2f;
+import org.joml.Vector3f;
 
 public class PlayerStatsGui {
   private final MainGame mainGame;
@@ -18,20 +21,38 @@ public class PlayerStatsGui {
   /*
    * Render Player Stats on top left of the screen
    */
-  public void renderStats() {
-    PlayerStats stats = mainGame.getPlayer().getPlayerStats();
-    String playerUsername = stats.getUsername();
-    String playerLevel = "Level: " + stats.getLevel().getCurrentLevel();
-    String playerExperience = "XP: " + stats.getLevel().getAmountOfExperience();
-    String playerMoney = "Money: " + stats.getMoney();
+  public void renderStats(Player player) {
+    PlayerStats stats = player.getPlayerStats();
 
-    nanoVGUI.drawRect(0.0f, 0.0f, 150.0f, 230.0f, 0.0f, 0.0f, 0.0f, 0.5f);
-    nanoVGUI.drawText(playerUsername, 10.0f, 20.0f, 20, 0.5f, 0.5f, 0.5f);
-    nanoVGUI.drawText(playerLevel, 10.0f, 80.0f, 20, 0.5f, 0.5f, 0.5f);
-    nanoVGUI.drawText(playerExperience, 10.0f, 110.0f, 20, 0.5f, 0.5f, 0.5f);
+    // Box dimensions
+    float boxFromTop = 0;
+    float boxWidth = 200.0f;
+    int itemCount = 5;
+    float itemSize = 20;
+    float iconSize = 24;
+    float boxHeight = (itemCount * (iconSize + Const.PADDING)) + (Const.PADDING * 4); // Simplified
 
-    renderLevelSettings(new Vector2f(10.0f, 140.0f), new Vector2f(100.0f, 30), stats.getLevel());
+    // Draw background box
+    nanoVGUI.drawRect(0.0f, boxFromTop, boxWidth, boxHeight, 0.0f, 0.0f, 0.0f, 0.5f);
+
+    // Text configuration
+    Vector2f startPos = new Vector2f(Const.PADDING, boxFromTop + Const.PADDING + itemSize);
+    Vector3f whiteColor = new Vector3f(1.0f, 1.0f, 1.0f);
+
+    // Draw items
+    nanoVGUI.drawIconWithText("", stats.getUsername(), startPos, 0, iconSize, itemSize, whiteColor);
+    nanoVGUI.drawIconWithText("\uF0D6", "Money: " + stats.getMoney(), startPos, 1, iconSize, itemSize, whiteColor);
+    nanoVGUI.drawIconWithText("", "Level: " + stats.getLevel().getCurrentLevel(), startPos, 2, iconSize, itemSize, whiteColor);
+    nanoVGUI.drawIconWithText("", "XP: " + stats.getLevel().getAmountOfExperience(), startPos, 3, iconSize, itemSize, whiteColor);
+
+    // Render level progress bar
+    renderLevelSettings(
+            HUDFunctions.hudItemPos(new Vector2f(startPos.x, startPos.y), 4, (int) itemSize),
+            new Vector2f(boxWidth - (Const.PADDING * 2), 30),
+            stats.getLevel()
+    );
   }
+
 
   public void renderLevelSettings(Vector2f startPositon, Vector2f howBig, Level levelStats) {
     int experienceToNextLevel = levelStats.getExperienceToNextLevel();
