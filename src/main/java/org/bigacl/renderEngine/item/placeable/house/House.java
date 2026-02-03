@@ -1,9 +1,12 @@
 package org.bigacl.renderEngine.item.placeable.house;
 
 import com.google.gson.Gson;
+import org.bigacl.renderEngine.MainGame;
 import org.bigacl.renderEngine.item.placeable.BasePlaceableItem;
+import org.bigacl.renderEngine.mesh.Mesh;
 import org.bigacl.renderEngine.mesh.OBJLoader;
 import org.bigacl.renderEngine.texture.Texture;
+import org.bigacl.renderEngine.utils.consts.ClassConst;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -39,16 +42,36 @@ public class House extends BasePlaceableItem {
   }
 
   @Override
-  protected void loadModel(){
-    String levelNumberString = String.valueOf(this.currentLevel);
-    String modelFileName = this.level.get(levelNumberString).model;
-    // IMPORTANT: Make sure this path matches where your .obj actually is!
-    String fullModelPath = folderPath +"/" + modelFileName;
-    // Load it into the variable defined in BasePlaceableItem
-    this.currentMesh = OBJLoader.loadOBJ(fullModelPath);
-    String textureFileName= this.level.get(levelNumberString).texture;
-    String fullTexturePath = folderPath +"/" +textureFileName;
-    this.currentMeshTexture = new Texture(fullTexturePath);
-    this.currentMesh.setTexture(this.currentMeshTexture);
+  public boolean checkPlace(){
+    return true;
+  }
+  @Override
+  protected void loadModel() {
+    String levelKey = String.valueOf(this.currentLevel);
+    LevelData levelData = this.level.get(levelKey);
+
+    if (levelData == null || levelData.models == null) {
+      System.err.println("No data found for level: " + levelKey);
+      return;
+    }
+
+    // Clear existing meshes if re-loading
+    currentMeshes.clear();
+
+    // Loop through "0", "1", etc. in the models section
+    for (ModelPartData part : levelData.models.values()) {
+      String fullModelPath = folderPath + "/" + part.model;
+      String fullTexturePath = folderPath + "/" + part.texture;
+
+      try {
+        Mesh mesh = OBJLoader.loadOBJ(fullModelPath);
+        Texture tex = new Texture(fullTexturePath);
+        mesh.setTexture(tex);
+
+        currentMeshes.add(mesh);
+      } catch (Exception e) {
+        System.err.println("Failed to load model part: " + part.model);
+      }
+    }
   }
 }

@@ -1,6 +1,7 @@
 package org.bigacl.renderEngine.item.placeable;
 
 import org.bigacl.renderEngine.item.ItemInterface;
+import org.bigacl.renderEngine.logic.IGameLogic;
 import org.bigacl.renderEngine.mesh.Mesh;
 import org.bigacl.renderEngine.texture.Texture;
 import org.joml.Vector3f;
@@ -15,24 +16,31 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
   protected String type;
   protected Map<String, LevelData> level;
   protected int currentLevel = 1;
-  protected Mesh currentMesh;
+  protected java.util.List<Mesh> currentMeshes = new java.util.ArrayList<>();
   protected boolean isPlaced;
   protected Texture currentMeshTexture;
 
   protected abstract void loadModel();
-
+  protected boolean checkPlace(){
+    return true;
+  }
 
   // Move the data classes here so they are accessible to all children
   public static class NameData {
     public String main;
-    public String plura;
+    public String plural;
   }
 
   public static class LevelData {
     public int price;
+    public Map<String, ModelPartData> models;
+    public StatsData stats;
+    public int requiredLevel;
+  }
+  public static class ModelPartData {
+    public String name;
     public String model;
     public String texture;
-    public StatsData stats;
   }
 
   public static class StatsData {
@@ -56,14 +64,13 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
   @Override public void leftClick() {}
   @Override public void rightClick() {}
   @Override public void render() {
+    if (checkPlace())
     if (isPlaced) {
-      if (currentMesh == null){
+      if (currentMeshes.isEmpty()){
         loadModel();
       }
-      if (currentMesh != null) {
-        currentMesh.render();
-      }else{
-        System.out.println("Model is not getting loaded, name: " + name.main + ", type: " + type );
+      for (Mesh mesh : currentMeshes) {
+        mesh.render();
       }
     }
   }

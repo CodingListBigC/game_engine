@@ -9,6 +9,7 @@ import org.bigacl.renderEngine.mesh.Mesh;
 import org.bigacl.renderEngine.mesh.OBJLoader;
 import org.bigacl.renderEngine.player.Player;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
+import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.bigacl.renderEngine.window.WindowMaster;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -16,12 +17,15 @@ import org.joml.Vector3f;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
+/**
+ * Mangers the whole main game.
+ */
 public class MainGame implements IGameLogic {
   private final Camera camera;
   private final WindowMaster window;
   private final ShaderMaster shader3d;
   private final ItemManger itemManger;
-  private Mesh ground;
+  private final Mesh ground;
   private int windowWidth = 1600;
   private int windowHeight = 900;
 
@@ -33,18 +37,18 @@ public class MainGame implements IGameLogic {
   private final NanoVGUI gui;
   private final MainHud mainHud;
 
-  MainGame(WindowMaster window, ShaderMaster shader3d, ItemManger itemManger) {
-    this.window = window;
-    this.shader3d = shader3d;
-    this.itemManger = itemManger;
+  MainGame() {
+    this.window = ClassConst.window;
+    this.shader3d = ClassConst.shader3d;
+    this.itemManger = ClassConst.itemManger;
     this.camera = new Camera(1600, 900);
     this.camera.setPosition(4.0f, 4.0f, -3.25f, 28.0f, -126.0f);
     this.ground = OBJLoader.loadOBJ("models/plane.obj");
     this.ground.setColor(0.004f, 0.05f, 0.0f);
     // HUd setup
-    gui = new NanoVGUI();
-    gui.init();
-    mainHud = new MainHud(this, this.gui);
+    this.gui = ClassConst.nanoVGUI;
+    this.gui.init();
+    this.mainHud = new MainHud(this, this.gui);
 
     //Player Setup
     this.player = new Player("Bigacl", "Christian", new Vector3f(1.0f, 0.0f, 0.0f));

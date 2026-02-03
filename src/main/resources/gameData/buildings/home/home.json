@@ -1,7 +1,7 @@
 {
   "name": {
     "main": "Home",
-    "plura": "Homes"
+    "plural": "Homes"
   },
   "amount_of_levels": 1,
   "type": "home",
@@ -9,8 +9,24 @@
   "level": {
     "1": {
       "price": 1000,
-      "model": "level-1.obj",
-      "texture":"level-1.png",
+      "requiredLevel": 0,
+      "models": {
+        "0": {
+          "name": "bottom",
+          "model": "level-1_bottom.obj",
+          "texture":"level-1_bottom.png"
+        },
+        "1": {
+          "name": "center",
+          "model": "",
+          "texture": ""
+        },
+        "2": {
+          "name": "roof",
+          "model": "level-1_roof.obj",
+          "texture":"level-1_roof.png"
+        }
+      },
       "stats": {
         "people_can_hold": 4
       }
