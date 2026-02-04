@@ -5,7 +5,6 @@ import org.bigacl.renderEngine.item.placeable.BasePlaceableItem;
 import org.bigacl.renderEngine.mesh.Mesh;
 import org.bigacl.renderEngine.mesh.OBJLoader;
 import org.bigacl.renderEngine.texture.Texture;
-import org.joml.Vector3f;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -45,6 +44,7 @@ public class House extends BasePlaceableItem {
       e.printStackTrace();
     }
   }
+
   @Override
   protected void loadModel() {
     String levelKey = String.valueOf(this.currentLevel);
@@ -71,16 +71,17 @@ public class House extends BasePlaceableItem {
         // 4. Handle missing 'pos' block safely
         // If JSON part has no "pos", placement.pos will be null.
         // We use our default (0,0,0) if it's missing.
-        PositionData p = (placement.pos != null) ? placement.pos : new PositionData();
+        XYZMatrix p = (placement.pos != null) ? placement.pos : new XYZMatrix();
 
+        XYZMatrix origin = (link.origin != null) ? link.origin : new XYZMatrix();
         // 5. BLENDER TO JAVA COORDINATE SWAP
         // Blender X -> Java X
         // Blender Z -> Java Y (Height)
         // Blender Y -> Java -Z (Depth)
         mesh.setPosition(
-                p.x,
-                p.z,   // Note: We use JSON 'z' for Java 'y'
-                -p.y   // Note: We use JSON 'y' for Java '-z'
+                p.x - origin.x,
+                p.z - origin.z,   // Note: We use JSON 'z' for Java 'y'
+                -p.y + origin.y   // Note: We use JSON 'y' for Java '-z'
         );
 
         currentMeshes.add(mesh);

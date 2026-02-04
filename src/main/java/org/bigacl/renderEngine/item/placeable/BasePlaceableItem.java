@@ -2,8 +2,7 @@ package org.bigacl.renderEngine.item.placeable;
 
 import org.bigacl.renderEngine.item.ItemInterface;
 import org.bigacl.renderEngine.mesh.Mesh;
-import org.bigacl.renderEngine.texture.Texture;
-import org.bigacl.renderEngine.mesh.OBJLoader; // Assuming you have an OBJ loader
+import org.bigacl.renderEngine.player.BoundingBox;
 import org.joml.Vector3f;
 import java.util.Map;
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
   protected int currentLevel = 1;
   protected List<Mesh> currentMeshes = new ArrayList<>();
   protected boolean isPlaced = false;
-
+  protected BoundingBox boundingBox;
   protected abstract void loadModel();
 
   protected boolean checkPlace() {
@@ -43,6 +42,8 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
     public String name;
     public String model;
     public String texture;
+    public XYZMatrix size;
+    public XYZMatrix origin;
   }
 
   public static class LevelData {
@@ -53,7 +54,7 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
 
   public static class MakeData {
     public ItemPointer item;
-    public PositionData pos;
+    public XYZMatrix pos;
   }
 
   public static class ItemPointer {
@@ -61,7 +62,7 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
     public String type; // The key in separateParts (e.g., "DF")
   }
 
-  public static class PositionData {
+  public static class XYZMatrix {
     public float x = 0.0f;
     public float y = 0.0f;
     public float z = 0.0f;
@@ -72,6 +73,21 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
   public void place(Vector3f position, float rotation) {
     this.isPlaced = true;
     loadModel();
+    // 1. Calculate the total Bounding Box based on the main part size
+    // We look for the first part in the current level to set the hitbox
+    LevelData currentData = level.get(String.valueOf(currentLevel));
+    if (currentData != null) {
+      for (MakeData make : currentData.make.values()) {
+        BaseModelParts part = baseModel.get(make.item.id);
+        SeparatePartsLink link = part.separateParts.get(make.item.type);
+
+        if (link.size != null) {
+          this.boundingBox = new BoundingBox(position, link.size);
+          System.out.println("Hitbox created for " + name.main + " at " + position);
+          break; // Use the first defined size as the primary hitbox
+        }
+      }
+    }
     // Here you would apply 'position' and 'rotation' to all meshes
   }
 
@@ -99,6 +115,47 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
   @Override public void cleanup() {
     for (Mesh mesh : currentMeshes) {
       mesh.cleanup();
+    }
+  }
+  public BoundingBox getBoundingBox() {
+    return boundingBox;
+  }
+  public void setupHitbox() {
+    if (this.currentMeshes.isEmpty()) loadModel();
+
+    LevelData currentData = level.get(String.valueOf(currentLevel));
+    if (currentData == null || currentData.make == null) return;
+
+    // Reset so we don't grow infinitely if called twice
+    this.boundingBox = null;
+
+    for (MakeData make : currentData.make.values()) {
+      if (make.pos == null) make.pos = new XYZMatrix();
+
+      BaseModelParts part = baseModel.get(String.valueOf(make.item.id));
+      if (part == null) continue;
+
+      SeparatePartsLink link = part.separateParts.get(make.item.type);
+      if (link != null && link.size != null) {
+        XYZMatrix origin = (link.origin != null) ? link.origin : new XYZMatrix();
+
+        // Blender -> Java Coordinate Swap + Origin Offset
+        Vector3f partPos = new Vector3f(
+                make.pos.x - origin.x,
+                make.pos.z - origin.z, // Blender Z is Java Y (Up)
+                -make.pos.y + origin.y // Blender Y is Java -Z (Depth)
+        );
+
+        // Create a temporary box for this specific part
+        BoundingBox partBox = new BoundingBox(partPos, link.size);
+
+        // Merge it into the main boundingBox
+        if (this.boundingBox == null) {
+          this.boundingBox = partBox;
+        } else {
+          this.boundingBox.merge(partBox);
+        }
+      }
     }
   }
 }

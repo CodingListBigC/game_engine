@@ -12,7 +12,12 @@
       "separateParts": {
         "DF": {
           "model": "level-1_bottom.obj",
-          "texture": "level-1_bottom.png"
+          "texture": "level-1_bottom.png",
+          "size": {
+            "x": 2,
+            "y": 2,
+            "z": 2
+          }
         }
       }
     },
@@ -23,7 +28,15 @@
         "DF": {
           "name": "Sides front and back",
           "model": "level-1_roof.obj",
-          "texture": "level-1_roof.png"
+          "texture": "level-1_roof.png",
+          "size": {
+            "x": 2,
+            "y": 2,
+            "z": 1
+          },
+          "origin": {
+            "z": 2
+          }
         }
       }
     }
@@ -45,7 +58,7 @@
             "type": "DF"
           },
           "pos": {
-            "z": 2
+            "z": 4
           }
         },
         "2": {

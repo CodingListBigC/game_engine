@@ -61,13 +61,10 @@ public class MainGame implements IGameLogic {
     if (window.isKeyPressed(GLFW_KEY_LEFT_CONTROL)) {
       moveSpeed = 0.02f * 10;
     }
-    if (window.isKeyPressed(GLFW_KEY_P)) {
-      camera.printPosition();
-    }
     if (window.isKeyPressed(GLFW_KEY_O)){
       player.addExperience(1);
     }
-    camera.CameraInput(window, moveSpeed, rotateSpeed);
+    camera.CameraInput(window, moveSpeed, rotateSpeed, this.itemManger.getHouseList());
   }
 
   @Override

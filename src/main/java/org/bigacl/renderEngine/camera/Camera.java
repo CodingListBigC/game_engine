@@ -1,25 +1,25 @@
 package org.bigacl.renderEngine.camera;
 
+import org.bigacl.renderEngine.item.placeable.BasePlaceableItem;
+import org.bigacl.renderEngine.player.BoundingBox;
 import org.bigacl.renderEngine.window.WindowMaster;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
+import java.util.List;
 
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_D;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_DOWN;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_LEFT_SHIFT;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_RIGHT;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_SPACE;
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_UP;
 
 public class Camera {
   private final Vector3f position;
-  private float pitch;  // Rotation around X axis (up/down)
-  private float yaw;    // Rotation around Y axis (left/right)
+  private float pitch;
+  private float yaw;
 
   private final Matrix4f viewMatrix;
   private final Matrix4f projectionMatrix;
+
+  // Player "Hitbox" dimensions
+  private final float PLAYER_WIDTH = 0.6f;
+  private final float PLAYER_HEIGHT = 1.8f;
 
   public Camera(int width, int height) {
     position = new Vector3f(0, 0, 5);
@@ -38,128 +38,140 @@ public class Camera {
     updateViewMatrix();
   }
 
-  public void moveUp(float amount) {
-    position.y += amount;
-    updateViewMatrix();
+  // --- COLLISION LOGIC ---
+
+  /**
+   * Validates if a move is possible by checking intersections with placed items.
+   */
+  private boolean canMoveTo(Vector3f targetPos, List<? extends BasePlaceableItem> items) {
+    if (items == null || items.isEmpty()) return true;
+    // Create a hitbox for the camera
+    BasePlaceableItem.XYZMatrix camSize = new BasePlaceableItem.XYZMatrix();
+    camSize.x = 0.6f; camSize.z = 1.8f; camSize.y = 0.6f;
+
+    BoundingBox playerHitbox = new BoundingBox(targetPos, camSize);
+
+    for (BasePlaceableItem item : items) {
+      // IMPORTANT: The item must be placed and have a bounding box
+      if (item.getBoundingBox() != null) {
+        if (playerHitbox.intersects(item.getBoundingBox())) {
+          return false; // Found a hit!
+        }
+      }
+    }
+    return true;
   }
 
-  public void moveDown(float amount) {
-    position.y -= amount;
-    updateViewMatrix();
+  // --- UPDATED MOVEMENT METHODS ---
+
+  public void moveForward(float amount, List<? extends BasePlaceableItem> items) {
+    Vector3f nextPos = new Vector3f(position);
+    nextPos.x += (float) Math.sin(Math.toRadians(yaw)) * amount;
+    nextPos.z -= (float) Math.cos(Math.toRadians(yaw)) * amount;
+
+    if (canMoveTo(nextPos, items)) {
+      position.set(nextPos);
+      updateViewMatrix();
+    }
   }
 
-  public void moveForward(float amount) {
-    position.x += (float) Math.sin(Math.toRadians(yaw)) * amount;
-    position.z -= (float) Math.cos(Math.toRadians(yaw)) * amount;
-    updateViewMatrix();
+  public void moveBackward(float amount, List<? extends BasePlaceableItem> items) {
+    Vector3f nextPos = new Vector3f(position);
+    nextPos.x -= (float) Math.sin(Math.toRadians(yaw)) * amount;
+    nextPos.z += (float) Math.cos(Math.toRadians(yaw)) * amount;
+
+    if (canMoveTo(nextPos, items)) {
+      position.set(nextPos);
+      updateViewMatrix();
+    }
   }
 
-  public void moveBackward(float amount) {
-    position.x -= (float) Math.sin(Math.toRadians(yaw)) * amount;
-    position.z += (float) Math.cos(Math.toRadians(yaw)) * amount;
-    updateViewMatrix();
+  public void moveLeft(float amount, List<? extends BasePlaceableItem> items) {
+    Vector3f nextPos = new Vector3f(position);
+    nextPos.x -= (float) Math.cos(Math.toRadians(yaw)) * amount;
+    nextPos.z -= (float) Math.sin(Math.toRadians(yaw)) * amount;
+
+    if (canMoveTo(nextPos, items)) {
+      position.set(nextPos);
+      updateViewMatrix();
+    }
   }
 
-  public void moveLeft(float amount) {
-    position.x -= (float) Math.cos(Math.toRadians(yaw)) * amount;
-    position.z -= (float) Math.sin(Math.toRadians(yaw)) * amount;
-    updateViewMatrix();
+  public void moveRight(float amount, List<? extends BasePlaceableItem> items) {
+    Vector3f nextPos = new Vector3f(position);
+    nextPos.x += (float) Math.cos(Math.toRadians(yaw)) * amount;
+    nextPos.z += (float) Math.sin(Math.toRadians(yaw)) * amount;
+
+    if (canMoveTo(nextPos, items)) {
+      position.set(nextPos);
+      updateViewMatrix();
+    }
   }
 
-  public void moveRight(float amount) {
-    position.x += (float) Math.cos(Math.toRadians(yaw)) * amount;
-    position.z += (float) Math.sin(Math.toRadians(yaw)) * amount;
-    updateViewMatrix();
+  // Space/Shift usually fly or jump; check Y axis collision too
+  public void moveUp(float amount, List<? extends BasePlaceableItem> items) {
+    Vector3f nextPos = new Vector3f(position).add(0, amount, 0);
+    if (canMoveTo(nextPos, items)) {
+      position.y += amount;
+      updateViewMatrix();
+    }
   }
+
+  public void moveDown(float amount, List<? extends BasePlaceableItem> items) {
+    Vector3f nextPos = new Vector3f(position).add(0, -amount, 0);
+    if (canMoveTo(nextPos, items)) {
+      position.y -= amount;
+      updateViewMatrix();
+    }
+  }
+
+  // --- INPUT HANDLING ---
+
+  public void CameraInput(WindowMaster window, float moveSpeed, float rotateSpeed, List<? extends BasePlaceableItem> items){
+    if (window.isKeyPressed(GLFW_KEY_W)) this.moveForward(moveSpeed, items);
+    if (window.isKeyPressed(GLFW_KEY_S)) this.moveBackward(moveSpeed, items);
+    if (window.isKeyPressed(GLFW_KEY_A)) this.moveLeft(moveSpeed, items);
+    if (window.isKeyPressed(GLFW_KEY_D)) this.moveRight(moveSpeed, items);
+    if (window.isKeyPressed(GLFW_KEY_SPACE)) this.moveUp(moveSpeed, items);
+    if (window.isKeyPressed(GLFW_KEY_LEFT_SHIFT)) this.moveDown(moveSpeed, items);
+
+    // Rotation (No collision needed for looking)
+    if (window.isKeyPressed(GLFW_KEY_UP)) this.addRotation(-rotateSpeed, 0);
+    if (window.isKeyPressed(GLFW_KEY_DOWN)) this.addRotation(rotateSpeed, 0);
+    if (window.isKeyPressed(GLFW_KEY_LEFT)) this.addRotation(0, -rotateSpeed);
+    if (window.isKeyPressed(GLFW_KEY_RIGHT)) this.addRotation(0, rotateSpeed);
+  }
+
+  // ... (rest of your existing methods like addRotation, updateViewMatrix, etc.)
 
   public void addRotation(float pitchChange, float yawChange) {
     pitch += pitchChange;
     yaw += yawChange;
     updateViewMatrix();
   }
-  private void checkPitchAndYawAmount() {
-    while (pitch < 0 || pitch > 360) {
-      if (pitch < 0){
-        pitch += 360;
-      }else {
-        pitch -= 360;
-      }
-    }
-    while (yaw < 0 || yaw > 360) {
-      if (yaw < 0){
-        yaw += 360;
-      }else {
-        yaw -= 360;
-      }
-    }
-  }
 
   private void updateViewMatrix() {
     checkPitchAndYawAmount();
-    viewMatrix.identity();
-    viewMatrix.rotate((float) Math.toRadians(pitch), new Vector3f(1, 0, 0));
-    viewMatrix.rotate((float) Math.toRadians(yaw), new Vector3f(0, 1, 0));
-    viewMatrix.translate(-position.x, -position.y, -position.z);
+
+    // Calculate 80% height for the camera "eyes"
+    float eyeHeight = PLAYER_HEIGHT * 0.8f;
+
+    viewMatrix.identity()
+            .rotate((float) Math.toRadians(pitch), new Vector3f(1, 0, 0))
+            .rotate((float) Math.toRadians(yaw), new Vector3f(0, 1, 0))
+            // Translate by position + the eye height offset
+            .translate(-position.x, -(position.y + eyeHeight), -position.z);
   }
 
-  public Matrix4f getViewMatrix() {
-    return viewMatrix;
+  private void checkPitchAndYawAmount() {
+    pitch = pitch % 360;
+    yaw = yaw % 360;
   }
 
-  public Matrix4f getProjectionMatrix() {
-    return projectionMatrix;
-  }
+  public Matrix4f getViewMatrix() { return viewMatrix; }
+  public Matrix4f getProjectionMatrix() { return projectionMatrix; }
+  public Vector3f getPosition() { return position; }
 
-  public Vector3f getPosition() {
-    return position;
-  }
-
-  public void CameraInput(WindowMaster window, float moveSpeed, float rotateSpeed){
-
-    if (window.isKeyPressed(GLFW_KEY_W)) {
-      this.moveForward(moveSpeed);
-    }
-    if (window.isKeyPressed(GLFW_KEY_S)) {
-      this.moveBackward(moveSpeed);
-    }
-    if (window.isKeyPressed(GLFW_KEY_A)) {
-      this.moveLeft(moveSpeed);
-    }
-    if (window.isKeyPressed(GLFW_KEY_D)) {
-      this.moveRight(moveSpeed);
-    }
-    if (window.isKeyPressed(GLFW_KEY_SPACE)) {
-      this.moveUp(moveSpeed);
-    }
-    if (window.isKeyPressed(GLFW_KEY_LEFT_SHIFT)) {
-      this.moveDown(moveSpeed);
-    }
-
-    // Rotation
-    if (window.isKeyPressed(GLFW_KEY_UP)) {
-      this.addRotation(-rotateSpeed, 0);  // Look up
-    }
-    if (window.isKeyPressed(GLFW_KEY_DOWN)) {
-      this.addRotation(rotateSpeed, 0);   // Look down
-    }
-    if (window.isKeyPressed(GLFW_KEY_LEFT)) {
-      this.addRotation(0, -rotateSpeed);  // Look left
-    }
-    if (window.isKeyPressed(GLFW_KEY_RIGHT)) {
-      this.addRotation(0, rotateSpeed);   // Look right
-    }
-  }
-
-  public void setPosition(float x, float y, float z, float pitch, float yaw){
-    position.x = x;
-    position.y = y;
-    position.z = z;
-    this.pitch = pitch;
-    this.yaw = yaw;
-    updateViewMatrix();
-  }
-
-  public void printPosition() {
-    System.out.println("Camera Location, x: "+ position.x + ", y: " + position.y + ", z: " + position.z + ". pitch" + pitch + ", yaw: " + yaw );
+  public void setPosition(float v, float v1, float v2, float v3, float v4) {
   }
 }
