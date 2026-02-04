@@ -172,6 +172,12 @@ public class Camera {
   public Matrix4f getProjectionMatrix() { return projectionMatrix; }
   public Vector3f getPosition() { return position; }
 
-  public void setPosition(float v, float v1, float v2, float v3, float v4) {
+  public void setPosition(float x, float y, float z, float pitch, float yaw) {
+    this.position.x = x;
+    this.position.y = y;
+    this.position.z = z;
+    this.yaw = yaw;
+    this.pitch = pitch;
+    updateViewMatrix();
   }
 }
