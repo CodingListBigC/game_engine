@@ -68,4 +68,13 @@ public class ShaderMaster {
       // System.err.println("Could not find uniform: " + uniformName);
     }
   }
+
+  public void setUniformMat4f(String uniformName, Matrix4f modelMatrix) {
+    int location = org.lwjgl.opengl.GL20.glGetUniformLocation(shaderLoader.getProgramId(), uniformName);
+    if (location != -1){
+      float[] matrixArray = new float[16];
+      modelMatrix.get(matrixArray);
+      org.lwjgl.opengl.GL20.glUniformMatrix4fv(location, false, matrixArray);
+    }
+  }
 }

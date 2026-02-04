@@ -5,30 +5,58 @@
   },
   "amount_of_levels": 1,
   "type": "home",
-
+  "baseModel": {
+    "0": {
+      "partName": "bottom",
+      "defaultFacing": 0,
+      "separateParts": {
+        "DF": {
+          "model": "level-1_bottom.obj",
+          "texture": "level-1_bottom.png"
+        }
+      }
+    },
+    "1": {
+      "partName": "roof",
+      "defaultFacing": 0,
+      "separateParts": {
+        "DF": {
+          "name": "Sides front and back",
+          "model": "level-1_roof.obj",
+          "texture": "level-1_roof.png"
+        }
+      }
+    }
+  },
   "level": {
     "1": {
       "price": 1000,
       "requiredLevel": 0,
-      "models": {
+      "make": {
         "0": {
-          "name": "bottom",
-          "model": "level-1_bottom.obj",
-          "texture":"level-1_bottom.png"
+          "item": {
+            "id": 0,
+            "type": "DF"
+          }
         },
         "1": {
-          "name": "center",
-          "model": "",
-          "texture": ""
+          "item": {
+            "id": 1,
+            "type": "DF"
+          },
+          "pos": {
+            "z": 2
+          }
         },
         "2": {
-          "name": "roof",
-          "model": "level-1_roof.obj",
-          "texture":"level-1_roof.png"
+          "item": {
+            "id": 0,
+            "type": "DF"
+          },
+          "pos": {
+            "z": 2
+          }
         }
-      },
-      "stats": {
-        "people_can_hold": 4
       }
     }
   }

@@ -1,0 +1,56 @@
+{
+  "name": {
+    "main": "Apartment",
+    "plural": "Apartments"
+  },
+  "amount_of_levels": 1,
+  "type": "apartment",
+  "baseModel": {
+    "0": {
+      "partName": "bottom",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "level_1/bottom.obj",
+        "texture": "level-1/bottom.png"
+      }
+    },
+    "2": {
+      "partName": "roof",
+      "defaultFacing": 0,
+      "separateParts": {
+        "DF": {
+          "name": "Sides front and back",
+          "model": "roof_02_22.obj",
+          "texture": "roof_02_22.png"
+        },
+        "0": {
+          "name": "Only Front",
+          "model": "roof_0_22.obj",
+          "texture": "roof_0_22.png"
+        },
+        "0C1": {
+          "name": "corner from front to left",
+          "model": "roof_0C1_22.obj",
+          "texture": "roof_0C1_22.png"
+        },
+        "OC2": {
+          "name": "corner from front to left to back",
+          "model": "roof_0C2_22.obj",
+          "texture": "roof_0C2_22.png"
+        }
+      }
+    }
+  },
+  "level": {
+    "1": {
+      "price": 1000,
+      "requiredLevel": 0,
+      "howManyMiddles": 1
+    },
+    "2": {
+      "price": 2000,
+      "requiredLevel": 2,
+      "howManyMiddles": 2
+    }
+  }
+}
