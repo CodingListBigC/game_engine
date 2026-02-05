@@ -1,13 +1,17 @@
 package org.bigacl.renderEngine.item;
 
+import org.bigacl.renderEngine.camera.Camera;
 import org.bigacl.renderEngine.item.placeable.house.House;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.bigacl.renderEngine.utils.consts.ClassConst.camera;
 
 public class ItemManger {
   private final ArrayList<House> houseList = new ArrayList<>();
 
-  public void addHouse(House house){
+  public void addHouse(House house) {
     house.setupHitbox();
     houseList.add(house);
   }
@@ -17,13 +21,13 @@ public class ItemManger {
     return houseList;
   }
 
-  public void renderAll(){
+  public void renderAll() {
     renderHouse();
   }
 
-  private void renderHouse(){
-    for (House house : houseList){
-      if (house != null){
+  private void renderHouse() {
+    for (House house : houseList) {
+      if (house != null) {
         house.render();
       }
     }

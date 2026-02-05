@@ -1,5 +1,6 @@
 package org.bigacl.renderEngine;
 
+import org.bigacl.renderEngine.camera.Camera;
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
 import org.bigacl.renderEngine.item.ItemManger;
 import org.bigacl.renderEngine.item.placeable.house.House;
@@ -28,7 +29,7 @@ public class Launcher {
 
 
     IGameLogic gameLogic = null;
-    new ClassConst(gameLogic, shaderMaster, nanoVGUI, itemManger, window);
+    new ClassConst(gameLogic, shaderMaster, nanoVGUI, itemManger, window,new Camera(window.getWidth(), window.getHeight()));
     gameLogic = new MainGame();
     NanoVGUI NanoVGUI = new NanoVGUI();
     // Render loop

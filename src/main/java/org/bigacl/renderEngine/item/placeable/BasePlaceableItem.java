@@ -20,9 +20,17 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
   protected boolean isPlaced = false;
   protected BoundingBox boundingBox;
   protected abstract void loadModel();
+  protected Vector3f worldPosition = new Vector3f(0.0f,0.0f,0.0f);
 
   protected boolean checkPlace() {
     return true;
+  }
+
+  public void setWorldPosition(Vector3f snappedPos) {
+    worldPosition.x = snappedPos.x;
+    worldPosition.y = snappedPos.y;
+    worldPosition.z = snappedPos.z;
+
   }
 
   // --- Data Structures for GSON ---

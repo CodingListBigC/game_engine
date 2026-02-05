@@ -79,9 +79,9 @@ public class House extends BasePlaceableItem {
         // Blender Z -> Java Y (Height)
         // Blender Y -> Java -Z (Depth)
         mesh.setPosition(
-                p.x - origin.x,
-                p.z - origin.z,   // Note: We use JSON 'z' for Java 'y'
-                -p.y + origin.y   // Note: We use JSON 'y' for Java '-z'
+                p.x - origin.x + worldPosition.x,
+                p.z - origin.z + worldPosition.y,   // Note: We use JSON 'z' for Java 'y'
+                -p.y + origin.y + worldPosition.z  // Note: We use JSON 'y' for Java '-z'
         );
 
         currentMeshes.add(mesh);

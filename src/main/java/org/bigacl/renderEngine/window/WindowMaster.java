@@ -2,7 +2,10 @@ package org.bigacl.renderEngine.window;
 
 import org.bigacl.renderEngine.logic.IGameLogic;
 import org.bigacl.renderEngine.utils.consts.Const;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL;
+
+import java.nio.IntBuffer;
 
 import static java.sql.Types.NULL;
 import static org.lwjgl.glfw.GLFW.*;
@@ -75,5 +78,31 @@ public class WindowMaster {
 
   public boolean isKeyPressed(int keyCode) {
     return glfwGetKey(window, keyCode) == GLFW_PRESS;
+  }
+  public int getWidth() {
+    IntBuffer w = BufferUtils.createIntBuffer(1);
+    IntBuffer h = BufferUtils.createIntBuffer(1);
+    glfwGetFramebufferSize(window, w, h);
+    return w.get(0);
+  }
+
+  public int getHeight() {
+    IntBuffer w = BufferUtils.createIntBuffer(1);
+    IntBuffer h = BufferUtils.createIntBuffer(1);
+    glfwGetFramebufferSize(window, w, h);
+    return h.get(0);
+  }
+  public float getMouseX() {
+    double[] x = new double[1];
+    double[] y = new double[1];
+    glfwGetCursorPos(window, x, y);
+    return (float) x[0];
+  }
+
+  public float getMouseY() {
+    double[] x = new double[1];
+    double[] y = new double[1];
+    glfwGetCursorPos(window, x, y);
+    return (float) y[0];
   }
 }
