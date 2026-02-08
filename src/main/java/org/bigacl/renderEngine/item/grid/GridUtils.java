@@ -12,7 +12,7 @@ public class GridUtils {
   public static Vector3f snapVector(Vector3f rawPos) {
     return new Vector3f(
             snap(rawPos.x),
-            snap(rawPos.y),
+            rawPos.y,
             snap(rawPos.z)
     );
   }

@@ -35,7 +35,7 @@ public class MainGame implements IGameLogic {
   // Player Variables
   private final Player player;
 
-  private int lastPlacementTime = 0;
+  private double lastPlacementTime = 0;
   private int PLACEMENT_COOLDOWN = 1;
 
   // HUD Variables;
@@ -73,18 +73,18 @@ public class MainGame implements IGameLogic {
       double currentTime = glfwGetTime();
       if (currentTime - lastPlacementTime >= PLACEMENT_COOLDOWN) {
         Vector3f hitPoint = MouseRayCast.getRaycastPosition();
+        lastPlacementTime = currentTime;
 
-        if (hitPoint != null) {
-          // 1. Snap the hit point to your grid
-          Vector3f snappedPos = GridUtils.snapVector(hitPoint);
-
-          // 2. Set the house position (using your Blender-to-Java logic)
-          // Note: Since we are placing on the floor, Y is usually 0.
-          House house = new House();
-          house.setWorldPosition(snappedPos);
-          // 3. Add to manager
-          itemManger.addHouse(house);
-        }
+        assert hitPoint != null;
+        System.out.println("Summon House At: " + hitPoint.x+", " + hitPoint.y + ", " + hitPoint.z);
+        // 1. Snap the hit point to your grid
+        Vector3f snappedPos = GridUtils.snapVector(hitPoint);
+        // 2. Set the house position (using your Blender-to-Java logic)
+        // Note: Since we are placing on the floor, Y is usually 0.
+        House house = new House();
+        house.setWorldPosition(snappedPos);
+        // 3. Add to manager
+        itemManger.addHouse(house);
       }
     }
     camera.CameraInput(window, moveSpeed, rotateSpeed, this.itemManger.getHouseList());

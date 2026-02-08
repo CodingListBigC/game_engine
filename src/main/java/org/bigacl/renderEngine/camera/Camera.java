@@ -3,6 +3,7 @@ package org.bigacl.renderEngine.camera;
 import org.bigacl.renderEngine.item.placeable.BasePlaceableItem;
 import org.bigacl.renderEngine.player.BoundingBox;
 import org.bigacl.renderEngine.window.WindowMaster;
+import org.joml.FrustumIntersection;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import java.util.List;
@@ -21,6 +22,10 @@ public class Camera {
   private final float PLAYER_WIDTH = 0.6f;
   private final float PLAYER_HEIGHT = 1.8f;
 
+  // Frustum Variables
+  private FrustumIntersection frustum;
+  private Matrix4f pvMatrix = new Matrix4f();
+
   public Camera(int width, int height) {
     position = new Vector3f(0, 0, 5);
     pitch = 0;
@@ -35,6 +40,8 @@ public class Camera {
             100.0f
     );
 
+
+    this.frustum = new FrustumIntersection();
     updateViewMatrix();
   }
 
@@ -54,7 +61,7 @@ public class Camera {
     for (BasePlaceableItem item : items) {
       // IMPORTANT: The item must be placed and have a bounding box
       if (item.getBoundingBox() != null) {
-        if (playerHitbox.intersects(item.getBoundingBox())) {
+        if (playerHitbox.intersects(targetPos, item.getBoundingBox(),item.getWorldPosition())) {
           return false; // Found a hit!
         }
       }
@@ -161,6 +168,8 @@ public class Camera {
             .rotate((float) Math.toRadians(yaw), new Vector3f(0, 1, 0))
             // Translate by position + the eye height offset
             .translate(-position.x, -(position.y + eyeHeight), -position.z);
+
+    updateFrustum();
   }
 
   private void checkPitchAndYawAmount() {
@@ -179,5 +188,14 @@ public class Camera {
     this.yaw = yaw;
     this.pitch = pitch;
     updateViewMatrix();
+  }
+  public void updateFrustum() {
+    // Multiply Projection * View to get the "Clip Space" matrix
+    pvMatrix.set(getProjectionMatrix()).mul(getViewMatrix());
+    // Extract the 6 planes from the matrix
+    frustum.set(pvMatrix);
+  }
+  public FrustumIntersection getFrustum() {
+    return frustum;
   }
 }

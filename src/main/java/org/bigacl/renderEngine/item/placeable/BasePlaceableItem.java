@@ -33,6 +33,11 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
 
   }
 
+  public Vector3f getWorldPosition() {
+    return worldPosition;
+  }
+
+
   // --- Data Structures for GSON ---
   public static class NameData {
     public String main;
@@ -125,16 +130,13 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
       mesh.cleanup();
     }
   }
-  public BoundingBox getBoundingBox() {
-    return boundingBox;
-  }
   public void setupHitbox() {
     if (this.currentMeshes.isEmpty()) loadModel();
 
     LevelData currentData = level.get(String.valueOf(currentLevel));
     if (currentData == null || currentData.make == null) return;
 
-    // Reset so we don't grow infinitely if called twice
+    // Reset bounding box
     this.boundingBox = null;
 
     for (MakeData make : currentData.make.values()) {
@@ -147,23 +149,42 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
       if (link != null && link.size != null) {
         XYZMatrix origin = (link.origin != null) ? link.origin : new XYZMatrix();
 
-        // Blender -> Java Coordinate Swap + Origin Offset
-        Vector3f partPos = new Vector3f(
+        // 1. Calculate the Part's Anchor Point in World Space
+        // We apply the Blender -> Java swap here.
+        Vector3f partAnchor = new Vector3f(
                 make.pos.x - origin.x,
-                make.pos.z - origin.z, // Blender Z is Java Y (Up)
-                -make.pos.y + origin.y // Blender Y is Java -Z (Depth)
+                make.pos.z - origin.z, // Blender Z is Height (Y)
+                -make.pos.y + origin.y // Blender Y is Depth (-Z)
         );
 
-        // Create a temporary box for this specific part
-        BoundingBox partBox = new BoundingBox(partPos, link.size);
+        // 2. Create the box for this part
+        // We pass the anchor and the size (which needs swapping too!)
+        BoundingBox partBox = new BoundingBox(partAnchor, link.size);
 
-        // Merge it into the main boundingBox
+        // 3. Merge logic
         if (this.boundingBox == null) {
-          this.boundingBox = partBox;
+          // Initialize the box with the first part's values
+          this.boundingBox = new BoundingBox(partBox.minX, partBox.maxX, partBox.minY, partBox.maxY, partBox.minZ, partBox.maxZ);
         } else {
           this.boundingBox.merge(partBox);
         }
       }
     }
+  }
+
+  public BoundingBox getBoundingBox() {
+    return boundingBox;
+  }
+
+  public BoundingBox getBoundingBoxOffSet() {
+    return  new BoundingBox(
+            boundingBox.minX + worldPosition.x, boundingBox.maxX + worldPosition.x, // X Pos
+            boundingBox.minY + worldPosition.y, boundingBox.maxY + worldPosition.y, // Y Pos
+            boundingBox.minZ + worldPosition.z, boundingBox.maxZ + worldPosition.z // Y Pos
+            );
+  }
+
+  public Vector3f getPosition(){
+    return worldPosition;
   }
 }
