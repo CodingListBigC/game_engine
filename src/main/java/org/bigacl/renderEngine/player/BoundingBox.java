@@ -61,4 +61,15 @@ public class BoundingBox {
             (this.minZ + myWorldPos.z <= other.maxZ + otherWorldPos.z &&
                     this.maxZ + myWorldPos.z >= other.minZ + otherWorldPos.z);
   }
+
+  public void log(String s) {
+    System.out.print(s);
+    System.out.print("minX: " + this.minX);
+    System.out.print("maxX: " + this.maxX);
+    System.out.print("minY: " + this.minY);
+    System.out.print("maxY: " + this.maxY);
+    System.out.print("minZ: " + this.minZ);
+    System.out.print("maxZ: " + this.maxZ);
+    System.out.println("");
+  }
 }

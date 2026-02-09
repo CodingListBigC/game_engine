@@ -3,12 +3,14 @@ package org.bigacl.renderEngine;
 import org.bigacl.renderEngine.camera.Camera;
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
 import org.bigacl.renderEngine.item.ItemManger;
+import org.bigacl.renderEngine.item.placeable.aparment.Aparment;
 import org.bigacl.renderEngine.item.placeable.house.House;
 import org.bigacl.renderEngine.logic.IGameLogic;
 import org.bigacl.renderEngine.player.level.MainLevel;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.bigacl.renderEngine.window.WindowMaster;
+import org.joml.Vector3f;
 
 public class Launcher {
   private static  ShaderMaster shaderMaster;
@@ -24,7 +26,9 @@ public class Launcher {
 
     // Item Manger Iit
     ItemManger itemManger = new ItemManger();
-    itemManger.addHouse(house);
+    itemManger.addItem(house);
+    Aparment aparment = new Aparment(new Vector3f(3,0,3));
+    itemManger.addItem(aparment);
     NanoVGUI nanoVGUI = new NanoVGUI();
 
 

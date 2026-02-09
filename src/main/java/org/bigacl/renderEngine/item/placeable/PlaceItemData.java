@@ -1,10 +1,8 @@
-package org.bigacl.renderEngine.item.placeable.house;
-
-import org.bigacl.renderEngine.item.placeable.BasePlaceableItem;
+package org.bigacl.renderEngine.item.placeable;
 
 import java.util.Map;
 
-public class HouseData {
+public class PlaceItemData {
   // These MUST use the static inner classes from BasePlaceableItem
   public BasePlaceableItem.NameData name;
   public Map<String, BasePlaceableItem.BaseModelParts> baseModel;

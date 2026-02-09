@@ -84,7 +84,7 @@ public class MainGame implements IGameLogic {
         House house = new House();
         house.setWorldPosition(snappedPos);
         // 3. Add to manager
-        itemManger.addHouse(house);
+        itemManger.addItem(house);
       }
     }
     camera.CameraInput(window, moveSpeed, rotateSpeed, this.itemManger.getHouseList());

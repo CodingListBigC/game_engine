@@ -10,8 +10,10 @@
       "partName": "bottom",
       "defaultFacing": 0,
       "separateParts": {
-        "model": "level_1/bottom.obj",
-        "texture": "level-1/bottom.png"
+        "DF": {
+          "model": "level_1/bottom.obj",
+          "texture": "level_1/bottom.png"
+        }
       }
     },
     "1": {
@@ -35,7 +37,6 @@
           "texture": "level_1/center.png"
         }
       }
-
     }
   },
   "level": {
@@ -44,7 +45,7 @@
       "requiredLevel": 0,
       "make": {
         "0": {
-          "item":{
+          "item": {
             "id": 0,
             "type": "DF"
           },
@@ -55,7 +56,7 @@
           }
         },
         "1": {
-          "item":{
+          "item": {
             "id": 1,
             "type": "DF"
           },

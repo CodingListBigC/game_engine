@@ -1,21 +1,21 @@
-package org.bigacl.renderEngine.item.placeable.house;
+package org.bigacl.renderEngine.item.placeable.aparment;
 
 import org.bigacl.renderEngine.item.placeable.BasePlaceableItem;
 import org.joml.Vector3f;
 
-public class House extends BasePlaceableItem {
+public class Aparment extends BasePlaceableItem {
 
-  public House() {
+  public Aparment() {
     defaultSettings();
   }
-  public House(Vector3f pos){
+  public Aparment(Vector3f pos){
     defaultSettings();
     this.worldPosition = pos;
   }
   @Override
   public void defaultSettings() {
-    this.folderPath = "gameData/buildings/home";
-    this.jsonName = "home.json";
+    this.folderPath = "gameData/buildings/aparment";
+    this.jsonName = "aparment.json";
     this.isPlaced = true;
     loadData();
   }
