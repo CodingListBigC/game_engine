@@ -6,6 +6,7 @@ import org.joml.Vector3f;
 public class BoundingBox {
   public float minX, maxX, minY, maxY, minZ, maxZ;
 
+
   public BoundingBox(float minX, float maxX, float minY, float maxY, float minZ, float maxZ) {
     this.minX = minX;
     this.maxX = maxX;
@@ -15,23 +16,25 @@ public class BoundingBox {
     this.maxZ = maxZ;
   }
   // Use ONLY local pos and size. worldPos is added later during checks.
-  public BoundingBox(Vector3f localPos, BasePlaceableItem.XYZMatrix size) {
+  public BoundingBox(Vector3f partAnchor, BasePlaceableItem.XYZMatrix size) {
     // Blender X -> Java X (Width)
     // Blender Z -> Java Y (Height)
     // Blender Y -> Java Z (Depth)
 
+    // If partAnchor is the CENTER of the part:
     float halfWidth = size.x / 2.0f;
     float halfDepth = size.y / 2.0f;
 
-    this.minX = localPos.x - halfWidth;
-    this.maxX = localPos.x + halfWidth;
+    this.minX = partAnchor.x - halfWidth;
+    this.maxX = partAnchor.x + halfWidth;
 
-    // Height usually starts at the feet (localPos.y) and goes up
-    this.minY = localPos.y;
-    this.maxY = localPos.y + size.z;
+    // Height: Usually building origins are at the bottom (feet),
+    // so we just add the height (size.z) to the anchor's Y.
+    this.minY = partAnchor.y;
+    this.maxY = partAnchor.y + size.z;
 
-    this.minZ = localPos.z - halfDepth;
-    this.maxZ = localPos.z + halfDepth;
+    this.minZ = partAnchor.z - halfDepth;
+    this.maxZ = partAnchor.z + halfDepth;
   }
 
   /**
@@ -72,4 +75,11 @@ public class BoundingBox {
     System.out.print("maxZ: " + this.maxZ);
     System.out.println("");
   }
+  public boolean intersects(BoundingBox other) {
+    // Check if there is an overlap on all three axes
+    return (this.minX <= other.maxX && this.maxX >= other.minX) &&
+            (this.minY <= other.maxY && this.maxY >= other.minY) &&
+            (this.minZ <= other.maxZ && this.maxZ >= other.minZ);
+  }
+
 }

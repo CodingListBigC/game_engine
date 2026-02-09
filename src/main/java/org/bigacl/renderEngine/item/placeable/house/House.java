@@ -18,5 +18,6 @@ public class House extends BasePlaceableItem {
     this.jsonName = "home.json";
     this.isPlaced = true;
     loadData();
+    System.out.println(name.main + " placed in world at: " + worldPosition.x + ", " + worldPosition.z);
   }
 }

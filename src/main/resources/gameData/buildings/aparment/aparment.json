@@ -12,7 +12,12 @@
       "separateParts": {
         "DF": {
           "model": "level_1/bottom.obj",
-          "texture": "level_1/bottom.png"
+          "texture": "level_1/bottom.png",
+          "size": {
+            "x": 2.0,
+            "y": 2.0,
+            "z": 2.0
+          }
         }
       }
     },
@@ -25,9 +30,9 @@
           "model": "level_1/roof.obj",
           "texture": "level_1/roof.png",
           "size": {
-            "x": 2,
-            "y": 2,
-            "z": 2
+            "x": 2.0,
+            "y": 2.0,
+            "z": 2.0
           }
         }
       }
@@ -56,7 +61,7 @@
       "make": {
         "0": {
           "item": {
-            "id": 0,
+            "id": "0",
             "type": "DF"
           },
           "pos": {
@@ -67,7 +72,7 @@
         },
         "1": {
           "item": {
-            "id": 1,
+            "id": "1",
             "type": "DF"
           },
           "pos": {
@@ -77,11 +82,6 @@
           }
         }
       }
-    },
-    "2": {
-      "price": 2000,
-      "requiredLevel": 2,
-      "howManyMiddles": 2
     }
   }
 }

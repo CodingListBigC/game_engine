@@ -70,7 +70,7 @@ public class Texture {
     // Free image buffer
     STBImage.stbi_image_free(imageBuffer);
 
-    System.out.println("Loaded texture: " + filePath + " (" + width + "x" + height + ")");
+    //System.out.println("Loaded texture: " + filePath + " (" + width + "x" + height + ")");
 
     return textureId;
   }

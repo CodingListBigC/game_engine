@@ -27,7 +27,8 @@ public class Launcher {
     // Item Manger Iit
     ItemManger itemManger = new ItemManger();
     itemManger.addItem(house);
-    Aparment aparment = new Aparment(new Vector3f(3,0,3));
+    Aparment aparment = new Aparment();
+    aparment.place(new Vector3f(10,0,10), 0);
     itemManger.addItem(aparment);
     NanoVGUI nanoVGUI = new NanoVGUI();
 

@@ -16,7 +16,6 @@ public class Aparment extends BasePlaceableItem {
   public void defaultSettings() {
     this.folderPath = "gameData/buildings/aparment";
     this.jsonName = "aparment.json";
-    this.isPlaced = true;
     loadData();
   }
 }

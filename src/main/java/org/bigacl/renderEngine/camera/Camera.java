@@ -18,15 +18,16 @@ public class Camera {
   private final Matrix4f viewMatrix;
   private final Matrix4f projectionMatrix;
 
-  // Player "Hitbox" dimensions
+  // Player dimensions
   private final float PLAYER_WIDTH = 0.6f;
   private final float PLAYER_HEIGHT = 1.8f;
 
-  // Frustum Variables
+  // Frustum and Matrix calculations
   private FrustumIntersection frustum;
   private Matrix4f pvMatrix = new Matrix4f();
 
   public Camera(int width, int height) {
+    // Start position (Feet level)
     position = new Vector3f(0, 0, 5);
     pitch = 0;
     yaw = 0;
@@ -40,162 +41,152 @@ public class Camera {
             100.0f
     );
 
-
     this.frustum = new FrustumIntersection();
     updateViewMatrix();
   }
 
-  // --- COLLISION LOGIC ---
-
   /**
-   * Validates if a move is possible by checking intersections with placed items.
+   * Checks if the player's hitbox would intersect any items at the target position.
    */
   private boolean canMoveTo(Vector3f targetPos, List<? extends BasePlaceableItem> items) {
     if (items == null || items.isEmpty()) return true;
-    // Create a hitbox for the camera
-    BasePlaceableItem.XYZMatrix camSize = new BasePlaceableItem.XYZMatrix();
-    camSize.x = 0.6f; camSize.z = 1.8f; camSize.y = 0.6f;
 
-    BoundingBox playerHitbox = new BoundingBox(targetPos, camSize);
+    // Define player size for the hitbox (X=Width, Y=Height, Z=Depth)
+    BasePlaceableItem.XYZMatrix playerSize = new BasePlaceableItem.XYZMatrix();
+    playerSize.x = PLAYER_WIDTH;
+    playerSize.y = PLAYER_WIDTH; // Depth
+    playerSize.z = PLAYER_HEIGHT; // Height
+
+    // Create a world-space hitbox for the player at the proposed location
+    BoundingBox playerHitbox = new BoundingBox(targetPos, playerSize);
 
     for (BasePlaceableItem item : items) {
-      // IMPORTANT: The item must be placed and have a bounding box
-      if (item.getBoundingBox() != null) {
-        if (playerHitbox.intersects(targetPos, item.getBoundingBox(),item.getWorldPosition())) {
-          return false; // Found a hit!
+      // Get the item's current world-space bounding box
+      BoundingBox itemWorldBox = item.getBoundingBoxOffSet();
+
+
+      if (itemWorldBox != null) {
+        // DEBUG: Only print when close to the building to avoid spam
+        if (targetPos.distance(item.getWorldPosition()) < 3.0f) {
+          System.out.println("Checking Collision: PlayerX(" + playerHitbox.minX + ") vs ItemX(" + itemWorldBox.minX + ")");
+        }
+
+        if (playerHitbox.intersects(itemWorldBox)) {
+          System.out.println("!!! COLLISION DETECTED !!!");
+          return false;
         }
       }
     }
     return true;
   }
 
-  // --- UPDATED MOVEMENT METHODS ---
+  /**
+   * Handles movement input and checks for collisions on X and Z axes independently.
+   * This allows for "sliding" against walls.
+   */
+  public void CameraInput(WindowMaster window, float moveSpeed, float rotateSpeed, List<? extends BasePlaceableItem> items) {
+    float dx = 0;
+    float dz = 0;
+    float dy = 0;
 
-  public void moveForward(float amount, List<? extends BasePlaceableItem> items) {
-    Vector3f nextPos = new Vector3f(position);
-    nextPos.x += (float) Math.sin(Math.toRadians(yaw)) * amount;
-    nextPos.z -= (float) Math.cos(Math.toRadians(yaw)) * amount;
-
-    if (canMoveTo(nextPos, items)) {
-      position.set(nextPos);
-      updateViewMatrix();
+    // 1. Calculate the INTENDED movement (relative to where you are looking)
+    if (window.isKeyPressed(GLFW_KEY_W)) {
+      dx += (float) Math.sin(Math.toRadians(yaw)) * moveSpeed;
+      dz -= (float) Math.cos(Math.toRadians(yaw)) * moveSpeed;
     }
-  }
-
-  public void moveBackward(float amount, List<? extends BasePlaceableItem> items) {
-    Vector3f nextPos = new Vector3f(position);
-    nextPos.x -= (float) Math.sin(Math.toRadians(yaw)) * amount;
-    nextPos.z += (float) Math.cos(Math.toRadians(yaw)) * amount;
-
-    if (canMoveTo(nextPos, items)) {
-      position.set(nextPos);
-      updateViewMatrix();
+    if (window.isKeyPressed(GLFW_KEY_S)) {
+      dx -= (float) Math.sin(Math.toRadians(yaw)) * moveSpeed;
+      dz += (float) Math.cos(Math.toRadians(yaw)) * moveSpeed;
     }
-  }
-
-  public void moveLeft(float amount, List<? extends BasePlaceableItem> items) {
-    Vector3f nextPos = new Vector3f(position);
-    nextPos.x -= (float) Math.cos(Math.toRadians(yaw)) * amount;
-    nextPos.z -= (float) Math.sin(Math.toRadians(yaw)) * amount;
-
-    if (canMoveTo(nextPos, items)) {
-      position.set(nextPos);
-      updateViewMatrix();
+    if (window.isKeyPressed(GLFW_KEY_A)) {
+      dx -= (float) Math.cos(Math.toRadians(yaw)) * moveSpeed;
+      dz -= (float) Math.sin(Math.toRadians(yaw)) * moveSpeed;
     }
-  }
-
-  public void moveRight(float amount, List<? extends BasePlaceableItem> items) {
-    Vector3f nextPos = new Vector3f(position);
-    nextPos.x += (float) Math.cos(Math.toRadians(yaw)) * amount;
-    nextPos.z += (float) Math.sin(Math.toRadians(yaw)) * amount;
-
-    if (canMoveTo(nextPos, items)) {
-      position.set(nextPos);
-      updateViewMatrix();
+    if (window.isKeyPressed(GLFW_KEY_D)) {
+      dx += (float) Math.cos(Math.toRadians(yaw)) * moveSpeed;
+      dz += (float) Math.sin(Math.toRadians(yaw)) * moveSpeed;
     }
-  }
-
-  // Space/Shift usually fly or jump; check Y axis collision too
-  public void moveUp(float amount, List<? extends BasePlaceableItem> items) {
-    Vector3f nextPos = new Vector3f(position).add(0, amount, 0);
-    if (canMoveTo(nextPos, items)) {
-      position.y += amount;
-      updateViewMatrix();
+    if (window.isKeyPressed(GLFW_KEY_SPACE)){
+      dy += (float) moveSpeed;
     }
-  }
-
-  public void moveDown(float amount, List<? extends BasePlaceableItem> items) {
-    Vector3f nextPos = new Vector3f(position).add(0, -amount, 0);
-    if (canMoveTo(nextPos, items)) {
-      position.y -= amount;
-      updateViewMatrix();
+    if (window.isKeyPressed(GLFW_KEY_LEFT_SHIFT)){
+      dy -= (float) moveSpeed;
     }
-  }
 
-  // --- INPUT HANDLING ---
+    // 2. CHECK X AXIS
+    if (dx != 0) {
+      Vector3f nextX = new Vector3f(position.x + dx, position.y, position.z);
+      if (canMoveTo(nextX, items)) {
+        position.x += dx; // ONLY move if allowed
+      }
+    }
 
-  public void CameraInput(WindowMaster window, float moveSpeed, float rotateSpeed, List<? extends BasePlaceableItem> items){
-    if (window.isKeyPressed(GLFW_KEY_W)) this.moveForward(moveSpeed, items);
-    if (window.isKeyPressed(GLFW_KEY_S)) this.moveBackward(moveSpeed, items);
-    if (window.isKeyPressed(GLFW_KEY_A)) this.moveLeft(moveSpeed, items);
-    if (window.isKeyPressed(GLFW_KEY_D)) this.moveRight(moveSpeed, items);
-    if (window.isKeyPressed(GLFW_KEY_SPACE)) this.moveUp(moveSpeed, items);
-    if (window.isKeyPressed(GLFW_KEY_LEFT_SHIFT)) this.moveDown(moveSpeed, items);
 
-    // Rotation (No collision needed for looking)
-    if (window.isKeyPressed(GLFW_KEY_UP)) this.addRotation(-rotateSpeed, 0);
-    if (window.isKeyPressed(GLFW_KEY_DOWN)) this.addRotation(rotateSpeed, 0);
+    // 3. CHECK Z AXIS
+    if (dz != 0) {
+      Vector3f nextZ = new Vector3f(position.x, position.y, position.z + dz);
+      if (canMoveTo(nextZ, items)) {
+        position.z += dz; // ONLY move if allowed
+      }
+    }
+
+    // 3. CHECK Y AXIS
+    if (dy != 0) {
+      Vector3f nextX = new Vector3f(position.x + dx, position.y, position.z);
+      if (canMoveTo(nextX, items)) {
+        position.y += dy; // ONLY move if allowed
+      }
+    }
+
+
+    // Rotation (Always allowed)
     if (window.isKeyPressed(GLFW_KEY_LEFT)) this.addRotation(0, -rotateSpeed);
     if (window.isKeyPressed(GLFW_KEY_RIGHT)) this.addRotation(0, rotateSpeed);
-  }
 
-  // ... (rest of your existing methods like addRotation, updateViewMatrix, etc.)
+    updateViewMatrix();
+  }
 
   public void addRotation(float pitchChange, float yawChange) {
     pitch += pitchChange;
     yaw += yawChange;
+
+    // Clamp pitch to prevent flipping
+    if (pitch > 89.0f) pitch = 89.0f;
+    if (pitch < -89.0f) pitch = -89.0f;
+
     updateViewMatrix();
   }
 
   private void updateViewMatrix() {
-    checkPitchAndYawAmount();
+    pitch = pitch % 360;
+    yaw = yaw % 360;
 
-    // Calculate 80% height for the camera "eyes"
-    float eyeHeight = PLAYER_HEIGHT * 0.8f;
+    // Camera "eyes" are usually near the top of the player height
+    float eyeHeight = PLAYER_HEIGHT * 0.85f;
 
     viewMatrix.identity()
             .rotate((float) Math.toRadians(pitch), new Vector3f(1, 0, 0))
             .rotate((float) Math.toRadians(yaw), new Vector3f(0, 1, 0))
-            // Translate by position + the eye height offset
             .translate(-position.x, -(position.y + eyeHeight), -position.z);
 
     updateFrustum();
   }
 
-  private void checkPitchAndYawAmount() {
-    pitch = pitch % 360;
-    yaw = yaw % 360;
+  public void updateFrustum() {
+    pvMatrix.set(projectionMatrix).mul(viewMatrix);
+    frustum.set(pvMatrix);
   }
 
+  // Getters
   public Matrix4f getViewMatrix() { return viewMatrix; }
   public Matrix4f getProjectionMatrix() { return projectionMatrix; }
   public Vector3f getPosition() { return position; }
+  public FrustumIntersection getFrustum() { return frustum; }
 
   public void setPosition(float x, float y, float z, float pitch, float yaw) {
-    this.position.x = x;
-    this.position.y = y;
-    this.position.z = z;
-    this.yaw = yaw;
+    this.position.set(x, y, z);
     this.pitch = pitch;
+    this.yaw = yaw;
     updateViewMatrix();
-  }
-  public void updateFrustum() {
-    // Multiply Projection * View to get the "Clip Space" matrix
-    pvMatrix.set(getProjectionMatrix()).mul(getViewMatrix());
-    // Extract the 6 planes from the matrix
-    frustum.set(pvMatrix);
-  }
-  public FrustumIntersection getFrustum() {
-    return frustum;
   }
 }

@@ -1,5 +1,6 @@
 package org.bigacl.renderEngine.item;
 
+import org.bigacl.renderEngine.item.placeable.BasePlaceableItem;
 import org.bigacl.renderEngine.item.placeable.aparment.Aparment;
 import org.bigacl.renderEngine.item.placeable.house.House;
 import org.bigacl.renderEngine.player.BoundingBox;
@@ -64,8 +65,8 @@ public class ItemManger {
       }
 
       if (camera.getFrustum().testAab(offSetBox.minX, offSetBox.minY, offSetBox.minZ, offSetBox.maxX, offSetBox.maxY, offSetBox.maxZ)) {
-        System.out.println("Rendering apartment: " + apartmentList.indexOf(aparment));
-        offSetBox.log("Rendering apartment: ");
+        //System.out.println("Rendering apartment: " + apartmentList.indexOf(aparment));
+        //offSetBox.log("Rendering apartment: ");
         aparment.render();
       }
     }
@@ -76,5 +77,14 @@ public class ItemManger {
   }
   public ArrayList<Aparment> getApartmentList() {
     return apartmentList;
+  }
+
+  public List<BasePlaceableItem> getAllItems() {
+    List<BasePlaceableItem> allItems = new ArrayList<>();
+
+    allItems.addAll(houseList);
+    allItems.addAll(apartmentList);
+
+    return allItems;
   }
 }

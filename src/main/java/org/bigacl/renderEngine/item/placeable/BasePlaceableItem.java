@@ -141,6 +141,9 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
   // --- Interface Methods ---
   @Override
   public void place(Vector3f position, float rotation) {
+    this.worldPosition.x = position.x;
+    this.worldPosition.y = position.y;
+    this.worldPosition.z = position.z;
     this.isPlaced = true;
     loadModel();
     // 1. Calculate the total Bounding Box based on the main part size
@@ -159,6 +162,7 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
       }
     }
     // Here you would apply 'position' and 'rotation' to all meshes
+    System.out.println(name.main + " placed in world at: " + worldPosition.x + ", " + worldPosition.z);
   }
 
   @Override
@@ -214,50 +218,34 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
     }
   }
   public void setupHitbox() {
-    if (this.currentMeshes.isEmpty()) loadModel();
-
     LevelData currentData = level.get(String.valueOf(currentLevel));
     if (currentData == null || currentData.make == null) return;
 
-    // Reset bounding box
     this.boundingBox = null;
 
     for (MakeData make : currentData.make.values()) {
-      if (make.pos == null) make.pos = new XYZMatrix();
+      // IMPORTANT: Ensure we use the String ID from the JSON pointer
+      BaseModelParts part = baseModel.get(make.item.id);
 
-      BaseModelParts part = baseModel.get(String.valueOf(make.item.id));
-      if (part == null) continue;
+      if (part == null) {
+        System.err.println("Hitbox Error: Could not find part ID " + make.item.id + " in baseModel!");
+        continue;
+      }
 
       SeparatePartsLink link = part.separateParts.get(make.item.type);
       if (link != null && link.size != null) {
         BoundingBox partBox = getBoundingBox(make, link);
-
-        // 3. Merge logic
         if (this.boundingBox == null) {
-          // Initialize the box with the first part's values
           this.boundingBox = new BoundingBox(partBox.minX, partBox.maxX, partBox.minY, partBox.maxY, partBox.minZ, partBox.maxZ);
         } else {
           this.boundingBox.merge(partBox);
         }
       }
     }
-  }
 
-  private static @NotNull BoundingBox getBoundingBox(MakeData make, SeparatePartsLink link) {
-    XYZMatrix origin = (link.origin != null) ? link.origin : new XYZMatrix();
-
-    // 1. Calculate the Part's Anchor Point in World Space
-    // We apply the Blender -> Java swap here.
-    Vector3f partAnchor = new Vector3f(
-            make.pos.x - origin.x,
-            make.pos.z - origin.z, // Blender Z is Height (Y)
-            -make.pos.y + origin.y // Blender Y is Depth (-Z)
-    );
-
-    // 2. Create the box for this part
-    // We pass the anchor and the size (which needs swapping too!)
-    BoundingBox partBox = new BoundingBox(partAnchor, link.size);
-    return partBox;
+    if (this.boundingBox != null) {
+      System.out.println("Final Hitbox for " + name.main + ": Y=" + boundingBox.minY + " to " + boundingBox.maxY);
+    }
   }
 
   public BoundingBox getBoundingBox() {
@@ -272,6 +260,21 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
       return new BoundingBox(worldPosition, new XYZMatrix());
     }
     return boundingBox;
+  }
+  private static @NotNull BoundingBox getBoundingBox(MakeData make, SeparatePartsLink link) {
+    // If "pos" is missing in JSON, create a default (0,0,0) so it doesn't crash
+    XYZMatrix pos = (make.pos != null) ? make.pos : new XYZMatrix();
+    XYZMatrix origin = (link.origin != null) ? link.origin : new XYZMatrix();
+
+    // Map Blender -> Java Y (Height)
+    // Blender Z is height, Blender Y is depth (-Z)
+    Vector3f partAnchor = new Vector3f(
+            pos.x - origin.x,
+            pos.z - origin.z,
+            -pos.y + origin.y
+    );
+
+    return new BoundingBox(partAnchor, link.size);
   }
 
   public BoundingBox getBoundingBoxOffSet() {

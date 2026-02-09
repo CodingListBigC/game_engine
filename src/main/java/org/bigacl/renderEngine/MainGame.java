@@ -87,7 +87,7 @@ public class MainGame implements IGameLogic {
         itemManger.addItem(house);
       }
     }
-    camera.CameraInput(window, moveSpeed, rotateSpeed, this.itemManger.getHouseList());
+    camera.CameraInput(window, moveSpeed, rotateSpeed, this.itemManger.getAllItems());
   }
 
   @Override
