@@ -65,7 +65,7 @@ public class ItemManger {
 
       if (camera.getFrustum().testAab(offSetBox.minX, offSetBox.minY, offSetBox.minZ, offSetBox.maxX, offSetBox.maxY, offSetBox.maxZ)) {
         System.out.println("Rendering apartment: " + apartmentList.indexOf(aparment));
-        offSetBox.log("Rendering apratment: ");
+        offSetBox.log("Rendering apartment: ");
         aparment.render();
       }
     }

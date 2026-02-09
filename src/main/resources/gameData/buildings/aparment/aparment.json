@@ -23,7 +23,12 @@
         "DF": {
           "name": "Sides front and back",
           "model": "level_1/roof.obj",
-          "texture": "level_1/roof.png"
+          "texture": "level_1/roof.png",
+          "size": {
+            "x": 2,
+            "y": 2,
+            "z": 2
+          }
         }
       }
     },
@@ -34,7 +39,12 @@
         "DF": {
           "name": "Sides front and back",
           "model": "level_1/center.obj",
-          "texture": "level_1/center.png"
+          "texture": "level_1/center.png",
+          "size": {
+            "x": 2,
+            "y": 2,
+            "z": 1
+          }
         }
       }
     }
