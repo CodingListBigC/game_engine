@@ -13,7 +13,9 @@ public class ShaderMaster {
   public ShaderMaster(String vertexShaderPath, String fragmentShaderPath) {
     this.shaderLoader = new ShaderLoader(vertexShaderPath, fragmentShaderPath);
   }
-
+  public ShaderMaster(){
+    this.shaderLoader = new ShaderLoader("shaders/vertex.glsl", "shaders/fragment.glsl");
+  }
   public void bind() {
     shaderLoader.use();
   }

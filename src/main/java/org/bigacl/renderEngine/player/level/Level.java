@@ -1,12 +1,6 @@
 package org.bigacl.renderEngine.player.level;
 
-import com.google.gson.Gson;
-import org.bigacl.renderEngine.Launcher;
-
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.Map;
+import org.bigacl.test.launcher.MainLauncher;
 
 public class Level {
   private int amountOfExperience = 0;
@@ -14,7 +8,7 @@ public class Level {
   private final MainLevel mainLevel;
 
   public Level(MainLevel mainLevel) {
-    this.mainLevel = Launcher.getMainLevel();
+    this.mainLevel = MainLauncher.getMainLevel();
   }
 
   public int getAmountOfExperience() {

@@ -1,6 +1,6 @@
 package org.bigacl.renderEngine.player;
 
-import org.bigacl.renderEngine.Launcher;
+import org.bigacl.test.launcher.MainLauncher;
 import org.bigacl.renderEngine.player.level.Level;
 import org.joml.Vector3f;
 
@@ -37,6 +37,6 @@ public class PlayerStats {
   public int getMoney() { return money; }
   public Level getLevel() {
     if (level == null){
-    return new Level(Launcher.getMainLevel());
+    return new Level(MainLauncher.getMainLevel());
   }return level; }
 }

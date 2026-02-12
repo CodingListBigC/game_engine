@@ -2,6 +2,7 @@ package org.bigacl.renderEngine.camera;
 
 import org.bigacl.renderEngine.item.placeable.BasePlaceableItem;
 import org.bigacl.renderEngine.player.BoundingBox;
+import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.bigacl.renderEngine.window.WindowMaster;
 import org.joml.FrustumIntersection;
 import org.joml.Matrix4f;
@@ -20,11 +21,12 @@ public class Camera {
 
   // Player dimensions
   private final float PLAYER_WIDTH = 0.6f;
+  private final float PLAYER_DEPTH = 0.6f;
   private final float PLAYER_HEIGHT = 1.8f;
 
   // Frustum and Matrix calculations
-  private FrustumIntersection frustum;
-  private Matrix4f pvMatrix = new Matrix4f();
+  private final FrustumIntersection frustum;
+  private final Matrix4f pvMatrix = new Matrix4f();
 
   public Camera(int width, int height) {
     // Start position (Feet level)
@@ -45,6 +47,10 @@ public class Camera {
     updateViewMatrix();
   }
 
+  public Camera() {
+    this(ClassConst.window.getWidth(), ClassConst.window.getHeight());
+  }
+
   /**
    * Checks if the player's hitbox would intersect any items at the target position.
    */
@@ -53,8 +59,8 @@ public class Camera {
 
     // Define player size for the hitbox (X=Width, Y=Height, Z=Depth)
     BasePlaceableItem.XYZMatrix playerSize = new BasePlaceableItem.XYZMatrix();
-    playerSize.x = PLAYER_WIDTH;
-    playerSize.y = PLAYER_WIDTH; // Depth
+    playerSize.x = PLAYER_WIDTH; // Width
+    playerSize.y = PLAYER_DEPTH; // Depth
     playerSize.z = PLAYER_HEIGHT; // Height
 
     // Create a world-space hitbox for the player at the proposed location
@@ -63,8 +69,6 @@ public class Camera {
     for (BasePlaceableItem item : items) {
       // Get the item's current world-space bounding box
       BoundingBox itemWorldBox = item.getBoundingBoxOffSet();
-
-
       if (itemWorldBox != null) {
         // DEBUG: Only print when close to the building to avoid spam
         if (targetPos.distance(item.getWorldPosition()) < 3.0f) {

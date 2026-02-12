@@ -1,6 +1,6 @@
 package org.bigacl.renderEngine.mesh;
 
-import org.bigacl.renderEngine.Launcher;
+import org.bigacl.test.launcher.MainLauncher;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
 import org.bigacl.renderEngine.texture.Texture;
 import org.joml.Matrix4f;
@@ -57,7 +57,7 @@ public class Mesh {
 
   public void render() {
     // 1. Get the shader instance
-    ShaderMaster shader = Launcher.getShaderMaster();
+    ShaderMaster shader = MainLauncher.getShaderMaster();
 
     // 2. Safety Check
     if (shader == null) {

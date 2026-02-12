@@ -42,7 +42,7 @@ public class MainGame implements IGameLogic {
   private final NanoVGUI gui;
   private final MainHud mainHud;
 
-  MainGame() {
+  public MainGame() {
     this.window = ClassConst.window;
     this.shader3d = ClassConst.shader3d;
     this.itemManger = ClassConst.itemManger;

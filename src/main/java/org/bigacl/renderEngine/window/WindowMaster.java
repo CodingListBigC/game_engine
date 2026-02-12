@@ -1,6 +1,6 @@
 package org.bigacl.renderEngine.window;
 
-import org.bigacl.renderEngine.logic.IGameLogic;
+import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.bigacl.renderEngine.utils.consts.Const;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL;
@@ -50,7 +50,7 @@ public class WindowMaster {
     glEnable(GL_DEPTH_TEST);
     glDisable(GL_CULL_FACE);
   }
-  public void loop(IGameLogic gameLogic) {
+  public void loop() {
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
     float lastTime = (float) glfwGetTime();
@@ -62,9 +62,9 @@ public class WindowMaster {
 
       glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-      gameLogic.input();
-      gameLogic.update(delta);
-      gameLogic.render();
+      ClassConst.game.input();
+      ClassConst.game.update(delta);
+      ClassConst.game.render();
 
       glfwSwapBuffers(window);
       glfwPollEvents();

@@ -1,5 +1,6 @@
-package org.bigacl.renderEngine;
+package org.bigacl.test.launcher;
 
+import org.bigacl.renderEngine.MainGame;
 import org.bigacl.renderEngine.camera.Camera;
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
 import org.bigacl.renderEngine.item.ItemManger;
@@ -12,33 +13,26 @@ import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.bigacl.renderEngine.window.WindowMaster;
 import org.joml.Vector3f;
 
-public class Launcher {
+public class MainLauncher {
   private static  ShaderMaster shaderMaster;
   private static final MainLevel mainLevel = new MainLevel();
-  public static void main(String[] args) {
+  static void main(String[] args) {
     // Window Init
-    WindowMaster window = new WindowMaster();
-    window.init();
+    WindowMaster window = ClassConst.window;
 
-    // Shader Init
-    shaderMaster = new ShaderMaster("shaders/vertex.glsl", "shaders/fragment.glsl");
+    shaderMaster = ClassConst.shader3d;
     House house = new House();
 
     // Item Manger Iit
-    ItemManger itemManger = new ItemManger();
+    ItemManger itemManger = ClassConst.itemManger;
     itemManger.addItem(house);
     Aparment aparment = new Aparment();
     aparment.place(new Vector3f(10,0,10), 0);
     itemManger.addItem(aparment);
     NanoVGUI nanoVGUI = new NanoVGUI();
-
-
-    IGameLogic gameLogic = null;
-    new ClassConst(gameLogic, shaderMaster, nanoVGUI, itemManger, window,new Camera(window.getWidth(), window.getHeight()));
-    gameLogic = new MainGame();
     NanoVGUI NanoVGUI = new NanoVGUI();
     // Render loop
-    window.loop(gameLogic);
+    window.loop();
 
     // Cleanup
     house.cleanup();

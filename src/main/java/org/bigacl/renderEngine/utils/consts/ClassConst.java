@@ -1,5 +1,6 @@
 package org.bigacl.renderEngine.utils.consts;
 
+import org.bigacl.renderEngine.MainGame;
 import org.bigacl.renderEngine.camera.Camera;
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
 import org.bigacl.renderEngine.item.ItemManger;
@@ -37,21 +38,16 @@ public class ClassConst {
    *  The Main Camera for game
    */
   public static Camera camera;
-  /**
-   *
-   * @param game
-   * @param shader3d
-   * @param nanoVGUI
-   * @param itemManger
-   * @param window
-   * @param camera
-   */
-  public ClassConst(IGameLogic game, ShaderMaster shader3d, NanoVGUI nanoVGUI, ItemManger itemManger, WindowMaster window, Camera camera) {
-    ClassConst.game = game;
-    ClassConst.shader3d = shader3d;
-    ClassConst.nanoVGUI = nanoVGUI;
-    ClassConst.itemManger = itemManger;
-    ClassConst.window = window;
-    ClassConst.camera = camera;
+
+  static {
+    window = new WindowMaster();
+    window.init();
+
+    camera = new Camera();
+    shader3d = new ShaderMaster();
+    nanoVGUI = new NanoVGUI();
+    itemManger = new ItemManger();
+
+    game = new MainGame();
   }
 }
