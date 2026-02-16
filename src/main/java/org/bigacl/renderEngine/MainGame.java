@@ -2,6 +2,7 @@ package org.bigacl.renderEngine;
 
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
 import org.bigacl.renderEngine.gui.menu.MainHud;
+import org.bigacl.renderEngine.gui.menu.MasterHud;
 import org.bigacl.renderEngine.item.ItemManger;
 import org.bigacl.renderEngine.item.grid.GridUtils;
 import org.bigacl.renderEngine.item.placeable.house.House;
@@ -13,6 +14,7 @@ import org.bigacl.renderEngine.player.Player;
 import org.bigacl.renderEngine.player.inputs.mouse.MouseRayCast;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
+import org.bigacl.renderEngine.utils.timer.ClickTimer;
 import org.bigacl.renderEngine.window.WindowMaster;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -37,10 +39,12 @@ public class MainGame implements IGameLogic {
 
   private double lastPlacementTime = 0;
   private int PLACEMENT_COOLDOWN = 1;
+  private final ClickTimer placeItemTimer = new ClickTimer(1.0f);
+  private final ClickTimer debugInputTimer = new ClickTimer(1.0f);
 
   // HUD Variables;
   private final NanoVGUI gui;
-  private final MainHud mainHud;
+  private final MasterHud masterHud;
 
   public MainGame() {
     this.window = ClassConst.window;
@@ -53,7 +57,7 @@ public class MainGame implements IGameLogic {
     // HUd setup
     this.gui = ClassConst.nanoVGUI;
     this.gui.init();
-    this.mainHud = new MainHud(this, this.gui);
+    this.masterHud = ClassConst.masterHud;;
 
     //Player Setup
     this.player = new Player("Bigacl", "Christian", new Vector3f(1.0f, 0.0f, 0.0f));
@@ -61,6 +65,7 @@ public class MainGame implements IGameLogic {
 
   @Override
   public void input() {
+    double currentTime = glfwGetTime();
     float moveSpeed = 0.02f;
     float rotateSpeed = 2.0f;
     if (window.isKeyPressed(GLFW_KEY_LEFT_CONTROL)) {
@@ -70,11 +75,8 @@ public class MainGame implements IGameLogic {
       player.addExperience(1);
     }
     if (window.isKeyPressed(GLFW_KEY_H)) {
-      double currentTime = glfwGetTime();
-      if (currentTime - lastPlacementTime >= PLACEMENT_COOLDOWN) {
+      if (placeItemTimer.checkTimer(currentTime)) {
         Vector3f hitPoint = MouseRayCast.getRaycastPosition();
-        lastPlacementTime = currentTime;
-
         assert hitPoint != null;
         System.out.println("Summon House At: " + hitPoint.x+", " + hitPoint.y + ", " + hitPoint.z);
         // 1. Snap the hit point to your grid
@@ -127,7 +129,7 @@ public class MainGame implements IGameLogic {
 
   @Override
   public void renderHud() {
-    mainHud.renderAll(player);
+    MasterHud.render(player);
   }
 
   @Override

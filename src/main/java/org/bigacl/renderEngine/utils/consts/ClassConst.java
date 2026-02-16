@@ -2,7 +2,9 @@ package org.bigacl.renderEngine.utils.consts;
 
 import org.bigacl.renderEngine.MainGame;
 import org.bigacl.renderEngine.camera.Camera;
+import org.bigacl.renderEngine.gui.font.FontSizing;
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
+import org.bigacl.renderEngine.gui.menu.MasterHud;
 import org.bigacl.renderEngine.item.ItemManger;
 import org.bigacl.renderEngine.logic.IGameLogic;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
@@ -39,6 +41,11 @@ public class ClassConst {
    */
   public static Camera camera;
 
+  /**
+   * Default Size
+   */
+  public static FontSizing fontSizing;
+  public static MasterHud masterHud;
   static {
     window = new WindowMaster();
     window.init();
@@ -47,7 +54,10 @@ public class ClassConst {
     shader3d = new ShaderMaster();
     nanoVGUI = new NanoVGUI();
     itemManger = new ItemManger();
+    fontSizing = new FontSizing(16);
 
     game = new MainGame();
+
+    masterHud = new MasterHud(game);
   }
 }

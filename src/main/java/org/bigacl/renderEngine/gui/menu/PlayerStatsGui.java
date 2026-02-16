@@ -2,6 +2,7 @@ package org.bigacl.renderEngine.gui.menu;
 
 import org.bigacl.renderEngine.MainGame;
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
+import org.bigacl.renderEngine.logic.IGameLogic;
 import org.bigacl.renderEngine.player.Player;
 import org.bigacl.renderEngine.player.PlayerStats;
 import org.bigacl.renderEngine.player.level.Level;
@@ -10,11 +11,11 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 public class PlayerStatsGui {
-  private final MainGame mainGame;
+  private final IGameLogic game;
   private final NanoVGUI nanoVGUI;
 
-  public PlayerStatsGui(MainGame mainGame, NanoVGUI nanoVGUI) {
-    this.mainGame = mainGame;
+  public PlayerStatsGui(IGameLogic game, NanoVGUI nanoVGUI) {
+    this.game = game;
     this.nanoVGUI = nanoVGUI;
   }
 

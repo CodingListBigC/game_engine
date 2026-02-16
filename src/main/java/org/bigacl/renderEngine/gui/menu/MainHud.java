@@ -2,23 +2,26 @@ package org.bigacl.renderEngine.gui.menu;
 
 import org.bigacl.renderEngine.MainGame;
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
+import org.bigacl.renderEngine.logic.IGameLogic;
 import org.bigacl.renderEngine.player.Player;
+import org.bigacl.renderEngine.utils.consts.ClassConst;
 
 public class MainHud {
   // MainGame Variables Get
-  private final MainGame mainGame;
+  private final IGameLogic game;
   private final NanoVGUI nanoVGUI;
 
   // Status Variables
-  private boolean debugMenuStatus = false;
+  private boolean debugMenuStatus = true;
 
   // Ui Menu Varaible
   private final PlayerStatsGui playerStatsGui;
+  private final DebugMenu debugMenu = new DebugMenu();
 
-  public MainHud(MainGame mainGame, NanoVGUI nanoVGUI) {
-    this.mainGame = mainGame;
-    this.nanoVGUI = nanoVGUI;
-    this.playerStatsGui = new PlayerStatsGui(this.mainGame, this.nanoVGUI);
+  public MainHud(IGameLogic thisGame) {
+    this.game = thisGame;
+    this.nanoVGUI = ClassConst.nanoVGUI;
+    this.playerStatsGui = new PlayerStatsGui(this.game, this.nanoVGUI);
   }
   public void toogleDebugMenu(){
     // Flips debugMenuStatus
@@ -27,7 +30,7 @@ public class MainHud {
 
   public void renderAll(Player player){
     if (debugMenuStatus){
-      // TODO: Add debug Menu here
+      debugMenu.renderMenu();
       return;
     }
     playerStatsGui.renderStats(player);
