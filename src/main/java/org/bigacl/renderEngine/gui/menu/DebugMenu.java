@@ -38,7 +38,7 @@ public class DebugMenu {
 
       // Use String.format to handle that scientific notation comfortably
       // %.2f turns 4.000E+0 into a clean "4.00"
-      System.out.println(pos);
+
       cameraInfo.updateInfo(2, String.format("%.2f", pos.x));
       cameraInfo.updateInfo(3, String.format("%.2f", pos.y));
       cameraInfo.updateInfo(4, String.format("%.2f", pos.z));
