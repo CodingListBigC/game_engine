@@ -3,6 +3,7 @@ package org.bigacl.renderEngine.camera;
 import org.bigacl.renderEngine.item.placeable.BasePlaceableItem;
 import org.bigacl.renderEngine.player.BoundingBox;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
+import org.bigacl.renderEngine.utils.number.NumberLimits;
 import org.bigacl.renderEngine.window.WindowMaster;
 import org.joml.FrustumIntersection;
 import org.joml.Matrix4f;
@@ -13,8 +14,8 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class Camera {
   private final Vector3f position;
-  private float pitch;
-  private float yaw;
+  private final NumberLimits pitch = new NumberLimits(90,0,false);
+  private final NumberLimits yaw =  new NumberLimits(0,360,0);;
 
   private final Matrix4f viewMatrix;
   private final Matrix4f projectionMatrix;
@@ -31,8 +32,6 @@ public class Camera {
   public Camera(int width, int height) {
     // Start position (Feet level)
     position = new Vector3f(0, 0, 5);
-    pitch = 0;
-    yaw = 0;
     viewMatrix = new Matrix4f();
     projectionMatrix = new Matrix4f();
 
@@ -95,20 +94,20 @@ public class Camera {
 
     // 1. Calculate the INTENDED movement (relative to where you are looking)
     if (window.isKeyPressed(GLFW_KEY_W)) {
-      dx += (float) Math.sin(Math.toRadians(yaw)) * moveSpeed;
-      dz -= (float) Math.cos(Math.toRadians(yaw)) * moveSpeed;
+      dx += (float) Math.sin(Math.toRadians(yaw.getValue())) * moveSpeed;
+      dz -= (float) Math.cos(Math.toRadians(yaw.getValue())) * moveSpeed;
     }
     if (window.isKeyPressed(GLFW_KEY_S)) {
-      dx -= (float) Math.sin(Math.toRadians(yaw)) * moveSpeed;
-      dz += (float) Math.cos(Math.toRadians(yaw)) * moveSpeed;
+      dx -= (float) Math.sin(Math.toRadians(yaw.getValue())) * moveSpeed;
+      dz += (float) Math.cos(Math.toRadians(yaw.getValue())) * moveSpeed;
     }
     if (window.isKeyPressed(GLFW_KEY_A)) {
-      dx -= (float) Math.cos(Math.toRadians(yaw)) * moveSpeed;
-      dz -= (float) Math.sin(Math.toRadians(yaw)) * moveSpeed;
+      dx -= (float) Math.cos(Math.toRadians(yaw.getValue())) * moveSpeed;
+      dz -= (float) Math.sin(Math.toRadians(yaw.getValue())) * moveSpeed;
     }
     if (window.isKeyPressed(GLFW_KEY_D)) {
-      dx += (float) Math.cos(Math.toRadians(yaw)) * moveSpeed;
-      dz += (float) Math.sin(Math.toRadians(yaw)) * moveSpeed;
+      dx += (float) Math.cos(Math.toRadians(yaw.getValue())) * moveSpeed;
+      dz += (float) Math.sin(Math.toRadians(yaw.getValue())) * moveSpeed;
     }
     if (window.isKeyPressed(GLFW_KEY_SPACE)){
       dy += (float) moveSpeed;
@@ -146,33 +145,26 @@ public class Camera {
     // Rotation (Always allowed)
     if (window.isKeyPressed(GLFW_KEY_LEFT)) this.addRotation(0, -rotateSpeed);
     if (window.isKeyPressed(GLFW_KEY_RIGHT)) this.addRotation(0, rotateSpeed);
-    if (window.isKeyPressed(GLFW_KEY_UP)) this.addRotation(-rotateSpeed,0);
-    if (window.isKeyPressed(GLFW_KEY_DOWN)) this.addRotation(rotateSpeed,0);
+    if (window.isKeyPressed(GLFW_KEY_UP)) this.addRotation(rotateSpeed,0);
+    if (window.isKeyPressed(GLFW_KEY_DOWN)) this.addRotation(-rotateSpeed,0);
 
     updateViewMatrix();
   }
 
   public void addRotation(float pitchChange, float yawChange) {
-    pitch += pitchChange;
-    yaw += yawChange;
-
-    // Clamp pitch to prevent flipping
-    if (pitch > 89.0f) pitch = 89.0f;
-    if (pitch < -89.0f) pitch = -89.0f;
+    pitch.add(pitchChange);
+    yaw.add(yawChange);
 
     updateViewMatrix();
   }
 
   private void updateViewMatrix() {
-    pitch = pitch % 360;
-    yaw = yaw % 360;
-
     // Camera "eyes" are usually near the top of the player height
     float eyeHeight = PLAYER_HEIGHT * 0.85f;
 
     viewMatrix.identity()
-            .rotate((float) Math.toRadians(pitch), new Vector3f(1, 0, 0))
-            .rotate((float) Math.toRadians(yaw), new Vector3f(0, 1, 0))
+            .rotate((float) Math.toRadians(-pitch.getValue()), new Vector3f(1, 0, 0))
+            .rotate((float) Math.toRadians(yaw.getValue()), new Vector3f(0, 1, 0))
             .translate(-position.x, -(position.y + eyeHeight), -position.z);
 
     updateFrustum();
@@ -191,16 +183,16 @@ public class Camera {
 
   public void setPosition(float x, float y, float z, float pitch, float yaw) {
     this.position.set(x, y, z);
-    this.pitch = pitch;
-    this.yaw = yaw;
+    this.pitch.setValue((int)pitch);
+    this.yaw.setValue((int)yaw);
     updateViewMatrix();
   }
 
   public float getPitch() {
-    return pitch;
+    return pitch.getValue();
   }
 
   public float getYaw() {
-    return yaw;
+    return yaw.getValue();
   }
 }

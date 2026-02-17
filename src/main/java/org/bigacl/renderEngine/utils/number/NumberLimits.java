@@ -7,15 +7,22 @@ public class NumberLimits {
   private float currentValue;
   private boolean canLoop = true;
 
-  public NumberLimits(int max, int min, int currentValue) {
+  public NumberLimits(int min, int max, int currentValue) {
     this.max = max;
     this.min = min;
     this.difference = this.max - this.min;
     this.currentValue = currentValue;
   }
 
-  public NumberLimits(int max, int min, int currentValue, boolean canLoop) {
-    this(max, min, currentValue);
+  public NumberLimits(int min, int max, int currentValue, boolean canLoop) {
+    this(min,max, currentValue);
+    this.canLoop = canLoop;
+  }
+  public NumberLimits(int minAndMax, int currentValue){
+    this(-minAndMax, minAndMax,currentValue);
+  }
+  public NumberLimits(int minAndMax, int currentValue, boolean canLoop){
+    this(-minAndMax, minAndMax,currentValue);
     this.canLoop = canLoop;
   }
 
@@ -33,6 +40,10 @@ public class NumberLimits {
     this.checkLimits();
   }
 
+  public void subtract(float addBy) {
+    this.currentValue -= addBy;
+    this.checkLimits();
+  }
   private void checkLimits() {
     if (this.canLoop) {
       checkLimitsLoop();
@@ -54,6 +65,17 @@ public class NumberLimits {
       this.currentValue = this.max;
     } else if (this.currentValue < this.min) {
       this.currentValue = this.min;
+    }
+  }
+
+  public float getValue() {
+    return currentValue;
+  }
+
+  public void setValue(int pitch) {
+    this.currentValue = pitch;
+    while (!(this.currentValue >= min && this.currentValue <= max)){
+      checkLimits();
     }
   }
 }
