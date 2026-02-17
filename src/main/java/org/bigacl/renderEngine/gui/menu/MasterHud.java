@@ -2,7 +2,6 @@ package org.bigacl.renderEngine.gui.menu;
 
 import org.bigacl.renderEngine.logic.IGameLogic;
 import org.bigacl.renderEngine.player.Player;
-import org.bigacl.renderEngine.utils.consts.ClassConst;
 
 public class MasterHud {
   private static MainHud mainHud = null;
@@ -21,6 +20,6 @@ public class MasterHud {
     }
   }
   public void toggleDebug(){
-    debugMenu.toogleStats();
+    debugMenu.toggleStatus();
   }
 }

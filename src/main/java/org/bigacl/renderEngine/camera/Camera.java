@@ -193,4 +193,12 @@ public class Camera {
     this.yaw = yaw;
     updateViewMatrix();
   }
+
+  public float getPitch() {
+    return pitch;
+  }
+
+  public float getYaw() {
+    return yaw;
+  }
 }

@@ -1,0 +1,52 @@
+package org.bigacl.renderEngine.gui.text;
+
+import org.bigacl.renderEngine.gui.font.NanoVGUI;
+import org.bigacl.renderEngine.utils.consts.ClassConst;
+import org.joml.Vector2f;
+import org.joml.Vector3f;
+
+public class Text {
+  private String text;
+  private int type;
+  private Vector2f size = new Vector2f(0,0);
+
+  public Text(String text, int type) {
+    this.text = text;
+    this.type = type;
+  }
+
+  public Vector2f getSize(){
+    if (size.x == 0 && text != null && !text.isEmpty()) {
+      updateSize();
+    }else if(this.size.y <= 0){
+      updateSize();
+    }
+    return size;
+  }
+  public Vector2f getSize(boolean update){
+    if (update){
+      this.updateSize();
+    }
+    return this.getSize();
+  }
+
+  public void updateSize() {
+    float sizeVal = ClassConst.fontSizing.getFontSize(type);
+    this.size.x = ClassConst.nanoVGUI.getTextWidth(text, sizeVal);
+    this.size.y = ClassConst.fontSizing.getStandardHeight(ClassConst.nanoVGUI.getVg(), type);
+    if (this.size.y <= 0) {
+      this.size.y = this.size.y * -1;
+    }
+  }
+  public void render(Vector2f position, Vector3f color){
+    ClassConst.nanoVGUI.drawText(text,ClassConst.fontSizing.getFontSize(type),position,color);
+  }
+
+  public float getHeight() {
+    return size.y;
+  }
+
+  public void setText(String displayString) {
+    this.text = displayString;
+  }
+}
