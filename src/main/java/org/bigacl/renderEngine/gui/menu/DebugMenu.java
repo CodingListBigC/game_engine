@@ -42,6 +42,8 @@ public class DebugMenu {
       cameraInfo.updateInfo(2, String.format("%.2f", pos.x));
       cameraInfo.updateInfo(3, String.format("%.2f", pos.y));
       cameraInfo.updateInfo(4, String.format("%.2f", pos.z));
+      cameraInfo.updateInfo(6, String.format("%.2f", cam.getPitch()));
+      cameraInfo.updateInfo(7, String.format("%.2f", cam.getYaw()));
     }
   }
 

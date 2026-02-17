@@ -146,6 +146,8 @@ public class Camera {
     // Rotation (Always allowed)
     if (window.isKeyPressed(GLFW_KEY_LEFT)) this.addRotation(0, -rotateSpeed);
     if (window.isKeyPressed(GLFW_KEY_RIGHT)) this.addRotation(0, rotateSpeed);
+    if (window.isKeyPressed(GLFW_KEY_UP)) this.addRotation(-rotateSpeed,0);
+    if (window.isKeyPressed(GLFW_KEY_DOWN)) this.addRotation(rotateSpeed,0);
 
     updateViewMatrix();
   }
