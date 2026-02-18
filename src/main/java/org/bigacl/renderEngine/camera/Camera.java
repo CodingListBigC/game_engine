@@ -7,6 +7,7 @@ import org.bigacl.renderEngine.utils.number.NumberLimits;
 import org.bigacl.renderEngine.window.WindowMaster;
 import org.joml.FrustumIntersection;
 import org.joml.Matrix4f;
+import org.joml.Vector2f;
 import org.joml.Vector3f;
 import java.util.List;
 
@@ -14,6 +15,8 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class Camera {
   private final Vector3f position;
+  private final Vector3f resetPosition;
+  private final Vector2f resetAngle;
   private final NumberLimits pitch = new NumberLimits(90,0,false);
   private final NumberLimits yaw =  new NumberLimits(0,360,0);;
 
@@ -32,6 +35,8 @@ public class Camera {
   public Camera(int width, int height) {
     // Start position (Feet level)
     position = new Vector3f(0, 0, 5);
+    this.resetPosition = new Vector3f(this.position);
+    this.resetAngle = new Vector2f(pitch.getValue(), yaw.getValue());
     viewMatrix = new Matrix4f();
     projectionMatrix = new Matrix4f();
 
@@ -195,4 +200,21 @@ public class Camera {
   public float getYaw() {
     return yaw.getValue();
   }
+  public void resetCurrentPosition(){
+    this.position.x = this.resetPosition.x;
+    this.position.y = this.resetPosition.y;
+    this.position.z = this.resetPosition.z;
+    this.pitch.setValue((int) this.resetAngle.x);
+    this.yaw.setValue((int) this.resetAngle.y);
+    updateViewMatrix();
+  }
+  public void setPositionReset(float x, float y, float z, float pitch, float yaw){
+    this.resetPosition.set(x,y,z);
+    this.resetAngle.set(pitch, yaw);
+  }
+  public void setFullPositionReset(float x, float y, float z, float pitch, float yaw){
+    this.setPositionReset(x,y,z,pitch,yaw);
+    resetCurrentPosition();
+  }
+
 }

@@ -54,7 +54,7 @@ public class MainGame implements IGameLogic {
     this.shader3d = ClassConst.shader3d;
     this.itemManger = ClassConst.itemManger;
     this.camera = ClassConst.camera;
-    this.camera.setPosition(0.0f, 4.0f, 3.25f, -50.0f, 0.0f);
+    this.camera.setFullPositionReset(0.0f, 4.0f, 3.25f, -50.0f, 0.0f);
     this.ground = OBJLoader.loadOBJ("models/plane.obj");
     this.ground.setColor(0.004f, 0.05f, 0.0f);
     // HUd setup
