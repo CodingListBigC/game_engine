@@ -1,6 +1,5 @@
 package org.bigacl.renderEngine.gui.menu;
 
-import org.bigacl.renderEngine.MainGame;
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
 import org.bigacl.renderEngine.logic.IGameLogic;
 import org.bigacl.renderEngine.player.Player;
@@ -41,16 +40,16 @@ public class PlayerStatsGui {
     Vector3f whiteColor = new Vector3f(1.0f, 1.0f, 1.0f);
 
     // Draw items
-    nanoVGUI.drawIconWithText("", stats.getUsername(), startPos, 0, iconSize, itemSize, whiteColor);
-    nanoVGUI.drawIconWithText("\uF0D6", "Money: " + stats.getMoney(), startPos, 1, iconSize, itemSize, whiteColor);
-    nanoVGUI.drawIconWithText("", "Level: " + stats.getLevel().getCurrentLevel(), startPos, 2, iconSize, itemSize, whiteColor);
-    nanoVGUI.drawIconWithText("", "XP: " + stats.getLevel().getAmountOfExperience(), startPos, 3, iconSize, itemSize, whiteColor);
+    nanoVGUI.drawIconWithText("", stats.username(), startPos, 0, iconSize, itemSize, whiteColor);
+    nanoVGUI.drawIconWithText("\uF0D6", "Money: " + stats.money(), startPos, 1, iconSize, itemSize, whiteColor);
+    nanoVGUI.drawIconWithText("", "Level: " + stats.level().getCurrentLevel(), startPos, 2, iconSize, itemSize, whiteColor);
+    nanoVGUI.drawIconWithText("", "XP: " + stats.level().getAmountOfExperience(), startPos, 3, iconSize, itemSize, whiteColor);
 
     // Render level progress bar
     renderLevelSettings(
             HUDFunctions.hudItemPos(new Vector2f(startPos.x, startPos.y), 4, (int) itemSize),
             new Vector2f(boxWidth - (Const.PADDING * 2), 30),
-            stats.getLevel()
+            stats.level()
     );
   }
 

@@ -7,6 +7,7 @@ import org.bigacl.renderEngine.gui.font.NanoVGUI;
 import org.bigacl.renderEngine.gui.menu.MasterHud;
 import org.bigacl.renderEngine.item.ItemManger;
 import org.bigacl.renderEngine.logic.IGameLogic;
+import org.bigacl.renderEngine.player.level.MainLevel;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
 import org.bigacl.renderEngine.window.WindowMaster;
 
@@ -46,6 +47,7 @@ public class ClassConst {
    */
   public static FontSizing fontSizing;
   public static MasterHud masterHud;
+  public static MainLevel mainLevel;
   static {
     window = new WindowMaster();
     window.init();
@@ -55,7 +57,7 @@ public class ClassConst {
     nanoVGUI = new NanoVGUI();
     itemManger = new ItemManger();
     fontSizing = new FontSizing(16);
-
+    mainLevel = new MainLevel();
     game = new MainGame();
 
     masterHud = new MasterHud(game);

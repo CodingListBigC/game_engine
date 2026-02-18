@@ -16,7 +16,8 @@ import org.joml.Vector3f;
 public class MainLauncher {
   private static  ShaderMaster shaderMaster;
   private static final MainLevel mainLevel = new MainLevel();
-  static void main(String[] args) {
+
+  public static void main(String[] args) {
     // Window Init
     WindowMaster window = ClassConst.window;
 
@@ -38,14 +39,5 @@ public class MainLauncher {
     house.cleanup();
     shaderMaster.cleanup();
     window.cleanup();
-  }
-
-
-  public static ShaderMaster getShaderMaster() {
-    return shaderMaster;
-  }
-
-  public static MainLevel getMainLevel() {
-    return mainLevel;
   }
 }

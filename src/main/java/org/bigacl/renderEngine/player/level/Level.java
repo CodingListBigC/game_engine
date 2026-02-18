@@ -1,5 +1,6 @@
 package org.bigacl.renderEngine.player.level;
 
+import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.bigacl.test.launcher.MainLauncher;
 
 public class Level {
@@ -7,8 +8,8 @@ public class Level {
   private int currentLevel = 0;
   private final MainLevel mainLevel;
 
-  public Level(MainLevel mainLevel) {
-    this.mainLevel = MainLauncher.getMainLevel();
+  public Level() {
+    this.mainLevel = ClassConst.mainLevel;
   }
 
   public int getAmountOfExperience() {
