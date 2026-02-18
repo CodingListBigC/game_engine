@@ -27,6 +27,8 @@ public class ModelDesignLauncher {
     NanoVGUI NanoVGUI = new NanoVGUI();
 
     window.loop();
+    // Clean up functions
+    itemManger.cleanup();
     shaderMaster.cleanup();
     window.cleanup();
   }

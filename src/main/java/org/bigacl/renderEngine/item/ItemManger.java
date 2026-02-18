@@ -15,7 +15,6 @@ public class ItemManger {
   private final ArrayList<House> houseList = new ArrayList<>();
   private final ArrayList<Aparment> apartmentList = new ArrayList<Aparment>();
 
-
   public void renderAll() {
     renderHouse();
     renderApartment();
@@ -38,6 +37,7 @@ public class ItemManger {
     apartmentList.add(apartment);
   }
 
+  // Render Items
   private void renderHouse() {
     for (House house : houseList) {
       BoundingBox box = house.getBoundingBox();
@@ -65,13 +65,12 @@ public class ItemManger {
       }
 
       if (camera.getFrustum().testAab(offSetBox.minX, offSetBox.minY, offSetBox.minZ, offSetBox.maxX, offSetBox.maxY, offSetBox.maxZ)) {
-        //System.out.println("Rendering apartment: " + apartmentList.indexOf(aparment));
-        //offSetBox.log("Rendering apartment: ");
         aparment.render();
       }
     }
   }
 
+  // Get List
   public List<House> getHouseList() {
     return houseList;
   }
@@ -86,5 +85,32 @@ public class ItemManger {
     allItems.addAll(apartmentList);
 
     return allItems;
+  }
+
+  /**
+   * Clean Up Item Manger
+   */
+  public void cleanup() {
+    cleanupHouse();
+    cleanupApartment();
+  }
+
+  /**
+   * Clean up all houses
+   */
+  private void cleanupHouse(){
+    for (House house: houseList){
+      house.cleanup();
+    }
+  }
+
+  /**
+   * Clean Up Apartments
+   */
+  private void cleanupApartment(){
+    for (Aparment aparment: apartmentList){
+      aparment.cleanup();
+    }
+
   }
 }

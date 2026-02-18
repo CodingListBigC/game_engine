@@ -14,14 +14,11 @@ import org.bigacl.renderEngine.window.WindowMaster;
 import org.joml.Vector3f;
 
 public class MainLauncher {
-  private static  ShaderMaster shaderMaster;
-  private static final MainLevel mainLevel = new MainLevel();
-
   public static void main(String[] args) {
     // Window Init
     WindowMaster window = ClassConst.window;
 
-    shaderMaster = ClassConst.shader3d;
+    ShaderMaster shaderMaster = ClassConst.shader3d;
     House house = new House();
 
     // Item Manger Iit
@@ -35,8 +32,8 @@ public class MainLauncher {
     // Render loop
     window.loop();
 
-    // Cleanup
-    house.cleanup();
+    // Clean up functions
+    itemManger.cleanup();
     shaderMaster.cleanup();
     window.cleanup();
   }
