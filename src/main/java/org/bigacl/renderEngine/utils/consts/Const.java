@@ -5,5 +5,5 @@ public class Const {
   /**
    * Padding for text
    */
-  public static final int PADDING = 5;
+  public static final int PADDING = 10;
 }
