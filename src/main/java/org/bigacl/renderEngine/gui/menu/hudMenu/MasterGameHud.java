@@ -5,10 +5,9 @@ import org.bigacl.renderEngine.gui.menu.debugMenu.DebugMenu;
 
 public class MasterGameHud extends HudAbstract {
   private static MainHud mainHud = null;
-  private static final DebugMenu debugMenu = null;
 
   public MasterGameHud() {
-    super(new DebugMenu());
+    debugMenu = new DebugMenu();
     mainHud = new MainHud();
   }
 

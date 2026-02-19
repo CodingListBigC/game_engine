@@ -4,12 +4,8 @@ package org.bigacl.renderEngine.gui.menu.hudMenu;
 import org.bigacl.renderEngine.gui.menu.debugMenu.DebugMenu;
 
 public abstract class HudAbstract {
-  public static DebugMenu debugMenu = null;
-  public static boolean debugStatus = false;
-
-  public HudAbstract(DebugMenu debugMenu) {
-    HudAbstract.debugMenu = debugMenu;
-  }
+  protected static DebugMenu debugMenu = null;
+  protected static boolean debugStatus = false;
 
   public static void render(){
     if (debugStatus){
@@ -28,6 +24,6 @@ public abstract class HudAbstract {
     debugStatus = !debugStatus;
   }
 
-  public static void renderHud() {
+  protected static void renderHud() {
   }
 }
