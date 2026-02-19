@@ -5,6 +5,7 @@ import org.bigacl.renderEngine.logic.IGameLogic;
 import org.bigacl.renderEngine.player.Player;
 import org.bigacl.renderEngine.player.PlayerStats;
 import org.bigacl.renderEngine.player.level.Level;
+import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.bigacl.renderEngine.utils.consts.Const;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -21,8 +22,8 @@ public class PlayerStatsGui {
   /*
    * Render Player Stats on top left of the screen
    */
-  public void renderStats(Player player) {
-    PlayerStats stats = player.getPlayerStats();
+  public void renderStats() {
+    PlayerStats stats = ClassConst.iGameLogic.getPlayer().getPlayerStats();
 
     // Box dimensions
     float boxFromTop = 0;

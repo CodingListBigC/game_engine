@@ -1,7 +1,7 @@
 package org.bigacl.renderEngine.gui.menu;
 
-import org.bigacl.renderEngine.MainGame;
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
+import org.bigacl.renderEngine.gui.menu.debugMenu.DebugMenu;
 import org.bigacl.renderEngine.logic.IGameLogic;
 import org.bigacl.renderEngine.player.Player;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
@@ -18,8 +18,8 @@ public class MainHud {
   private final PlayerStatsGui playerStatsGui;
   private final DebugMenu debugMenu = new DebugMenu();
 
-  public MainHud(IGameLogic thisGame) {
-    this.game = thisGame;
+  public MainHud() {
+    this.game = ClassConst.iGameLogic;
     this.nanoVGUI = ClassConst.nanoVGUI;
     this.playerStatsGui = new PlayerStatsGui(this.game, this.nanoVGUI);
   }
@@ -28,11 +28,11 @@ public class MainHud {
     debugMenuStatus = !debugMenuStatus;
   }
 
-  public void renderAll(Player player){
+  public void renderAll(){
     if (debugMenuStatus){
       debugMenu.renderMenu();
       return;
     }
-    playerStatsGui.renderStats(player);
+    playerStatsGui.renderStats();
   }
 }

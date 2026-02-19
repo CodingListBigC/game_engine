@@ -6,4 +6,9 @@ public class Const {
    * Padding for text
    */
   public static final int PADDING = 10;
+
+  /**
+   * Hud Mode
+   */
+  public static int hudMode = 0;
 }

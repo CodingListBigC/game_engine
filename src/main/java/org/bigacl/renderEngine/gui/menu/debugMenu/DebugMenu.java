@@ -1,4 +1,4 @@
-package org.bigacl.renderEngine.gui.menu;
+package org.bigacl.renderEngine.gui.menu.debugMenu;
 
 import org.bigacl.renderEngine.camera.Camera;
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
@@ -10,10 +10,9 @@ import org.joml.Vector3f;
 import org.joml.Vector4f;
 
 
-public class DebugMenu {
+public class DebugMenu extends DebugAbstract {
   private final NanoVGUI nanoVGUI = ClassConst.nanoVGUI;
-  private boolean status = true;
-  private BoxItems cameraInfo;
+  private final BoxItems cameraInfo;
 
   public DebugMenu() {
     // Initialize inside the constructor to ensure ClassConst is populated
@@ -21,12 +20,10 @@ public class DebugMenu {
     createCameraDebug();
   }
 
+  @Override
   public void renderMenu() {
-    if (!status) return; // Only render if toggled on!
-
     // Update before rendering
     updateCameraDebug();
-
     // Use a small offset so it's not glued to the very edge of the screen
     cameraInfo.renderAll(new Vector2f(10.0f, 10.0f));
   }
@@ -56,13 +53,5 @@ public class DebugMenu {
     cameraInfo.addItem(new TextItems(2, "Rotation", ""));
     cameraInfo.addItem(new TextItems(0, "  Yaw", "0"));   // Index 6
     cameraInfo.addItem(new TextItems(0, "  Pitch", "0")); // Index 7
-  }
-
-  public boolean getStatus(){
-    return status;
-  }
-
-  public void toggleStatus(){
-    status = !status;
   }
 }

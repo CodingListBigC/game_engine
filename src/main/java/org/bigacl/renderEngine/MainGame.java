@@ -1,8 +1,8 @@
 package org.bigacl.renderEngine;
 
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
-import org.bigacl.renderEngine.gui.menu.MainHud;
-import org.bigacl.renderEngine.gui.menu.MasterHud;
+import org.bigacl.renderEngine.gui.menu.hudMenu.MasterGameHud;
+import org.bigacl.renderEngine.gui.menu.hudMenu.HudAbstract;
 import org.bigacl.renderEngine.item.ItemManger;
 import org.bigacl.renderEngine.item.grid.GridUtils;
 import org.bigacl.renderEngine.item.placeable.house.House;
@@ -47,9 +47,10 @@ public class MainGame implements IGameLogic {
 
   // HUD Variables;
   private final NanoVGUI gui;
-  private final MasterHud masterHud;
+  private final HudAbstract hudAbstract;
 
   public MainGame() {
+    ClassConst.setIGameLogic(this);
     this.window = ClassConst.window;
     this.shader3d = ClassConst.shader3d;
     this.itemManger = ClassConst.itemManger;
@@ -60,7 +61,7 @@ public class MainGame implements IGameLogic {
     // HUd setup
     this.gui = ClassConst.nanoVGUI;
     this.gui.init();
-    this.masterHud = ClassConst.masterHud;;
+    this.hudAbstract = ClassConst.hudAbstract;;
 
     //Player Setup
     this.player = new Player("Bigacl", "Christian", new Vector3f(1.0f, 0.0f, 0.0f));
@@ -134,7 +135,7 @@ public class MainGame implements IGameLogic {
 
   @Override
   public void renderHud() {
-    MasterHud.render(player);
+    MasterGameHud.render();
   }
 
   @Override
@@ -144,5 +145,9 @@ public class MainGame implements IGameLogic {
 
   public Camera getCamera() {
     return camera;
+  }
+  @Override
+  public Player getPlayer(){
+    return this.player;
   }
 }

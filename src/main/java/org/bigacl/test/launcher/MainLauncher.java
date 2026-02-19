@@ -10,6 +10,8 @@ import org.joml.Vector3f;
 
 public class MainLauncher {
   public static void main(String[] args) {
+    // Setup Hud Mode
+    ClassConst.setHudAbstract();
     // Get class from consts
     WindowMaster window = ClassConst.window;
     ShaderMaster shaderMaster = ClassConst.shader3d;

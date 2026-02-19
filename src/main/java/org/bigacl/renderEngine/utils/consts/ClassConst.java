@@ -4,7 +4,8 @@ import org.bigacl.renderEngine.MainGame;
 import org.bigacl.renderEngine.camera.Camera;
 import org.bigacl.renderEngine.gui.font.FontSizing;
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
-import org.bigacl.renderEngine.gui.menu.MasterHud;
+import org.bigacl.renderEngine.gui.menu.hudMenu.MasterGameHud;
+import org.bigacl.renderEngine.gui.menu.hudMenu.HudAbstract;
 import org.bigacl.renderEngine.item.ItemManger;
 import org.bigacl.renderEngine.logic.IGameLogic;
 import org.bigacl.renderEngine.player.level.MainLevel;
@@ -38,7 +39,7 @@ public class ClassConst {
   public static WindowMaster window;
 
   /**
-   *  The Main Camera for game
+   * The Main Camera for game
    */
   public static Camera camera;
 
@@ -46,8 +47,10 @@ public class ClassConst {
    * Default Size
    */
   public static FontSizing fontSizing;
-  public static MasterHud masterHud;
   public static MainLevel mainLevel;
+  public static HudAbstract hudAbstract;
+  public static IGameLogic iGameLogic;
+
   static {
     window = new WindowMaster();
     window.init();
@@ -59,7 +62,21 @@ public class ClassConst {
     fontSizing = new FontSizing(16);
     mainLevel = new MainLevel();
     game = new MainGame();
+  }
 
-    masterHud = new MasterHud(game);
+  public static void setHudAbstract() {
+    if (Const.hudMode == 1) {
+    } else {
+      hudAbstract = new MasterGameHud();
+    }
+  }
+  public static void setHudAbstract(int changeHudMod){
+    Const.hudMode = changeHudMod;
+    setHudAbstract();
+  }
+
+  public static void setIGameLogic(IGameLogic iGameLogicInput) {
+    iGameLogic = iGameLogicInput;
+
   }
 }
