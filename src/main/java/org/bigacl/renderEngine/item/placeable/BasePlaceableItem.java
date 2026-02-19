@@ -89,7 +89,7 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
   }
 
   public Vector3f getWorldPosition() {
-    return worldPosition;
+    return new Vector3f(worldPosition);
   }
 
   public abstract void defaultSettings();
