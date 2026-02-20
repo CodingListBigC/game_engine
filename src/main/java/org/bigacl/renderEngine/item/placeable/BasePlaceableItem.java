@@ -94,6 +94,12 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
 
   public abstract void defaultSettings();
 
+  public void changePosition(float x, float y, float z) {
+    worldPosition.x += x;
+    worldPosition.y += y;
+    worldPosition.z += z;
+  }
+
 
   // --- Data Structures for GSON ---
   public static class NameData {
