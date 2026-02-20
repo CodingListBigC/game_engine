@@ -34,20 +34,16 @@ public class MainGame implements IGameLogic {
   private final ShaderMaster shader3d;
   private final ItemManger itemManger;
   private final Mesh ground;
-  private int windowWidth = 1600;
-  private int windowHeight = 900;
 
   // Player Variables
   private final Player player;
 
-  private double lastPlacementTime = 0;
-  private int PLACEMENT_COOLDOWN = 1;
   private final ClickTimer placeItemTimer = new ClickTimer(1.0f);
   private final ClickTimer debugInputTimer = new ClickTimer(1.0f);
 
   // HUD Variables;
   private final NanoVGUI gui;
-  private final HudAbstract hudAbstract;
+  private HudAbstract hudAbstract;
 
   public MainGame() {
     ClassConst.setIGameLogic(this);
@@ -93,6 +89,7 @@ public class MainGame implements IGameLogic {
         itemManger.addItem(house);
       }
     }
+    // TOOD: Add hud inputs
     camera.CameraInput(window, moveSpeed, rotateSpeed, this.itemManger.getAllItems());
   }
 
@@ -100,6 +97,10 @@ public class MainGame implements IGameLogic {
   public void update(float delta) {
     // Update game objects (physics, AI, etc)
     // delta helps make movement frame-rate independent
+  }
+
+  public void updateHudAbstract(){
+    this.hudAbstract = ClassConst.hudAbstract;
   }
 
   @Override
@@ -121,6 +122,8 @@ public class MainGame implements IGameLogic {
     glDisable(GL_DEPTH_TEST);
 
 
+    int windowWidth = window.getWidth();
+    int windowHeight = window.getHeight();
     gui.beginFrame(windowWidth, windowHeight, 1.0f);
     renderHud();
     gui.endFrame();
@@ -135,7 +138,18 @@ public class MainGame implements IGameLogic {
 
   @Override
   public void renderHud() {
-    MasterGameHud.render();
+    if (this.hudAbstract == null) {
+      initializeHud();
+    }
+
+    // Ensure we don't call render if initialization failed
+    if (this.hudAbstract != null) {
+      this.hudAbstract.renderAll();
+    }
+  }
+  private void initializeHud() {
+    ClassConst.setHudAbstract();
+    this.hudAbstract = ClassConst.hudAbstract;
   }
 
   @Override

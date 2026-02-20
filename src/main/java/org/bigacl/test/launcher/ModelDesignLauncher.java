@@ -7,7 +7,7 @@ import org.bigacl.renderEngine.window.WindowMaster;
 
 public class ModelDesignLauncher {
   public static void main(String[] args) {
-    ClassConst.setHudAbstract();
+    ClassConst.setHudAbstract(1);
     // Get class from consts
     WindowMaster window = ClassConst.window;
     ShaderMaster shaderMaster = ClassConst.shader3d;

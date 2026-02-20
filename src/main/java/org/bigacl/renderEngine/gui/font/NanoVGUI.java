@@ -96,6 +96,7 @@ public class NanoVGUI {
   public void drawText(String text, float x, float y, float size, float redColor, float greenColor, float blueColor) {
     try (MemoryStack stack = MemoryStack.stackPush()) {
       NVGColor color = NVGColor.malloc(stack);
+      nvgTextAlign(vg, NVG_ALIGN_LEFT | NVG_ALIGN_TOP);
       nvgRGBAf(redColor, greenColor, blueColor, 1.0f, color);
 
       nvgFontFace(vg, "sans");

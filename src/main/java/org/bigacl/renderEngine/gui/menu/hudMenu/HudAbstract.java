@@ -26,4 +26,7 @@ public abstract class HudAbstract {
 
   protected static void renderHud() {
   }
+
+  public void renderAll() {
+  }
 }
