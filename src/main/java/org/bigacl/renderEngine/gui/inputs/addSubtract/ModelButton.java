@@ -9,6 +9,11 @@ import org.joml.Vector4f;
 
 public class ModelButton extends AddSubtractBasic {
 
+  // Default Button Size
+  Vector2f defaultButtonSize = new Vector2f(20, 20);
+  Vector4f defaultButtonBackgroundColor = new Vector4f(0.5f, 0.5f, 0.5f, 1f);
+  Vector3f defaultButtonTextColor = new Vector3f(1, 1, 1);
+
   public ModelButton(Vector2f guiPosition, float width) {
     this.guiPosition = guiPosition;
     this.guiWidth = width;
@@ -25,12 +30,19 @@ public class ModelButton extends AddSubtractBasic {
     createButton(1, 2, "-", "002");
   }
 
+  @Override
+  public Vector2f getSize() {
+    if (this.amountOfRows == 0){
+      return null;
+    }
+    float x = this.guiWidth;
+    float y = this.amountOfRows * (this.defaultButtonSize.y + this.rowSpacing);
+    return new Vector2f(x,y);
+  }
+
   public void createButton(float rowLocation, int column, String label, String code) {
-    Vector2f buttonSize = new Vector2f(20, 20);
-    Vector4f buttonBackgroundColor = new Vector4f(0.5f, 0.5f, 0.5f, 1f);
-    Vector3f buttonTextColor = new Vector3f(1, 1, 1);
     boolean buttonSide = rowLocation >= 0;
-    this.addButton(new Button(label, code, buttonSize, getButtonPos(buttonSize, buttonSide, column), buttonBackgroundColor, buttonTextColor));
+    this.addButton(new Button(label, code, defaultButtonSize, getButtonPos(defaultButtonSize, buttonSide, column), defaultButtonBackgroundColor, defaultButtonTextColor));
     if (this.amountOfRows < column) {
       this.amountOfRows = column;
     }
@@ -39,8 +51,8 @@ public class ModelButton extends AddSubtractBasic {
 
   private Vector2f getButtonPos(Vector2f size, boolean side, int row) {
 
-    float x = side ? (guiWidth - size.x) - guiPosition.x : guiPosition.x;
-    float y = (float) (guiPosition.y + ((row * 1.5) * size.y));
+    float x = side ? guiWidth - size.x - guiPosition.x : guiPosition.x;
+    float y = guiPosition.y + (row * (size.y + rowSpacing));
 
     return new Vector2f(x, y);
 

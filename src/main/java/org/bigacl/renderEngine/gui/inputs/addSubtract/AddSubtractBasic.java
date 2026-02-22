@@ -12,7 +12,7 @@ public abstract class AddSubtractBasic {
   protected Vector2f guiPosition;
   protected float guiWidth;
   protected int amountOfRows =0;
-
+  protected float rowSpacing = 10;
   /**
    * Render Every Button in class
    */
@@ -35,5 +35,6 @@ public abstract class AddSubtractBasic {
 
   public abstract void initButtons();
 
+  public abstract Vector2f getSize();
 
 }
