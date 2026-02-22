@@ -1,9 +1,7 @@
 package org.bigacl.renderEngine.gui.inputs.addSubtract;
 
 import org.bigacl.renderEngine.gui.inputs.Button;
-import org.bigacl.renderEngine.item.placeable.BasePlaceableItem;
 import org.joml.Vector2f;
-import org.joml.Vector3f;
 
 import java.util.ArrayList;
 
