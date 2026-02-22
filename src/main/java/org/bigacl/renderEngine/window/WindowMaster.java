@@ -13,6 +13,8 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class WindowMaster {
   long window;
+  int mouseAction = 0;
+
 
   public void init() {
     // Using X11 instead of Wayland
@@ -49,7 +51,23 @@ public class WindowMaster {
 
     glEnable(GL_DEPTH_TEST);
     glDisable(GL_CULL_FACE);
+    glfwSetMouseButtonCallback(window, (windowHandle, button, action, mods) -> {
+      // button: Which button (e.g., GLFW_MOUSE_BUTTON_LEFT)
+      // action: What happened (GLFW_PRESS or GLFW_RELEASE)
+
+      if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+        // This is where you trigger your HUD button checks
+        System.out.println("Left click detected!");
+
+        // Example: Pass the action (1 for PRESS) to your HUD
+        this.mouseAction = 1;
+      } else {
+        this.mouseAction = 0;
+      }
+
+    });
   }
+
   public void loop() {
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
@@ -79,6 +97,7 @@ public class WindowMaster {
   public boolean isKeyPressed(int keyCode) {
     return glfwGetKey(window, keyCode) == GLFW_PRESS;
   }
+
   public int getWidth() {
     IntBuffer w = BufferUtils.createIntBuffer(1);
     IntBuffer h = BufferUtils.createIntBuffer(1);
@@ -92,6 +111,7 @@ public class WindowMaster {
     glfwGetFramebufferSize(window, w, h);
     return h.get(0);
   }
+
   public float getMouseX() {
     double[] x = new double[1];
     double[] y = new double[1];
@@ -104,5 +124,13 @@ public class WindowMaster {
     double[] y = new double[1];
     glfwGetCursorPos(window, x, y);
     return (float) y[0];
+  }
+
+  public int getMouseAction() {
+    return mouseAction;
+  }
+
+  public void setMouseAction(int i) {
+    this.mouseAction = i;
   }
 }

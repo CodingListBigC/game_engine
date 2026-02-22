@@ -74,13 +74,7 @@ public class Camera {
       // Get the item's current world-space bounding box
       BoundingBox itemWorldBox = item.getBoundingBoxOffSet();
       if (itemWorldBox != null) {
-        // DEBUG: Only print when close to the building to avoid spam
-        if (targetPos.distance(item.getWorldPosition()) < 3.0f) {
-          System.out.println("Checking Collision: PlayerX(" + playerHitbox.minX + ") vs ItemX(" + itemWorldBox.minX + ")");
-        }
-
         if (playerHitbox.intersects(itemWorldBox)) {
-          System.out.println("!!! COLLISION DETECTED !!!");
           return false;
         }
       }

@@ -29,4 +29,5 @@ public abstract class HudAbstract {
 
   public void renderAll() {
   }
+  public abstract void checkHudInputs();
 }

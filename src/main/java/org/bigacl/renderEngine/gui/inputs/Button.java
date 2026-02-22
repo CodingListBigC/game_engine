@@ -41,6 +41,7 @@ public class Button {
     this.endPosition = new Vector2f(startPosition.x + size.x, startPosition.y + size.y);
     this.backgroundColor = backgroundColor;
     this.textColor = textColor;
+
   }
 
   /**

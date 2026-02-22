@@ -57,7 +57,8 @@ public class MainGame implements IGameLogic {
     // HUd setup
     this.gui = ClassConst.nanoVGUI;
     this.gui.init();
-    this.hudAbstract = ClassConst.hudAbstract;;
+    this.hudAbstract = ClassConst.hudAbstract;
+    ;
 
     //Player Setup
     this.player = new Player("Bigacl", "Christian", new Vector3f(1.0f, 0.0f, 0.0f));
@@ -78,7 +79,6 @@ public class MainGame implements IGameLogic {
       if (placeItemTimer.checkTimer(currentTime)) {
         Vector3f hitPoint = MouseRayCast.getRaycastPosition();
         assert hitPoint != null;
-        System.out.println("Summon House At: " + hitPoint.x+", " + hitPoint.y + ", " + hitPoint.z);
         // 1. Snap the hit point to your grid
         Vector3f snappedPos = GridUtils.snapVector(hitPoint);
         // 2. Set the house position (using your Blender-to-Java logic)
@@ -91,6 +91,9 @@ public class MainGame implements IGameLogic {
     }
     // TOOD: Add hud inputs
     camera.CameraInput(window, moveSpeed, rotateSpeed, this.itemManger.getAllItems());
+    if (hudAbstract != null) {
+      hudAbstract.checkHudInputs();
+    }
   }
 
   @Override
@@ -99,7 +102,7 @@ public class MainGame implements IGameLogic {
     // delta helps make movement frame-rate independent
   }
 
-  public void updateHudAbstract(){
+  public void updateHudAbstract() {
     this.hudAbstract = ClassConst.hudAbstract;
   }
 
@@ -147,6 +150,7 @@ public class MainGame implements IGameLogic {
       this.hudAbstract.renderAll();
     }
   }
+
   private void initializeHud() {
     ClassConst.setHudAbstract();
     this.hudAbstract = ClassConst.hudAbstract;
@@ -160,8 +164,9 @@ public class MainGame implements IGameLogic {
   public Camera getCamera() {
     return camera;
   }
+
   @Override
-  public Player getPlayer(){
+  public Player getPlayer() {
     return this.player;
   }
 }
