@@ -147,7 +147,7 @@ public class MainGame implements IGameLogic {
 
     // Ensure we don't call render if initialization failed
     if (this.hudAbstract != null) {
-      this.hudAbstract.renderAll();
+      this.hudAbstract.render();
     }
   }
 

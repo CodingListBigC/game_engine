@@ -6,7 +6,7 @@ import org.bigacl.renderEngine.gui.font.FontSizing;
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
 import org.bigacl.renderEngine.gui.menu.hudMenu.MasterGameHud;
 import org.bigacl.renderEngine.gui.menu.hudMenu.HudAbstract;
-import org.bigacl.renderEngine.gui.menu.hudMenu.ModelDesignHud;
+import org.bigacl.renderEngine.gui.menu.hudMenu.modelDesign.MasterHud;
 import org.bigacl.renderEngine.item.ItemManger;
 import org.bigacl.renderEngine.logic.IGameLogic;
 import org.bigacl.renderEngine.player.level.MainLevel;
@@ -67,7 +67,7 @@ public class ClassConst {
 
   public static void setHudAbstract() {
     if (Const.hudMode == 1) {
-      hudAbstract = new ModelDesignHud();
+      hudAbstract = new MasterHud();
     } else {
       hudAbstract = new MasterGameHud();
     }

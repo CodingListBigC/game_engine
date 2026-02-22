@@ -9,18 +9,16 @@ public class MasterGameHud extends HudAbstract {
 
   }
 
+  @Override
+  public void renderMenu() {
+
+  }
+
+
   private static MainGameHud mainGameHud = null;
 
   public MasterGameHud() {
     debugMenu = new DebugMenu();
     mainGameHud = new MainGameHud();
-  }
-
-  public static void render() {
-    if (debugStatus){
-      debugMenu.renderMenu();
-    }else{
-      mainGameHud.renderAll();
-    }
   }
 }

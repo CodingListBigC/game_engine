@@ -2,32 +2,46 @@ package org.bigacl.renderEngine.gui.menu.hudMenu;
 
 
 import org.bigacl.renderEngine.gui.menu.debugMenu.DebugMenu;
+import org.bigacl.renderEngine.utils.consts.ClassConst;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 public abstract class HudAbstract {
   protected static DebugMenu debugMenu = null;
   protected static boolean debugStatus = false;
 
-  public static void render(){
-    if (debugStatus){
+  protected static Vector4f mainBackgroundColor = new Vector4f(.1f,.1f,.1f,.5f);
+  protected float screenWidth = ClassConst.window.getWidth();
+  protected float screenHeight= ClassConst.window.getHeight();
+
+  public void updateWindowSize(){
+    this.screenWidth = ClassConst.window.getWidth();
+    this.screenHeight= ClassConst.window.getHeight();
+
+  }
+
+  public void render() {
+    if (debugStatus) {
       renderDebug();
-    }else{
-      renderHud();
+    } else {
+      renderMenu();
     }
   }
-  public static void renderDebug(){
-    if (debugMenu != null){
+
+  public static void renderDebug() {
+    if (debugMenu != null) {
       debugMenu.renderMenu();
     }
   }
 
-  public void toogleDebugStatus(){
+  public void toogleDebugStatus() {
     debugStatus = !debugStatus;
   }
 
-  protected static void renderHud() {
-  }
 
-  public void renderAll() {
-  }
   public abstract void checkHudInputs();
+
+
+
+  public abstract void renderMenu();
 }
