@@ -36,7 +36,7 @@ public class PlayerStatsGui {
     // Draw background box
     nanoVGUI.drawRect(0.0f, boxFromTop, boxWidth, boxHeight, 0.0f, 0.0f, 0.0f, 0.5f);
 
-    // Text configuration
+    // TextLimits configuration
     Vector2f startPos = new Vector2f(Const.PADDING, boxFromTop + Const.PADDING + itemSize);
     Vector3f whiteColor = new Vector3f(1.0f, 1.0f, 1.0f);
 

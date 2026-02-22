@@ -1,7 +1,7 @@
 package org.bigacl.renderEngine.gui.uiSets.addSubtract;
 
 import org.bigacl.renderEngine.gui.fields.Button;
-import org.bigacl.renderEngine.gui.fields.Text;
+import org.bigacl.renderEngine.gui.fields.TextLimits;
 import org.bigacl.renderEngine.item.placeable.BasePlaceableItem;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.joml.Vector2f;
@@ -113,18 +113,18 @@ public class ModelButton extends AddSubtractBasic {
     return new Vector2f(x,y);
   }
   private void createText(int row, String code){
-    Text text = new Text("0", code, getTextStartPos(row), getTextSize(), defaultTextColor);
-    addText(text);
+    TextLimits textLimits = new TextLimits("0", code, getTextStartPos(row), getTextSize(), defaultTextColor);
+    addText(textLimits);
   }
   private void updateText(BasePlaceableItem item){
     Vector3f worldPos = item.getWorldPosition();
-    for (Text text: textArrayList){
-      if (Objects.equals(text.getCode(), "1")){
-        text.setText(String.valueOf(worldPos.x));
-      }else if (Objects.equals(text.getCode(), "2")){
-        text.setText(String.valueOf(worldPos.y));
-      }else if (Objects.equals(text.getCode(), "3")){
-        text.setText(String.valueOf(worldPos.z));
+    for (TextLimits textLimits : textLimitsArrayList){
+      if (Objects.equals(textLimits.getCode(), "1")){
+        textLimits.setText(String.valueOf(worldPos.x));
+      }else if (Objects.equals(textLimits.getCode(), "2")){
+        textLimits.setText(String.valueOf(worldPos.y));
+      }else if (Objects.equals(textLimits.getCode(), "3")){
+        textLimits.setText(String.valueOf(worldPos.z));
       }
     }
   }

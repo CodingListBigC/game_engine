@@ -1,6 +1,6 @@
-package org.bigacl.renderEngine.gui.text;
+package org.bigacl.renderEngine.gui.uiSets.lists;
 
-import org.bigacl.renderEngine.utils.consts.ClassConst;
+import org.bigacl.renderEngine.gui.fields.Text;
 import org.joml.Vector2f;
 
 import java.util.Objects;

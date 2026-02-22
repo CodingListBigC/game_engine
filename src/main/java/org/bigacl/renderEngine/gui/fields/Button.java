@@ -31,7 +31,7 @@ public class Button {
    * @param size            Button Size (x=width, y=height)
    * @param startPosition   Button Start Position (x, y)
    * @param backgroundColor Button Background Color (x=red, y=green, z=blue, w=alpha)
-   * @param textColor       Button Text Color (x=red, y=green, z=blue)
+   * @param textColor       Button TextLimits Color (x=red, y=green, z=blue)
    */
   public Button(String label,String code, Vector2f size, Vector2f startPosition, Vector4f backgroundColor, Vector3f textColor) {
     this.label = label;
@@ -53,7 +53,7 @@ public class Button {
    * @param x               Button start x
    * @param y               Button start y
    * @param backgroundColor Button Background Color (x=red, y=green, z=blue, w=alpha)
-   * @param textColor       Button Text Color (x=red, y=green, z=blue)
+   * @param textColor       Button TextLimits Color (x=red, y=green, z=blue)
    */
   public Button(String label, String code, float width, float height, float x, float y, Vector4f backgroundColor, Vector3f textColor) {
     this(label, code, new Vector2f(width, height), new Vector2f(x, y), backgroundColor, textColor);

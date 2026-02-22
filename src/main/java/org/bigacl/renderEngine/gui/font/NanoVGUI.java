@@ -84,9 +84,9 @@ public class NanoVGUI {
   }
 
   /**
-   * Draw Text Function spreadOut
+   * Draw TextLimits Function spreadOut
    *
-   * @param text       = Text show on screen.
+   * @param text       = TextLimits show on screen.
    * @param x          = X position of text.
    * @param y          = Y position of text.
    * @param size       = Size of text.
@@ -110,7 +110,7 @@ public class NanoVGUI {
   /**
    * Draw Function short
    *
-   * @param text     = Text show on screen.
+   * @param text     = TextLimits show on screen.
    * @param size     = Size of text.
    * @param position = Position of text.
    * @param color    = Color of text.
@@ -240,7 +240,7 @@ public class NanoVGUI {
    * Draw Nerd icon with text next to it
    *
    * @param icon     = Nerd font icon (e.g., "", "")
-   * @param text     = Text to display next to icon
+   * @param text     = TextLimits to display next to icon
    * @param x        = X position
    * @param y        = Y position
    * @param iconSize = Size of the icon
@@ -262,7 +262,7 @@ public class NanoVGUI {
    * Draw Nerd icon with text - Vector version
    *
    * @param icon     = Nerd font icon
-   * @param text     = Text to display
+   * @param text     = TextLimits to display
    * @param position = Position vector
    * @param iconSize = Size of icon
    * @param textSize = Size of text
@@ -276,7 +276,7 @@ public class NanoVGUI {
    * Draw Nerd icon with text - With position index
    *
    * @param icon     = Nerd font icon
-   * @param text     = Text to display
+   * @param text     = TextLimits to display
    * @param startPos = Starting position
    * @param position = Item position index
    * @param iconSize = Size of icon

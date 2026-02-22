@@ -1,42 +1,51 @@
 package org.bigacl.renderEngine.gui.fields;
 
-import org.bigacl.renderEngine.gui.font.NanoVGUI;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 public class Text {
   private String text;
-  /** Code for text */
-  private final String code;
-  private final Vector2f startPos;
-  private final Vector2f boxSize;
-  private final Vector3f textColor;
-  private float defaultFontSize = 20;
+  private int type;
+  private Vector2f size = new Vector2f(0,0);
 
-  public Text(String text, String code, Vector2f startPos, Vector2f boxSize, Vector3f textColor) {
+  public Text(String text, int type) {
     this.text = text;
-    this.code = code;
-    this.startPos = startPos;
-    this.boxSize = boxSize;
-    this.textColor = textColor;
+    this.type = type;
   }
 
-  public Text(String text, String code, Vector2f startPos, Vector2f boxSize, Vector3f textColor, float defaultFontSize) {
-    this(text,code,startPos,boxSize,textColor);
-    this.defaultFontSize = defaultFontSize;
+  public Vector2f getSize(){
+    if (size.x == 0 && text != null && !text.isEmpty()) {
+      updateSize();
+    }else if(this.size.y <= 0){
+      updateSize();
+    }
+    return size;
+  }
+  public Vector2f getSize(boolean update){
+    if (update){
+      this.updateSize();
+    }
+    return this.getSize();
   }
 
-  public void setText(String text) {
-    this.text = text;
+  public void updateSize() {
+    float sizeVal = ClassConst.fontSizing.getFontSize(type);
+    this.size.x = ClassConst.nanoVGUI.getTextWidth(text, sizeVal);
+    this.size.y = ClassConst.fontSizing.getStandardHeight(ClassConst.nanoVGUI.getVg(), type);
+    if (this.size.y <= 0) {
+      this.size.y = this.size.y * -1;
+    }
+  }
+  public void render(Vector2f position, Vector3f color){
+    ClassConst.nanoVGUI.drawText(text,ClassConst.fontSizing.getFontSize(type),position,color);
   }
 
-  public void render(){
-    NanoVGUI nanoVGUI = ClassConst.nanoVGUI;
-    nanoVGUI.drawTextFitToBoxCentered(this.text, this.startPos, this.boxSize,this.defaultFontSize,this.textColor);
+  public float getHeight() {
+    return size.y;
   }
 
-  public String getCode() {
-    return code;
+  public void setText(String displayString) {
+    this.text = displayString;
   }
 }

@@ -1,14 +1,14 @@
 package org.bigacl.renderEngine.gui.uiSets.addSubtract;
 
 import org.bigacl.renderEngine.gui.fields.Button;
-import org.bigacl.renderEngine.gui.fields.Text;
+import org.bigacl.renderEngine.gui.fields.TextLimits;
 import org.joml.Vector2f;
 
 import java.util.ArrayList;
 
 public abstract class AddSubtractBasic {
   protected ArrayList<Button> buttonArrayList = new ArrayList<>();
-  protected ArrayList<Text> textArrayList = new ArrayList<>();
+  protected ArrayList<TextLimits> textLimitsArrayList = new ArrayList<>();
   protected Vector2f guiPosition;
   protected float guiWidth;
   protected int amountOfRows =0;
@@ -32,19 +32,19 @@ public abstract class AddSubtractBasic {
   }
 
   /**
-   * Render Every Single Text in class
+   * Render Every Single TextLimits in class
    */
   public void renderAllText(){
-    for (Text text: textArrayList){
-      text.render();
+    for (TextLimits textLimits : textLimitsArrayList){
+      textLimits.render();
     }
   }
 
   public void addButton(Button button) {
     buttonArrayList.add(button);
   }
-  public void addText(Text text){
-    textArrayList.add(text);
+  public void addText(TextLimits textLimits){
+    textLimitsArrayList.add(textLimits);
   }
 
   public void init(){

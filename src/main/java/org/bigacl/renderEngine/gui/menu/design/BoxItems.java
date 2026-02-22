@@ -1,6 +1,6 @@
 package org.bigacl.renderEngine.gui.menu.design;
 
-import org.bigacl.renderEngine.gui.text.TextItems;
+import org.bigacl.renderEngine.gui.uiSets.lists.TextItems;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.bigacl.renderEngine.utils.consts.Const;
 import org.joml.Vector2f;
@@ -41,7 +41,7 @@ public class BoxItems {
     // 2. Draw the Background FIRST (Painter's Algorithm: bottom layer)
     ClassConst.nanoVGUI.drawRect(position, boxSize, backgroundColor);
 
-    // 3. Draw the Text SECOND (Painter's Algorithm: top layer)
+    // 3. Draw the TextLimits SECOND (Painter's Algorithm: top layer)
     renderItems(position);
   }
 
