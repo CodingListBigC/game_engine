@@ -10,6 +10,7 @@ import org.lwjgl.system.MemoryStack;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.nio.FloatBuffer;
 
 import static org.lwjgl.nanovg.NanoVG.*;
 import static org.lwjgl.nanovg.NanoVGGL3.*;
@@ -149,6 +150,54 @@ public class NanoVGUI {
     drawText(text, startPos.x, (startPos.y + (position * (size + Const.PADDING))), size, color.x, color.y, color.z);
   }
 
+  public void drawTextFitToBox(String text, float x, float y, float sizeX, float sizeY, float startFontSize, float r, float g, float b) {
+    try (MemoryStack stack = MemoryStack.stackPush()) {
+      float currentSize = startFontSize;
+      float[] bounds = new float[4];
+      FloatBuffer boundsBuf = stack.mallocFloat(4);
+
+      // 1. Configure initial font state
+      nvgFontFace(vg, "sans");
+      nvgTextAlign(vg, NVG_ALIGN_LEFT | NVG_ALIGN_TOP);
+
+      // 2. The Scaling Loop
+      // We decrease the font size until the text fits both width and height
+      while (currentSize > 1.0f) {
+        nvgFontSize(vg, currentSize);
+
+        // Measure the text box at this specific font size
+        // nvgTextBoxBounds tells us how big the wrapped text will be
+        nvgTextBoxBounds(vg, x, y, sizeX, text, boundsBuf);
+
+        float textW = boundsBuf.get(2) - boundsBuf.get(0);
+        float textH = boundsBuf.get(3) - boundsBuf.get(1);
+
+        // If it fits inside our Vector2f, we stop shrinking
+        if (textW <= sizeX && textH <= sizeY) {
+          break;
+        }
+
+        // Shrink and try again
+        currentSize -= 0.5f;
+      }
+
+      // 3. Render the text at the calculated "best fit" size
+      NVGColor color = NVGColor.malloc(stack);
+      nvgRGBAf(r, g, b, 1.0f, color);
+      nvgFillColor(vg, color);
+
+      // We still use Scissor as a safety net for "unbreakable" long words
+      nvgScissor(vg, x, y, boxSize.x, boxSize.y);
+      nvgTextBox(vg, x, y, boxSize.x, text);
+      nvgResetScissor(vg);
+    }
+  }
+
+  public void drawTextFitToBox(String text, Vector2f startPos, Vector2f boxSize, float startFontSize, Vector3f textColor){
+    this.drawTextFitToBox(text, startPos.x, startPos.y, boxSize.x, boxSize.y, startFontSize, textColor.x, textColor.y, textColor.z);
+  }
+
+
   public void drawNerdIcon(String icon, float x, float y, float size, float r, float g, float b) {
     try (MemoryStack stack = MemoryStack.stackPush()) {
       NVGColor color = NVGColor.malloc(stack);
@@ -175,10 +224,10 @@ public class NanoVGUI {
 
 
   public void drawRect(Vector2f position, Vector2f rectSize, Vector4f backgroundColor) {
-    drawRect(position.x, position.y, rectSize.x,rectSize.y,backgroundColor.x,backgroundColor.y,backgroundColor.z,backgroundColor.w);
+    drawRect(position.x, position.y, rectSize.x, rectSize.y, backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
   }
 
-  public void drawRoundedRect(float radius, float x, float y, float w, float h,  float r, float g, float b, float a) {
+  public void drawRoundedRect(float radius, float x, float y, float w, float h, float r, float g, float b, float a) {
     nvgBeginPath(vg);
     nvgRoundedRect(vg, x, y, w, h, radius); // radius in pixels
 
@@ -191,7 +240,7 @@ public class NanoVGUI {
   }
 
   public void drawRoundedRect(float radius, Vector2f position, Vector2f rectSize, Vector4f backgroundColor) {
-    drawRoundedRect(radius, position.x, position.y, rectSize.x,rectSize.y,backgroundColor.x,backgroundColor.y,backgroundColor.z,backgroundColor.w);
+    drawRoundedRect(radius, position.x, position.y, rectSize.x, rectSize.y, backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
   }
 
   /**
@@ -266,6 +315,7 @@ public class NanoVGUI {
 
     return new float[]{width, height};
   }
+
   public float getTextWidth(String text, float size) {
     // 1. Set the state so NanoVG knows which font/size we are measuring
     nvgFontFace(vg, "sans");
