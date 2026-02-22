@@ -22,6 +22,7 @@ public class TextLimits {
     this.textColor = textColor;
   }
 
+  @SuppressWarnings("unused")
   public TextLimits(String text, String code, Vector2f startPos, Vector2f boxSize, Vector3f textColor, float defaultFontSize) {
     this(text,code,startPos,boxSize,textColor);
     this.defaultFontSize = defaultFontSize;

@@ -19,6 +19,7 @@ import static org.lwjgl.nanovg.NanoVG.*;
 import static org.lwjgl.nanovg.NanoVGGL3.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
+@SuppressWarnings("unused")
 public class NanoVGUI {
   private long vg;
 
