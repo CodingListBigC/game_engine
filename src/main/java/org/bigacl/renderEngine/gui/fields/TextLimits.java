@@ -5,9 +5,13 @@ import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
+import java.util.Objects;
+
 public class TextLimits {
   private String text;
-  /** Code for text */
+  /**
+   * Code for text
+   */
   private final String code;
   private final Vector2f startPos;
   private final Vector2f boxSize;
@@ -22,22 +26,24 @@ public class TextLimits {
     this.textColor = textColor;
   }
 
-  @SuppressWarnings("unused")
-  public TextLimits(String text, String code, Vector2f startPos, Vector2f boxSize, Vector3f textColor, float defaultFontSize) {
-    this(text,code,startPos,boxSize,textColor);
-    this.defaultFontSize = defaultFontSize;
-  }
-
   public void setText(String text) {
+    System.out.println("Update Text: " + text);
     this.text = text;
   }
 
-  public void render(){
+  public void render() {
+    System.out.println("Rendering text: " + this.text);
     NanoVGUI nanoVGUI = ClassConst.nanoVGUI;
-    nanoVGUI.drawTextFitToBoxCentered(this.text, this.startPos, this.boxSize,this.defaultFontSize,this.textColor);
+    nanoVGUI.drawTextFitToBoxCentered(this.text, this.startPos, this.boxSize, this.defaultFontSize, this.textColor);
   }
 
   public String getCode() {
     return code;
+  }
+
+  public void log() {
+    System.out.print("Text: " + text + ",");
+    System.out.print("BoxSize: " + boxSize + ",");
+    System.out.println();
   }
 }

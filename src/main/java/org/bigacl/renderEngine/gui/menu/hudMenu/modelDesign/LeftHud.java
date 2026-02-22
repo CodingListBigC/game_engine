@@ -16,7 +16,6 @@ public class LeftHud extends  ModelDesignAbstractClass{
 
   ModelButton modelButton;
 
-  // TODO: Add current Model
 
   public LeftHud() {
     this.widthPercentage = 0.125f;

@@ -66,6 +66,9 @@ public class ClassConst {
   }
 
   public static void setHudAbstract() {
+    if (hudAbstract !=null){
+      return;
+    }
     if (Const.hudMode == 1) {
       hudAbstract = new MasterHud();
     } else {

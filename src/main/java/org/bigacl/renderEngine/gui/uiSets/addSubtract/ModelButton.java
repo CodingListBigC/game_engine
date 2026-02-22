@@ -118,7 +118,13 @@ public class ModelButton extends AddSubtractBasic {
   }
   private void updateText(BasePlaceableItem item){
     Vector3f worldPos = item.getWorldPosition();
+
+    System.out.println("Item class: " + item.getClass().getSimpleName());
+    System.out.println("Item position: " + item.getWorldPosition());
+
+    System.out.println("updateText called, list size: " + textLimitsArrayList.size());
     for (TextLimits textLimits : textLimitsArrayList){
+      System.out.println("Checking code: " + textLimits.getCode());
       if (Objects.equals(textLimits.getCode(), "1")){
         textLimits.setText(String.valueOf(worldPos.x));
       }else if (Objects.equals(textLimits.getCode(), "2")){

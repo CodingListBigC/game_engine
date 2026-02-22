@@ -55,7 +55,7 @@ public class MainGame implements IGameLogic {
     // HUd setup
     this.gui = ClassConst.nanoVGUI;
     this.gui.init();
-    this.hudAbstract = ClassConst.hudAbstract;
+    this.hudAbstract = null;
     // Input Setups
     this.keyboardInputMaster = new KeyboardInputMaster();
 
