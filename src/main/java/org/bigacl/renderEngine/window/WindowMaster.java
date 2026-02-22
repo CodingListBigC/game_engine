@@ -56,9 +56,6 @@ public class WindowMaster {
       // action: What happened (GLFW_PRESS or GLFW_RELEASE)
 
       if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-        // This is where you trigger your HUD button checks
-        System.out.println("Left click detected!");
-
         // Example: Pass the action (1 for PRESS) to your HUD
         this.mouseAction = 1;
       } else {

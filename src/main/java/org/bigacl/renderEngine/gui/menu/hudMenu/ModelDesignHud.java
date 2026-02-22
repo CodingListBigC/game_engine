@@ -14,26 +14,30 @@ public class ModelDesignHud extends HudAbstract {
 
   Vector4f mainBackgroundColor = new Vector4f(0.5f, 0.5f, 0.5f, 0.25f);
   ModelButton modelButton;
-  float widthPercentage;
+  float rightWidthPercentage;
+  float leftWidthPercentage;
   float heightPercentage;
-  float panelWidth;
+  float rightPanelWidth;
+  float leftPanelWidth;
   float panelHeight;
   float screenWidth;
   float screenHeight;
 
   public ModelDesignHud() {
     debugMenu = new DebugMenu();
-    this.widthPercentage = 0.25f;
+    this.rightWidthPercentage = 0.25f;
+    this.leftWidthPercentage = 0.125f;
     this.heightPercentage = 0.75f;
 
     this.screenWidth = ClassConst.window.getWidth();
     this.screenHeight = ClassConst.window.getHeight();
 
     // This is how wide the actual panel is
-    this.panelWidth = screenWidth * widthPercentage;
+    this.rightPanelWidth = screenWidth * rightWidthPercentage;
+    this.leftPanelWidth = screenWidth * leftWidthPercentage;
     this.panelHeight = screenHeight * heightPercentage;
 
-    this.modelButton = new ModelButton(new Vector2f(0.0f,0.0f), panelWidth);
+    this.modelButton = new ModelButton(new Vector2f(0.0f,0.0f), leftPanelWidth);
   }
 
 
@@ -47,14 +51,14 @@ public class ModelDesignHud extends HudAbstract {
     NanoVGUI nanoVGUI = ClassConst.nanoVGUI;
 
 
-    drawSide(false, nanoVGUI, widthPercentage, heightPercentage);
-    this.modelButton.renderAllButton();
+    drawSide(false, nanoVGUI, leftWidthPercentage, heightPercentage);
+    this.modelButton.render();
 
   }
 
   public void rightMenu() {
     NanoVGUI nanoVGUI = ClassConst.nanoVGUI;
-    drawSide(true, nanoVGUI,widthPercentage, heightPercentage);
+    drawSide(true, nanoVGUI, rightWidthPercentage, heightPercentage);
 
   }
 
@@ -73,7 +77,7 @@ public class ModelDesignHud extends HudAbstract {
     }
 
     // Position: (startX, 0)
-    // Size: (panelWidth, screenHeight)
+    // Size: (leftPanelWidth, screenHeight)
     Vector2f pos = new Vector2f(startX, 0.0f);
     Vector2f size = new Vector2f(panelWidth, panelHeight);
 

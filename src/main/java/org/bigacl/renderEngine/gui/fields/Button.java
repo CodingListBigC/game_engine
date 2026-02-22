@@ -71,7 +71,7 @@ public class Button {
   /**
    * Render Button
    */
-  public void renderButton() {
+  public void render() {
     NanoVGUI nanoVGUI = ClassConst.nanoVGUI;
     nanoVGUI.drawRect(startPosition, size, backgroundColor);
     nanoVGUI.drawText(

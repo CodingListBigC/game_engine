@@ -5,12 +5,15 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.lwjgl.nanovg.NVGColor;
+import org.lwjgl.nanovg.NanoVG;
 import org.lwjgl.system.MemoryStack;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.nio.FloatBuffer;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.lwjgl.nanovg.NanoVG.*;
 import static org.lwjgl.nanovg.NanoVGGL3.*;
@@ -18,8 +21,6 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 public class NanoVGUI {
   private long vg;
-  private int fontRegular;
-  private int fontNerd;
 
   public void init() {
     vg = nvgCreate(NVG_ANTIALIAS | NVG_STENCIL_STROKES);
@@ -33,8 +34,8 @@ public class NanoVGUI {
       File nerdFont = extractFontToTemp("fonts/JetBrainsMonoNerdFont-Regular.ttf");
 
       // Load fonts using file paths
-      fontRegular = nvgCreateFont(vg, "sans", regularFont.getAbsolutePath());
-      fontNerd = nvgCreateFont(vg, "nerd", nerdFont.getAbsolutePath());
+      int fontRegular = NanoVG.nvgCreateFont(vg, "sans", regularFont.getAbsolutePath());
+      int fontNerd = NanoVG.nvgCreateFont(vg, "nerd", nerdFont.getAbsolutePath());
 
       if (fontRegular == -1) {
         throw new RuntimeException("Failed to create regular font");
@@ -46,7 +47,6 @@ public class NanoVGUI {
       System.out.println("Fonts loaded successfully!");
 
     } catch (Exception e) {
-      e.printStackTrace();
       throw new RuntimeException("Could not load fonts", e);
     }
   }
@@ -91,7 +91,7 @@ public class NanoVGUI {
    * @param y          = Y position of text.
    * @param size       = Size of text.
    * @param redColor   = Red color of text.
-   * @param greenColor = Green colro of text,
+   * @param greenColor = Green color of text,
    * @param blueColor  = Blue color of text.
    */
   public void drawText(String text, float x, float y, float size, float redColor, float greenColor, float blueColor) {
@@ -119,82 +119,75 @@ public class NanoVGUI {
     drawText(text, position.x, position.y, size, color.x, color.y, color.z);
   }
 
-  /**
-   * Draw Text function with position short.
-   *
-   * @param text     = Text show on screen.
-   * @param startPos = Start position on screen.
-   * @param position = Item position in screen.
-   * @param size     = Size of text.
-   * @param color    = Color of text.
-   */
-  public void drawText(String text, Vector2f startPos, int position, float size, Vector3f color) {
-    drawText(text, startPos.x, (startPos.y + (position * (size + Const.PADDING))), size, color.x, color.y, color.z);
-  }
 
-  /**
-   * Draw Text Function with position long.
-   *
-   * @param text       = Text show on screen.
-   * @param x          = Starting x position.
-   * @param y          = Starting y position.
-   * @param position   = Item position in screen.
-   * @param size       = Size of text.
-   * @param redColor   = Red Color of text.
-   * @param greenColor = Green color of text.
-   * @param blueColor  = Blue color of Text
-   */
-  public void drawText(String text, float x, float y, int position, float size, float redColor, float greenColor, float blueColor) {
-    Vector2f startPos = new Vector2f(x, y);
-    Vector3f color = new Vector3f(redColor, greenColor, blueColor);
-    drawText(text, startPos.x, (startPos.y + (position * (size + Const.PADDING))), size, color.x, color.y, color.z);
-  }
 
-  public void drawTextFitToBox(String text, float x, float y, float sizeX, float sizeY, float startFontSize, float r, float g, float b) {
+  public void drawTextFitToBoxCentered(String text, float x, float y, float sizeX, float sizeY, float startFontSize, float r, float g, float b) {
     try (MemoryStack stack = MemoryStack.stackPush()) {
-      float currentSize = startFontSize;
-      float[] bounds = new float[4];
-      FloatBuffer boundsBuf = stack.mallocFloat(4);
-
-      // 1. Configure initial font state
+      nvgSave(vg);
       nvgFontFace(vg, "sans");
       nvgTextAlign(vg, NVG_ALIGN_LEFT | NVG_ALIGN_TOP);
 
-      // 2. The Scaling Loop
-      // We decrease the font size until the text fits both width and height
+      float currentSize = startFontSize;
+      List<String> fittedLines = null;
+      float lineHeight = 0;
+
+      // --- 1. FIND FONT SIZE & WORD-WRAP ---
       while (currentSize > 1.0f) {
         nvgFontSize(vg, currentSize);
 
-        // Measure the text box at this specific font size
-        // nvgTextBoxBounds tells us how big the wrapped text will be
-        nvgTextBoxBounds(vg, x, y, sizeX, text, boundsBuf);
+        FloatBuffer lineHeightBuf = stack.mallocFloat(1);
+        FloatBuffer ascentBuf    = stack.mallocFloat(1);
+        FloatBuffer descentBuf   = stack.mallocFloat(1);
+        nvgTextMetrics(vg, ascentBuf, descentBuf, lineHeightBuf);
+        lineHeight = lineHeightBuf.get(0);
 
-        float textW = boundsBuf.get(2) - boundsBuf.get(0);
-        float textH = boundsBuf.get(3) - boundsBuf.get(1);
+        fittedLines = wordWrap(vg, text, sizeX, stack);
+        float totalH = fittedLines.size() * lineHeight;
 
-        // If it fits inside our Vector2f, we stop shrinking
-        if (textW <= sizeX && textH <= sizeY) {
+        if (totalH <= sizeY) {
           break;
         }
-
-        // Shrink and try again
         currentSize -= 0.5f;
       }
 
-      // 3. Render the text at the calculated "best fit" size
-      NVGColor color = NVGColor.malloc(stack);
-      nvgRGBAf(r, g, b, 1.0f, color);
-      nvgFillColor(vg, color);
+      assert fittedLines != null;
+      float totalTextH = fittedLines.size() * lineHeight;
+      float startY = y + (sizeY - totalTextH) / 2.0f; // vertical center
 
-      // We still use Scissor as a safety net for "unbreakable" long words
-      nvgScissor(vg, x, y, sizeX, sizeY);
-      nvgTextBox(vg, x, y, sizeX, text);
-      nvgResetScissor(vg);
+      // --- 2. DEBUG BOX ---
+      NVGColor debugColor = NVGColor.malloc(stack);
+      nvgRGBAf(1.0f, 1.0f, 1.0f, 1.0f, debugColor);
+      nvgBeginPath(vg);
+      nvgRect(vg, x, y, sizeX, sizeY);
+      nvgStrokeColor(vg, debugColor);
+      nvgStrokeWidth(vg, 1.0f);
+      nvgStroke(vg);
+
+      // --- 3. DRAW EACH LINE MANUALLY CENTERED ---
+      NVGColor textColor = NVGColor.malloc(stack);
+      nvgRGBAf(r, g, b, 1.0f, textColor);
+      nvgFillColor(vg, textColor);
+
+      FloatBuffer boundsBuf = stack.mallocFloat(4);
+      for (int i = 0; i < fittedLines.size(); i++) {
+        String line = fittedLines.get(i);
+        // Measure this line's actual pixel width
+        nvgTextBounds(vg, 0, 0, line, boundsBuf);
+        float lineW = boundsBuf.get(2) - boundsBuf.get(0);
+        // Offset so line is centered in the box
+        float lineX = x + (sizeX - lineW) / 2.0f;
+        float lineY = startY + i * lineHeight;
+        nvgText(vg, lineX, lineY, line);
+      }
+
+      nvgRestore(vg);
     }
   }
 
-  public void drawTextFitToBox(String text, Vector2f startPos, Vector2f boxSize, float startFontSize, Vector3f textColor){
-    this.drawTextFitToBox(text, startPos.x, startPos.y, boxSize.x, boxSize.y, startFontSize, textColor.x, textColor.y, textColor.z);
+
+
+  public void drawTextFitToBoxCentered(String text, Vector2f startPos, Vector2f boxSize, float startFontSize, Vector3f textColor){
+    this.drawTextFitToBoxCentered(text, startPos.x, startPos.y, boxSize.x, boxSize.y, startFontSize, textColor.x, textColor.y, textColor.z);
   }
 
 
@@ -325,9 +318,7 @@ public class NanoVGUI {
     float[] bounds = new float[4];
 
     // 3. Measure the text
-    float width = nvgTextBounds(vg, 0, 0, text, bounds);
-
-    return width;
+    return nvgTextBounds(vg, 0, 0, text, bounds);
   }
 
 
@@ -335,4 +326,26 @@ public class NanoVGUI {
     return vg;
   }
 
+
+  // Manual word-wrap: splits text into lines that fit within maxWidth
+  private List<String> wordWrap(long vg, String text, float maxWidth, MemoryStack stack) {
+    List<String> lines = new ArrayList<>();
+    String[] words = text.split(" ");
+    StringBuilder current = new StringBuilder();
+    FloatBuffer bounds = stack.mallocFloat(4);
+
+    for (String word : words) {
+      String test = current.isEmpty() ? word : current + " " + word;
+      nvgTextBounds(vg, 0, 0, test, bounds);
+      float w = bounds.get(2) - bounds.get(0);
+      if (w > maxWidth && !current.isEmpty()) {
+        lines.add(current.toString());
+        current = new StringBuilder(word);
+      } else {
+        current = new StringBuilder(test);
+      }
+    }
+    if (!current.isEmpty()) lines.add(current.toString());
+    return lines;
+  }
 }

@@ -33,7 +33,7 @@ public class Text {
 
   public void render(){
     NanoVGUI nanoVGUI = ClassConst.nanoVGUI;
-    nanoVGUI.drawTextFitToBox(this.text, this.startPos, this.boxSize,this.defaultFontSize,this.textColor);
+    nanoVGUI.drawTextFitToBoxCentered(this.text, this.startPos, this.boxSize,this.defaultFontSize,this.textColor);
   }
 
   public String getCode() {

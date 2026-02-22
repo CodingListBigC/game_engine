@@ -93,11 +93,6 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
   }
 
   public void changePosition(float x, float y, float z) {
-    System.out.print("x: " + x);
-    System.out.print(", y: " + y);
-    System.out.print(", z: " + z);
-    System.out.print(", Model Name: " + name.main);
-
     worldPosition.add(x, y, z);
     updateModelMatrix(); // Rebuild matrix so the move shows up on screen
   }

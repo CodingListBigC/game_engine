@@ -1,23 +1,28 @@
 package org.bigacl.renderEngine.gui.uiSets.addSubtract;
 
 import org.bigacl.renderEngine.gui.fields.Button;
+import org.bigacl.renderEngine.gui.fields.Text;
 import org.bigacl.renderEngine.item.placeable.BasePlaceableItem;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
+import java.util.Objects;
+
 public class ModelButton extends AddSubtractBasic {
 
   // Default Button Size
-  Vector2f defaultButtonSize = new Vector2f(20, 20);
+  Vector2f defaultButtonSize = new Vector2f(25, 25);
   Vector4f defaultButtonBackgroundColor = new Vector4f(0.5f, 0.5f, 0.5f, 1f);
   Vector3f defaultButtonTextColor = new Vector3f(1, 1, 1);
+  Vector3f defaultTextColor = new Vector3f(1, 0, 0);
 
   public ModelButton(Vector2f guiPosition, float width) {
     this.guiPosition = guiPosition;
     this.guiWidth = width;
-    initButtons();
+
+    init();
   }
 
   @Override
@@ -28,6 +33,13 @@ public class ModelButton extends AddSubtractBasic {
     createButton(1, 1, "-", "020");
     createButton(-1, 2, "+", "001");
     createButton(1, 2, "-", "002");
+  }
+
+  @Override
+  public void initText() {
+    this.createText(0, "1");
+    this.createText(1, "2");
+    this.createText(2, "3");
   }
 
   @Override
@@ -42,20 +54,23 @@ public class ModelButton extends AddSubtractBasic {
 
   public void createButton(float rowLocation, int column, String label, String code) {
     boolean buttonSide = rowLocation >= 0;
-    this.addButton(new Button(label, code, defaultButtonSize, getButtonPos(defaultButtonSize, buttonSide, column), defaultButtonBackgroundColor, defaultButtonTextColor));
+    this.addButton(new Button(label, code, defaultButtonSize, getButtonPos(buttonSide, column), defaultButtonBackgroundColor, defaultButtonTextColor));
     if (this.amountOfRows < column) {
       this.amountOfRows = column;
     }
 
   }
 
-  private Vector2f getButtonPos(Vector2f size, boolean side, int row) {
-
-    float x = side ? guiWidth - size.x - guiPosition.x : guiPosition.x;
-    float y = guiPosition.y + (row * (size.y + rowSpacing));
+  private Vector2f getButtonPos(boolean side, int row) {
+    float x = side ? guiWidth - defaultButtonSize.x - guiPosition.x - columSpacing : guiPosition.x + columSpacing;
+    float y = guiPosition.y + (row * (defaultButtonSize.y + rowSpacing));
 
     return new Vector2f(x, y);
+  }
 
+
+  private float getYPos(int row){
+    return guiPosition.y + (row * (defaultButtonSize.y + rowSpacing));
   }
 
   public void checkButtonInput(double mouseX, double mouseY, int action, BasePlaceableItem item, float snap) {
@@ -81,10 +96,38 @@ public class ModelButton extends AddSubtractBasic {
       else if (chars[2] == '2') dz = -snap;
 
       item.changePosition(dx, dy, dz);
-
+      updateText(item);
       // 2. IMPORTANT: Consume the click so it doesn't fire again next frame
       // You need to set your global mouse action variable to -1 here
       ClassConst.window.setMouseAction(-1);
     }
   }
+  private Vector2f getTextStartPos(int row){
+    float y = getYPos(row);
+    float x = defaultButtonSize.x + (columSpacing * 2);
+    return new Vector2f(x,y);
+  }
+  private Vector2f getTextSize(){
+    float x = guiWidth - ((defaultButtonSize.x * 2) + (columSpacing * 4));
+    float y = defaultButtonSize.y;
+    return new Vector2f(x,y);
+  }
+  private void createText(int row, String code){
+    Text text = new Text("0", code, getTextStartPos(row), getTextSize(), defaultTextColor);
+    addText(text);
+  }
+  private void updateText(BasePlaceableItem item){
+    Vector3f worldPos = item.getWorldPosition();
+    for (Text text: textArrayList){
+      if (Objects.equals(text.getCode(), "1")){
+        text.setText(String.valueOf(worldPos.x));
+      }else if (Objects.equals(text.getCode(), "2")){
+        text.setText(String.valueOf(worldPos.y));
+      }else if (Objects.equals(text.getCode(), "3")){
+        text.setText(String.valueOf(worldPos.z));
+      }
+    }
+  }
+
+
 }
