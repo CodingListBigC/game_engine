@@ -187,8 +187,8 @@ public class NanoVGUI {
       nvgFillColor(vg, color);
 
       // We still use Scissor as a safety net for "unbreakable" long words
-      nvgScissor(vg, x, y, boxSize.x, boxSize.y);
-      nvgTextBox(vg, x, y, boxSize.x, text);
+      nvgScissor(vg, x, y, sizeX, sizeY);
+      nvgTextBox(vg, x, y, sizeX, text);
       nvgResetScissor(vg);
     }
   }
