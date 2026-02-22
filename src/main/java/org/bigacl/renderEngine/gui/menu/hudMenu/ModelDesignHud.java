@@ -54,16 +54,6 @@ public class ModelDesignHud extends HudAbstract {
 
   public void rightMenu() {
     NanoVGUI nanoVGUI = ClassConst.nanoVGUI;
-    float widthPercentage = 0.25f;
-    float heightPercentage = 0.75f;
-
-    float screenWidth = ClassConst.window.getWidth();
-    float screenHeight = ClassConst.window.getHeight();
-
-    // This is how wide the actual panel is
-    float panelWidth = screenWidth * widthPercentage;
-    float panelHeight = screenHeight * heightPercentage;
-
     drawSide(true, nanoVGUI,widthPercentage, heightPercentage);
 
   }
@@ -91,7 +81,7 @@ public class ModelDesignHud extends HudAbstract {
   }
 
   public void checkHudInputs(){
-    checkModelInputs();;
+    checkModelInputs();
   }
 
   private void checkModelInputs(){
