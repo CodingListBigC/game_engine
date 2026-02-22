@@ -1,7 +1,6 @@
 package org.bigacl.renderEngine.mesh;
 
 import org.bigacl.renderEngine.utils.consts.ClassConst;
-import org.bigacl.test.launcher.MainLauncher;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
 import org.bigacl.renderEngine.texture.Texture;
 import org.joml.Matrix4f;
@@ -56,7 +55,7 @@ public class Mesh {
     this.texture = texture;
   }
 
-  public void render() {
+  public void render(Matrix4f modelMatrix) {
     // 1. Get the shader instance
     ShaderMaster shader = ClassConst.shader3d;
 
@@ -75,16 +74,8 @@ public class Mesh {
       shader.setUniform1b("useTexture", false);
     }
 
-    // 4. Set Transformation Uniforms
-    // Import org.joml.Matrix4f;
-    Matrix4f modelMatrix = new Matrix4f()
-            .translation(position)
-            .rotateXYZ((float)Math.toRadians(rotation.x),
-                    (float)Math.toRadians(rotation.y),
-                    (float)Math.toRadians(rotation.z));
 
-    shader.setUniformMat4f("model", modelMatrix);
-
+    shader.setUniformMatrix4f("modelMatrix", modelMatrix);
     // 5. Set Color Uniform
     shader.setUniformVec3f("objectColor", color[0], color[1], color[2]);
 

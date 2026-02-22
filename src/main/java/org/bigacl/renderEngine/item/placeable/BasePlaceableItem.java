@@ -93,6 +93,11 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
   }
 
   public void changePosition(float x, float y, float z) {
+    System.out.print("x: " + x);
+    System.out.print(", y: " + y);
+    System.out.print(", z: " + z);
+    System.out.print(", Model Name: " + name.main);
+
     worldPosition.add(x, y, z);
     updateModelMatrix(); // Rebuild matrix so the move shows up on screen
   }
@@ -116,7 +121,7 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
 
     // 2. Draw all parts (they use the matrix above in the shader)
     for (Mesh mesh : currentMeshes) {
-      mesh.render();
+      mesh.render(modelMatrix);
     }
   }
 
@@ -148,21 +153,33 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
     loadModel();
     setupHitbox();
   }
-
   protected void loadData() {
     String jsonFilePath = folderPath + "/" + jsonName;
     try (InputStream in = getClass().getClassLoader().getResourceAsStream(jsonFilePath)) {
       if (in == null) return;
+
       Gson gson = new Gson();
-      PlaceItemData data = gson.fromJson(new InputStreamReader(in), PlaceItemData.class);
+      InputStreamReader reader = new InputStreamReader(in);
+
+      // 1. Load the raw data from JSON
+      PlaceItemData data = gson.fromJson(reader, PlaceItemData.class);
+
       if (data != null) {
         this.name = data.name;
-        this.baseModel = data.baseModel;
-        this.level = data.level;
         this.amount_of_levels = data.amount_of_levels;
         this.type = data.type;
+
+        // 2. CRITICAL: Re-serialize and de-serialize the Maps
+        // This creates a "Deep Copy" so that this instance has its OWN maps in memory
+        String baseModelJson = gson.toJson(data.baseModel);
+        this.baseModel = gson.fromJson(baseModelJson, new com.google.gson.reflect.TypeToken<Map<String, BaseModelParts>>(){}.getType());
+
+        String levelJson = gson.toJson(data.level);
+        this.level = gson.fromJson(levelJson, new com.google.gson.reflect.TypeToken<Map<String, LevelData>>(){}.getType());
       }
-    } catch (Exception e) { e.printStackTrace(); }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   public void setupHitbox() {

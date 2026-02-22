@@ -1,7 +1,6 @@
 package org.bigacl.renderEngine;
 
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
-import org.bigacl.renderEngine.gui.menu.hudMenu.MasterGameHud;
 import org.bigacl.renderEngine.gui.menu.hudMenu.HudAbstract;
 import org.bigacl.renderEngine.item.ItemManger;
 import org.bigacl.renderEngine.item.grid.GridUtils;
@@ -10,6 +9,7 @@ import org.bigacl.renderEngine.logic.IGameLogic;
 import org.bigacl.renderEngine.camera.Camera;
 import org.bigacl.renderEngine.mesh.Mesh;
 import org.bigacl.renderEngine.mesh.OBJLoader;
+import org.bigacl.renderEngine.model.DefaultModelFunctions;
 import org.bigacl.renderEngine.player.Player;
 import org.bigacl.renderEngine.player.inputs.mouse.MouseRayCast;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
@@ -136,7 +136,7 @@ public class MainGame implements IGameLogic {
   @Override
   public void render3dModels() {
     itemManger.renderAll();
-    ground.render();
+    ground.render(DefaultModelFunctions.getPlainModelMatrix(new Vector3f(0.0f),new Vector3f(0.0f)));
   }
 
   @Override

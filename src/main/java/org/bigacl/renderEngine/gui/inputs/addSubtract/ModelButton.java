@@ -17,23 +17,24 @@ public class ModelButton extends AddSubtractBasic {
 
   @Override
   public void initButtons() {
+    createButton(-1, 0, "+", "100");
+    createButton(1, 0, "-", "200");
+    createButton(-1, 1, "+", "010");
+    createButton(1, 1, "-", "020");
+    createButton(-1, 2, "+", "001");
+    createButton(1, 2, "-", "002");
+  }
+
+  public void createButton(float rowLocation, int column, String label, String code) {
     Vector2f buttonSize = new Vector2f(20, 20);
     Vector4f buttonBackgroundColor = new Vector4f(0.5f, 0.5f, 0.5f, 1f);
     Vector3f buttonTextColor = new Vector3f(1, 1, 1);
-    Button addX = new Button("+", "100", buttonSize,getButtonPos(buttonSize,false,amountOfRows), buttonBackgroundColor, buttonTextColor);
-    Button subX = new Button("-", "200", buttonSize,getButtonPos(buttonSize,true,amountOfRows), buttonBackgroundColor, buttonTextColor);
-    this.addButton(addX);
-    this.addButton(subX);
-    this.amountOfRows++;
-    Button addY = new Button("+", "010", buttonSize,getButtonPos(buttonSize,false,amountOfRows), buttonBackgroundColor, buttonTextColor);
-    Button subY = new Button("-", "020", buttonSize,getButtonPos(buttonSize,true,amountOfRows), buttonBackgroundColor, buttonTextColor);
-    this.addButton(addY);
-    this.addButton(subY);
-    this.amountOfRows++;
-    Button addZ = new Button("+", "001", buttonSize,getButtonPos(buttonSize,false,amountOfRows), buttonBackgroundColor, buttonTextColor);
-    Button subZ = new Button("-", "002", buttonSize,getButtonPos(buttonSize,true,amountOfRows), buttonBackgroundColor, buttonTextColor);
-    this.addButton(addZ);
-    this.addButton(subZ);
+    boolean buttonSide = rowLocation >= 0;
+    this.addButton(new Button(label, code, buttonSize, getButtonPos(buttonSize, buttonSide, column), buttonBackgroundColor, buttonTextColor));
+    if (this.amountOfRows < column) {
+      this.amountOfRows = column;
+    }
+
   }
 
   private Vector2f getButtonPos(Vector2f size, boolean side, int row) {
@@ -44,6 +45,7 @@ public class ModelButton extends AddSubtractBasic {
     return new Vector2f(x, y);
 
   }
+
   public void checkButtonInput(double mouseX, double mouseY, int action, BasePlaceableItem item, float snap) {
     // 1. Only trigger on the initial PRESS
     if (action != 1) return;
