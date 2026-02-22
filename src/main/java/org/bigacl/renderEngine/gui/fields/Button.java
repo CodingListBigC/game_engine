@@ -74,15 +74,7 @@ public class Button {
   public void render() {
     NanoVGUI nanoVGUI = ClassConst.nanoVGUI;
     nanoVGUI.drawRect(startPosition, size, backgroundColor);
-    nanoVGUI.drawText(
-            this.label,
-            startPosition.x + 5,
-            startPosition.y + 5,
-            18.0f, // font size
-            1.0f,
-            1.0f,
-            1.0f // White color (RGB)
-    );
+    nanoVGUI.drawTextFitToBoxCentered(this.label,startPosition,size,18.0f,this.textColor);
   }
 
   public boolean isHovered(double mouseX, double mouseY) {

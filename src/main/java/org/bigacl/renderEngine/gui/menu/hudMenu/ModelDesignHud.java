@@ -37,7 +37,7 @@ public class ModelDesignHud extends HudAbstract {
     this.leftPanelWidth = screenWidth * leftWidthPercentage;
     this.panelHeight = screenHeight * heightPercentage;
 
-    this.modelButton = new ModelButton(new Vector2f(0.0f,0.0f), leftPanelWidth);
+    this.modelButton = new ModelButton(new Vector2f(0,50), leftPanelWidth);
   }
 
 
