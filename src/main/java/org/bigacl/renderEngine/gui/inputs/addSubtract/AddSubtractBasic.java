@@ -1,6 +1,6 @@
 package org.bigacl.renderEngine.gui.inputs.addSubtract;
 
-import org.bigacl.renderEngine.gui.inputs.Button;
+import org.bigacl.renderEngine.gui.fields.Button;
 import org.joml.Vector2f;
 
 import java.util.ArrayList;
