@@ -1,12 +1,12 @@
-package org.bigacl.renderEngine.item.placeable;
+package org.bigacl.renderEngine.gameItems.item.placeable;
 
 import com.google.gson.Gson;
-import org.bigacl.renderEngine.item.ItemInterface;
-import org.bigacl.renderEngine.mesh.Mesh;
-import org.bigacl.renderEngine.mesh.OBJLoader;
+import org.bigacl.renderEngine.gameItems.item.ItemInterface;
+import org.bigacl.renderEngine.model.mesh.Mesh;
+import org.bigacl.renderEngine.model.mesh.OBJLoader;
 import org.bigacl.renderEngine.player.BoundingBox;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
-import org.bigacl.renderEngine.texture.Texture;
+import org.bigacl.renderEngine.model.texture.Texture;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix4f;

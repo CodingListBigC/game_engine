@@ -1,6 +1,6 @@
-package org.bigacl.renderEngine.item.placeable.house;
+package org.bigacl.renderEngine.gameItems.item.placeable.house;
 
-import org.bigacl.renderEngine.item.placeable.BasePlaceableItem;
+import org.bigacl.renderEngine.gameItems.item.placeable.BasePlaceableItem;
 import org.joml.Vector3f;
 
 public class House extends BasePlaceableItem {

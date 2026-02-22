@@ -1,17 +1,17 @@
-package org.bigacl.renderEngine;
+package org.bigacl.renderEngine.gameManger;
 
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
 import org.bigacl.renderEngine.gui.menu.hudMenu.HudAbstract;
-import org.bigacl.renderEngine.item.ItemManger;
-import org.bigacl.renderEngine.logic.IGameLogic;
-import org.bigacl.renderEngine.camera.Camera;
-import org.bigacl.renderEngine.mesh.Mesh;
-import org.bigacl.renderEngine.mesh.OBJLoader;
+import org.bigacl.renderEngine.gameItems.item.ItemManger;
+import org.bigacl.renderEngine.gameManger.logic.IGameLogic;
+import org.bigacl.renderEngine.player.camera.Camera;
+import org.bigacl.renderEngine.model.mesh.Mesh;
+import org.bigacl.renderEngine.model.mesh.OBJLoader;
 import org.bigacl.renderEngine.model.DefaultModelFunctions;
 import org.bigacl.renderEngine.player.Player;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
-import org.bigacl.renderEngine.window.input.InputMaster;
+import org.bigacl.renderEngine.player.inputs.keyboard.KeyboardInputMaster;
 import org.bigacl.renderEngine.window.WindowMaster;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -41,7 +41,7 @@ public class MainGame implements IGameLogic {
   private HudAbstract hudAbstract;
 
   // Inputs
-  private final InputMaster inputMaster;
+  private final KeyboardInputMaster keyboardInputMaster;
 
   public MainGame() {
     ClassConst.setIGameLogic(this);
@@ -57,7 +57,7 @@ public class MainGame implements IGameLogic {
     this.gui.init();
     this.hudAbstract = ClassConst.hudAbstract;
     // Input Setups
-    this.inputMaster = new InputMaster();
+    this.keyboardInputMaster = new KeyboardInputMaster();
 
     //Player Setup
     this.player = new Player("Bigacl", "Christian", new Vector3f(1.0f, 0.0f, 0.0f));
@@ -66,7 +66,7 @@ public class MainGame implements IGameLogic {
   @Override
   public void input() {
     double currentTime = glfwGetTime();
-    inputMaster.input(currentTime, this.player);
+    keyboardInputMaster.input(currentTime, this.player);
 
   }
 
@@ -78,7 +78,7 @@ public class MainGame implements IGameLogic {
 
   public void updateHudAbstract() {
     this.hudAbstract = ClassConst.hudAbstract;
-    inputMaster.updateHudAbstract();
+    keyboardInputMaster.updateHudAbstract();
   }
 
   @Override

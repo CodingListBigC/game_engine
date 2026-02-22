@@ -1,4 +1,4 @@
-package org.bigacl.renderEngine.item;
+package org.bigacl.renderEngine.gameItems.item;
 
 public interface ItemInterface {
   void init();

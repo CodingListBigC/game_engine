@@ -1,14 +1,14 @@
 package org.bigacl.renderEngine.utils.consts;
 
-import org.bigacl.renderEngine.MainGame;
-import org.bigacl.renderEngine.camera.Camera;
+import org.bigacl.renderEngine.gameManger.MainGame;
+import org.bigacl.renderEngine.player.camera.Camera;
 import org.bigacl.renderEngine.gui.font.FontSizing;
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
 import org.bigacl.renderEngine.gui.menu.hudMenu.MasterGameHud;
 import org.bigacl.renderEngine.gui.menu.hudMenu.HudAbstract;
 import org.bigacl.renderEngine.gui.menu.hudMenu.modelDesign.MasterHud;
-import org.bigacl.renderEngine.item.ItemManger;
-import org.bigacl.renderEngine.logic.IGameLogic;
+import org.bigacl.renderEngine.gameItems.item.ItemManger;
+import org.bigacl.renderEngine.gameManger.logic.IGameLogic;
 import org.bigacl.renderEngine.player.level.MainLevel;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
 import org.bigacl.renderEngine.window.WindowMaster;

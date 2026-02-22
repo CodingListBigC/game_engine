@@ -1,4 +1,4 @@
-package org.bigacl.renderEngine.texture;
+package org.bigacl.renderEngine.model.texture;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.stb.STBImage;

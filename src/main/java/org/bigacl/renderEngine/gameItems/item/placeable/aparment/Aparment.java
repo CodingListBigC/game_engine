@@ -1,6 +1,6 @@
-package org.bigacl.renderEngine.item.placeable.aparment;
+package org.bigacl.renderEngine.gameItems.item.placeable.aparment;
 
-import org.bigacl.renderEngine.item.placeable.BasePlaceableItem;
+import org.bigacl.renderEngine.gameItems.item.placeable.BasePlaceableItem;
 import org.joml.Vector3f;
 
 public class Aparment extends BasePlaceableItem {

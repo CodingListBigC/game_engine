@@ -1,4 +1,4 @@
-package org.bigacl.renderEngine.logic;
+package org.bigacl.renderEngine.gameManger.logic;
 
 import org.bigacl.renderEngine.player.Player;
 import org.joml.Vector3f;

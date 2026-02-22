@@ -1,6 +1,6 @@
-package org.bigacl.renderEngine.camera;
+package org.bigacl.renderEngine.player.camera;
 
-import org.bigacl.renderEngine.item.placeable.BasePlaceableItem;
+import org.bigacl.renderEngine.gameItems.item.placeable.BasePlaceableItem;
 import org.bigacl.renderEngine.player.BoundingBox;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.bigacl.renderEngine.utils.number.NumberLimits;

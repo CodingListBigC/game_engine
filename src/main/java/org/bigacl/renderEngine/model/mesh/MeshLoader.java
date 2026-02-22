@@ -1,4 +1,4 @@
-package org.bigacl.renderEngine.mesh;
+package org.bigacl.renderEngine.model.mesh;
 
 import org.bigacl.renderEngine.utils.BufferUtils;
 
@@ -7,7 +7,6 @@ import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.sql.Types.NULL;
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;

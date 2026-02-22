@@ -1,8 +1,8 @@
-package org.bigacl.renderEngine.item;
+package org.bigacl.renderEngine.gameItems.item;
 
-import org.bigacl.renderEngine.item.placeable.BasePlaceableItem;
-import org.bigacl.renderEngine.item.placeable.aparment.Aparment;
-import org.bigacl.renderEngine.item.placeable.house.House;
+import org.bigacl.renderEngine.gameItems.item.placeable.BasePlaceableItem;
+import org.bigacl.renderEngine.gameItems.item.placeable.aparment.Aparment;
+import org.bigacl.renderEngine.gameItems.item.placeable.house.House;
 import org.bigacl.renderEngine.player.BoundingBox;
 import org.jetbrains.annotations.NotNull;
 

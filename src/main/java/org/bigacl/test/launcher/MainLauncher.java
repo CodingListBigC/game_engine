@@ -1,8 +1,8 @@
 package org.bigacl.test.launcher;
 
-import org.bigacl.renderEngine.item.ItemManger;
-import org.bigacl.renderEngine.item.placeable.aparment.Aparment;
-import org.bigacl.renderEngine.item.placeable.house.House;
+import org.bigacl.renderEngine.gameItems.item.ItemManger;
+import org.bigacl.renderEngine.gameItems.item.placeable.aparment.Aparment;
+import org.bigacl.renderEngine.gameItems.item.placeable.house.House;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.bigacl.renderEngine.window.WindowMaster;

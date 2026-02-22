@@ -1,6 +1,6 @@
 package org.bigacl.renderEngine.gui.menu.debugMenu;
 
-import org.bigacl.renderEngine.camera.Camera;
+import org.bigacl.renderEngine.player.camera.Camera;
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
 import org.bigacl.renderEngine.gui.menu.design.BoxItems;
 import org.bigacl.renderEngine.gui.uiSets.lists.TextItems;

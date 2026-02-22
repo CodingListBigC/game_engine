@@ -1,4 +1,4 @@
-package org.bigacl.renderEngine.item.placeable;
+package org.bigacl.renderEngine.gameItems.item.placeable;
 
 import java.util.Map;
 

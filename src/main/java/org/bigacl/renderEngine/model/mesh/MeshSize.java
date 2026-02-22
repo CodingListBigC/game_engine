@@ -1,4 +1,4 @@
-package org.bigacl.renderEngine.mesh;
+package org.bigacl.renderEngine.model.mesh;
 
 import org.joml.Vector3f;
 

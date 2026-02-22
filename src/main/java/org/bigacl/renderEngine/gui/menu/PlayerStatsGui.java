@@ -1,8 +1,7 @@
 package org.bigacl.renderEngine.gui.menu;
 
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
-import org.bigacl.renderEngine.logic.IGameLogic;
-import org.bigacl.renderEngine.player.Player;
+import org.bigacl.renderEngine.gameManger.logic.IGameLogic;
 import org.bigacl.renderEngine.player.PlayerStats;
 import org.bigacl.renderEngine.player.level.Level;
 import org.bigacl.renderEngine.utils.consts.ClassConst;

@@ -1,8 +1,8 @@
-package org.bigacl.renderEngine.mesh;
+package org.bigacl.renderEngine.model.mesh;
 
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
-import org.bigacl.renderEngine.texture.Texture;
+import org.bigacl.renderEngine.model.texture.Texture;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 

@@ -1,6 +1,6 @@
 package org.bigacl.renderEngine.player;
 
-import org.bigacl.renderEngine.item.ItemManger;
+import org.bigacl.renderEngine.gameItems.item.ItemManger;
 
 import java.util.ArrayList;
 

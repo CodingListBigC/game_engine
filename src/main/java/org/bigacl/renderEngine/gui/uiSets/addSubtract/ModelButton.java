@@ -2,7 +2,7 @@ package org.bigacl.renderEngine.gui.uiSets.addSubtract;
 
 import org.bigacl.renderEngine.gui.fields.Button;
 import org.bigacl.renderEngine.gui.fields.TextLimits;
-import org.bigacl.renderEngine.item.placeable.BasePlaceableItem;
+import org.bigacl.renderEngine.gameItems.item.placeable.BasePlaceableItem;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.joml.Vector2f;
 import org.joml.Vector3f;

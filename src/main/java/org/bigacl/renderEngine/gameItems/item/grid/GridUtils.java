@@ -1,4 +1,4 @@
-package org.bigacl.renderEngine.item.grid;
+package org.bigacl.renderEngine.gameItems.item.grid;
 
 import org.joml.Vector3f;
 

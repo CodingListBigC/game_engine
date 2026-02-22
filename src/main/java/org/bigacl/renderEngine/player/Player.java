@@ -1,8 +1,6 @@
 package org.bigacl.renderEngine.player;
 
-import org.bigacl.renderEngine.utils.consts.ClassConst;
-import org.bigacl.test.launcher.MainLauncher;
-import org.bigacl.renderEngine.item.ItemManger;
+import org.bigacl.renderEngine.gameItems.item.ItemManger;
 import org.bigacl.renderEngine.player.level.Level;
 import org.joml.Vector3f;
 

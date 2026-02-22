@@ -1,6 +1,6 @@
 package org.bigacl.test.launcher;
 
-import org.bigacl.renderEngine.item.ItemManger;
+import org.bigacl.renderEngine.gameItems.item.ItemManger;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.bigacl.renderEngine.window.WindowMaster;

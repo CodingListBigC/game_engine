@@ -1,14 +1,11 @@
 package org.bigacl.renderEngine.player.inputs.mouse;
 
-import org.bigacl.renderEngine.camera.Camera;
+import org.bigacl.renderEngine.player.camera.Camera;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.bigacl.renderEngine.window.WindowMaster;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
-
-import static org.bigacl.renderEngine.utils.consts.ClassConst.camera;
-import static org.bigacl.renderEngine.utils.consts.ClassConst.window;
 
 public class MouseRayCast {
 

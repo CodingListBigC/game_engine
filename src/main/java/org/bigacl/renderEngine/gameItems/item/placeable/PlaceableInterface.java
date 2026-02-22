@@ -1,6 +1,6 @@
-package org.bigacl.renderEngine.item.placeable;
+package org.bigacl.renderEngine.gameItems.item.placeable;
 
-import org.bigacl.renderEngine.item.ItemInterface;
+import org.bigacl.renderEngine.gameItems.item.ItemInterface;
 import org.joml.Vector3f;
 
 public interface PlaceableInterface extends ItemInterface {

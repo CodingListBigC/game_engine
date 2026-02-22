@@ -1,10 +1,10 @@
-package org.bigacl.renderEngine.window.input;
+package org.bigacl.renderEngine.player.inputs.keyboard;
 
-import org.bigacl.renderEngine.camera.Camera;
+import org.bigacl.renderEngine.player.camera.Camera;
 import org.bigacl.renderEngine.gui.menu.hudMenu.HudAbstract;
-import org.bigacl.renderEngine.item.ItemManger;
-import org.bigacl.renderEngine.item.grid.GridUtils;
-import org.bigacl.renderEngine.item.placeable.house.House;
+import org.bigacl.renderEngine.gameItems.item.ItemManger;
+import org.bigacl.renderEngine.gameItems.item.grid.GridUtils;
+import org.bigacl.renderEngine.gameItems.item.placeable.house.House;
 import org.bigacl.renderEngine.player.Player;
 import org.bigacl.renderEngine.player.inputs.mouse.MouseRayCast;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
@@ -16,20 +16,21 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_F3;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_H;
 
-public class InputMaster {
+public class KeyboardInputMaster {
   private WindowMaster window;
   private ItemManger itemManger;
   private HudAbstract hudAbstract;
   private Camera camera;
+  private double currentTime;
 
   private final ClickTimer placeItemTimer = new ClickTimer(1.0f);
-  private final ClickTimer debugInputTimer = new ClickTimer(1.0f);
+  private boolean lastDebugKeyStatus = false;
 
-  public InputMaster() {
+  public KeyboardInputMaster() {
     updateVariables();
   }
 
-  public void updateVariables(){
+  public void updateVariables() {
     this.window = ClassConst.window;
     this.itemManger = ClassConst.itemManger;
     this.hudAbstract = ClassConst.hudAbstract;
@@ -41,14 +42,11 @@ public class InputMaster {
   }
 
   public void input(double currentTime, Player player) {
+    this.currentTime = currentTime;
     float moveSpeed = 0.02f;
     float rotateSpeed = 2.0f;
-    if (window.isKeyPressed(GLFW_KEY_LEFT_CONTROL)) {
-      moveSpeed = 0.02f * 10;
-    }
-    if (window.isKeyPressed(GLFW_KEY_O)) {
-      player.addExperience(1);
-    }
+    if (window.isKeyPressed(GLFW_KEY_LEFT_CONTROL)) moveSpeed *= 10;
+    if (window.isKeyPressed(GLFW_KEY_O)) player.addExperience(1);
     if (window.isKeyPressed(GLFW_KEY_H)) {
       if (placeItemTimer.checkTimer(currentTime)) {
         Vector3f hitPoint = MouseRayCast.getRaycastPosition();
@@ -63,16 +61,20 @@ public class InputMaster {
         itemManger.addItem(house);
       }
     }
-    // TOOD: Add hud inputs
     camera.CameraInput(window, moveSpeed, rotateSpeed, this.itemManger.getAllItems());
-    if (window.isKeyPressed(GLFW_KEY_F3)){
-      if (debugInputTimer.checkTimer(currentTime)){
-        hudAbstract.toggleDebugStatus();
-        System.out.println("Debug toggle: " + hudAbstract.getDebugStatus());
-      }
-    }
-    if (hudAbstract != null) {
-      hudAbstract.checkHudInputs();
-    }
+    hudInputs();
   }
+  private void hudInputs() {
+    if (this.hudAbstract == null) {
+      this.hudAbstract = ClassConst.hudAbstract;
+      if (this.hudAbstract == null) return;
+    }
+    boolean currentDebugKeyStatus = window.isKeyPressed(GLFW_KEY_F3);
+    if (currentDebugKeyStatus && !lastDebugKeyStatus) {
+      this.hudAbstract.toggleDebugStatus();
+    }
+    this.lastDebugKeyStatus = currentDebugKeyStatus;
+    this.hudAbstract.checkHudInputs();
+  }
+
 }
