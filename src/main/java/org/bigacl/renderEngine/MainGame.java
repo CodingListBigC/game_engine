@@ -3,18 +3,15 @@ package org.bigacl.renderEngine;
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
 import org.bigacl.renderEngine.gui.menu.hudMenu.HudAbstract;
 import org.bigacl.renderEngine.item.ItemManger;
-import org.bigacl.renderEngine.item.grid.GridUtils;
-import org.bigacl.renderEngine.item.placeable.house.House;
 import org.bigacl.renderEngine.logic.IGameLogic;
 import org.bigacl.renderEngine.camera.Camera;
 import org.bigacl.renderEngine.mesh.Mesh;
 import org.bigacl.renderEngine.mesh.OBJLoader;
 import org.bigacl.renderEngine.model.DefaultModelFunctions;
 import org.bigacl.renderEngine.player.Player;
-import org.bigacl.renderEngine.player.inputs.mouse.MouseRayCast;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
-import org.bigacl.renderEngine.utils.timer.ClickTimer;
+import org.bigacl.renderEngine.window.input.InputMaster;
 import org.bigacl.renderEngine.window.WindowMaster;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -38,12 +35,13 @@ public class MainGame implements IGameLogic {
   // Player Variables
   private final Player player;
 
-  private final ClickTimer placeItemTimer = new ClickTimer(1.0f);
-  private final ClickTimer debugInputTimer = new ClickTimer(1.0f);
 
   // HUD Variables;
   private final NanoVGUI gui;
   private HudAbstract hudAbstract;
+
+  // Inputs
+  private final InputMaster inputMaster;
 
   public MainGame() {
     ClassConst.setIGameLogic(this);
@@ -58,7 +56,8 @@ public class MainGame implements IGameLogic {
     this.gui = ClassConst.nanoVGUI;
     this.gui.init();
     this.hudAbstract = ClassConst.hudAbstract;
-    ;
+    // Input Setups
+    this.inputMaster = new InputMaster();
 
     //Player Setup
     this.player = new Player("Bigacl", "Christian", new Vector3f(1.0f, 0.0f, 0.0f));
@@ -67,33 +66,8 @@ public class MainGame implements IGameLogic {
   @Override
   public void input() {
     double currentTime = glfwGetTime();
-    float moveSpeed = 0.02f;
-    float rotateSpeed = 2.0f;
-    if (window.isKeyPressed(GLFW_KEY_LEFT_CONTROL)) {
-      moveSpeed = 0.02f * 10;
-    }
-    if (window.isKeyPressed(GLFW_KEY_O)) {
-      player.addExperience(1);
-    }
-    if (window.isKeyPressed(GLFW_KEY_H)) {
-      if (placeItemTimer.checkTimer(currentTime)) {
-        Vector3f hitPoint = MouseRayCast.getRaycastPosition();
-        assert hitPoint != null;
-        // 1. Snap the hit point to your grid
-        Vector3f snappedPos = GridUtils.snapVector(hitPoint);
-        // 2. Set the house position (using your Blender-to-Java logic)
-        // Note: Since we are placing on the floor, Y is usually 0.
-        House house = new House();
-        house.setWorldPosition(snappedPos);
-        // 3. Add to manager
-        itemManger.addItem(house);
-      }
-    }
-    // TOOD: Add hud inputs
-    camera.CameraInput(window, moveSpeed, rotateSpeed, this.itemManger.getAllItems());
-    if (hudAbstract != null) {
-      hudAbstract.checkHudInputs();
-    }
+    inputMaster.input(currentTime, this.player);
+
   }
 
   @Override
@@ -104,6 +78,7 @@ public class MainGame implements IGameLogic {
 
   public void updateHudAbstract() {
     this.hudAbstract = ClassConst.hudAbstract;
+    inputMaster.updateHudAbstract();
   }
 
   @Override
