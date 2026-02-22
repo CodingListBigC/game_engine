@@ -1,7 +1,7 @@
 package org.bigacl.renderEngine.gui.menu.hudMenu;
 
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
-import org.bigacl.renderEngine.gui.inputs.addSubtract.ModelButton;
+import org.bigacl.renderEngine.gui.uiSets.addSubtract.ModelButton;
 import org.bigacl.renderEngine.gui.menu.debugMenu.DebugMenu;
 import org.bigacl.renderEngine.item.ItemManger;
 import org.bigacl.renderEngine.item.placeable.house.House;

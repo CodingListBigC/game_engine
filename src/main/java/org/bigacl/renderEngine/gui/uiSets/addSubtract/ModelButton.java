@@ -1,4 +1,4 @@
-package org.bigacl.renderEngine.gui.inputs.addSubtract;
+package org.bigacl.renderEngine.gui.uiSets.addSubtract;
 
 import org.bigacl.renderEngine.gui.fields.Button;
 import org.bigacl.renderEngine.item.placeable.BasePlaceableItem;
