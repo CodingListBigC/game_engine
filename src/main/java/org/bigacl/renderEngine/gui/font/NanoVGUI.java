@@ -186,7 +186,6 @@ public class NanoVGUI {
   }
 
 
-
   public void drawTextFitToBoxCentered(String text, Vector2f startPos, Vector2f boxSize, float startFontSize, Vector3f textColor){
     this.drawTextFitToBoxCentered(text, startPos.x, startPos.y, boxSize.x, boxSize.y, startFontSize, textColor.x, textColor.y, textColor.z);
   }
@@ -216,10 +215,10 @@ public class NanoVGUI {
     nvgFill(vg);
   }
 
-
   public void drawRect(Vector2f position, Vector2f rectSize, Vector4f backgroundColor) {
     drawRect(position.x, position.y, rectSize.x, rectSize.y, backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
   }
+
 
   public void drawRoundedRect(float radius, float x, float y, float w, float h, float r, float g, float b, float a) {
     nvgBeginPath(vg);
@@ -233,7 +232,7 @@ public class NanoVGUI {
     nvgFill(vg);
   }
 
-  public void drawRoundedRect(float radius, Vector2f position, Vector2f rectSize, Vector4f backgroundColor) {
+  public void drawRoundedRect(float radius,  Vector2f position, Vector2f rectSize, Vector4f backgroundColor) {
     drawRoundedRect(radius, position.x, position.y, rectSize.x, rectSize.y, backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
   }
 
@@ -288,6 +287,25 @@ public class NanoVGUI {
     float y = startPos.y + (position * (Math.max(iconSize, textSize) + Const.PADDING));
     drawIconWithText(icon, text, startPos.x, y, iconSize, textSize, color.x, color.y, color.z);
   }
+
+  public void drawCircle(Vector2f position, float diameter, Vector4f backgroundColor, Vector4f outlineColorInput) {
+    nvgBeginPath(vg);
+    nvgRoundedRect(vg, position.x, position.y, diameter, diameter, diameter / 2);
+    try (MemoryStack stack = MemoryStack.stackPush()) {
+      NVGColor nvgColor = NVGColor.calloc(stack);
+      NVGColor outlineColor = NVGColor.calloc(stack);
+
+      nvgRGBAf(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w, nvgColor);
+      nvgFillColor(vg, nvgColor);
+      nvgFill(vg);  // fill first
+
+      nvgRGBAf(outlineColorInput.x, outlineColorInput.y, outlineColorInput.z, outlineColorInput.w, outlineColor);
+      nvgStrokeColor(vg, outlineColor);
+      nvgStrokeWidth(vg, 2.0f);
+      nvgStroke(vg); // outline second
+    }
+  }
+
 
   public void cleanup() {
     nvgDelete(vg);
