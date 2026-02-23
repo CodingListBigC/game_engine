@@ -32,7 +32,6 @@ public class TextLimits {
   }
 
   public void render() {
-    System.out.println("Rendering text: " + this.text);
     NanoVGUI nanoVGUI = ClassConst.nanoVGUI;
     nanoVGUI.drawTextFitToBoxCentered(this.text, this.startPos, this.boxSize, this.defaultFontSize, this.textColor);
   }

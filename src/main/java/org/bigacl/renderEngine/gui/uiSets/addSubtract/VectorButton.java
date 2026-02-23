@@ -10,7 +10,7 @@ import org.joml.Vector4f;
 
 import java.util.Objects;
 
-public class ModelButton extends AddSubtractBasic {
+public class VectorButton extends AddSubtractBasic {
 
   // Default Button Size
   Vector2f defaultButtonSize = new Vector2f(25, 25);
@@ -18,7 +18,7 @@ public class ModelButton extends AddSubtractBasic {
   Vector3f defaultButtonTextColor = new Vector3f(1, 1, 1);
   Vector3f defaultTextColor = new Vector3f(1, 0, 0);
 
-  public ModelButton(Vector2f guiPosition, float width) {
+  public VectorButton(Vector2f guiPosition, float width) {
     this.guiPosition = guiPosition;
     this.guiWidth = width;
 
@@ -73,9 +73,9 @@ public class ModelButton extends AddSubtractBasic {
     return guiPosition.y + (row * (defaultButtonSize.y + rowSpacing));
   }
 
-  public void checkButtonInput(double mouseX, double mouseY, int action, BasePlaceableItem item, float snap) {
+  public Vector3f checkButtonInput(double mouseX, double mouseY, int action, Vector3f vector3f, float snap) {
     // 1. Only trigger on the initial PRESS
-    if (action != 1) return;
+    if (action != 1) return vector3f;
 
     for (Button button : buttonArrayList) {
       if (!button.isHovered(mouseX, mouseY)) continue;
@@ -94,13 +94,11 @@ public class ModelButton extends AddSubtractBasic {
 
       if (chars[2] == '1') dz = snap;
       else if (chars[2] == '2') dz = -snap;
-
-      item.changePosition(dx, dy, dz);
-      updateText(item);
-      // 2. IMPORTANT: Consume the click so it doesn't fire again next frame
-      // You need to set your global mouse action variable to -1 here
-      ClassConst.window.setMouseAction(-1);
+      vector3f.add(dx, dy, dz);
     }
+    updateText(vector3f);
+    ClassConst.window.setMouseAction(-1);
+    return vector3f;
   }
   private Vector2f getTextStartPos(int row){
     float y = getYPos(row);
@@ -116,21 +114,15 @@ public class ModelButton extends AddSubtractBasic {
     TextLimits textLimits = new TextLimits("0", code, getTextStartPos(row), getTextSize(), defaultTextColor);
     addText(textLimits);
   }
-  private void updateText(BasePlaceableItem item){
-    Vector3f worldPos = item.getWorldPosition();
-
-    System.out.println("Item class: " + item.getClass().getSimpleName());
-    System.out.println("Item position: " + item.getWorldPosition());
-
-    System.out.println("updateText called, list size: " + textLimitsArrayList.size());
+  private void updateText(Vector3f vector3f){
     for (TextLimits textLimits : textLimitsArrayList){
       System.out.println("Checking code: " + textLimits.getCode());
       if (Objects.equals(textLimits.getCode(), "1")){
-        textLimits.setText(String.valueOf(worldPos.x));
+        textLimits.setText(String.valueOf(vector3f.x));
       }else if (Objects.equals(textLimits.getCode(), "2")){
-        textLimits.setText(String.valueOf(worldPos.y));
+        textLimits.setText(String.valueOf(vector3f.y));
       }else if (Objects.equals(textLimits.getCode(), "3")){
-        textLimits.setText(String.valueOf(worldPos.z));
+        textLimits.setText(String.valueOf(vector3f.z));
       }
     }
   }
