@@ -1,12 +1,13 @@
-package org.bigacl.renderEngine.gui.uiSets.addSubtract;
+package org.bigacl.renderEngine.gui.fields.sets.addSubtract;
 
 import org.bigacl.renderEngine.gui.fields.Button;
+import org.bigacl.renderEngine.gui.fields.InputAbstract;
 import org.bigacl.renderEngine.gui.fields.TextLimits;
 import org.joml.Vector2f;
 
 import java.util.ArrayList;
 
-public abstract class AddSubtractBasic {
+public abstract class AddSubtractBasic extends InputAbstract {
   protected ArrayList<Button> buttonArrayList = new ArrayList<>();
   protected ArrayList<TextLimits> textLimitsArrayList = new ArrayList<>();
   protected Vector2f guiPosition;

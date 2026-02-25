@@ -1,6 +1,6 @@
 package org.bigacl.renderEngine.gui.menu.design;
 
-import org.bigacl.renderEngine.gui.uiSets.lists.TextItems;
+import org.bigacl.renderEngine.gui.fields.uiSets.lists.TextItems;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.bigacl.renderEngine.utils.consts.Const;
 import org.joml.Vector2f;

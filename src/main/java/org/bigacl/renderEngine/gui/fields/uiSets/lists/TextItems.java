@@ -1,4 +1,4 @@
-package org.bigacl.renderEngine.gui.uiSets.lists;
+package org.bigacl.renderEngine.gui.fields.uiSets.lists;
 
 import org.bigacl.renderEngine.gui.fields.Text;
 import org.joml.Vector2f;

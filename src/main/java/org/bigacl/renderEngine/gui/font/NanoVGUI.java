@@ -299,7 +299,9 @@ public class NanoVGUI {
       nvgFillColor(vg, nvgColor);
       nvgFill(vg);  // fill first
 
-      nvgRGBAf(outlineColorInput.x, outlineColorInput.y, outlineColorInput.z, outlineColorInput.w, outlineColor);
+
+      // Background Transparency same as main background color
+      nvgRGBAf(outlineColorInput.x, outlineColorInput.y, outlineColorInput.z, backgroundColor.w, outlineColor);
       nvgStrokeColor(vg, outlineColor);
       nvgStrokeWidth(vg, 2.0f);
       nvgStroke(vg); // outline second
