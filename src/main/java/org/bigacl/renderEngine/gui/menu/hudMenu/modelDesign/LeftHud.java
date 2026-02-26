@@ -45,7 +45,6 @@ public class LeftHud extends ModelDesignAbstractClass {
       iM.addItem(addHouse);
       System.out.println("Add House");
     }
-    System.out.println(iM.getHouseList().getFirst().getClass());
     Vector3f changeLocation = this.vectorButton.checkButtonInput(
             ClassConst.window.getMouseLocation(),
             ClassConst.window.getMouseAction(),
