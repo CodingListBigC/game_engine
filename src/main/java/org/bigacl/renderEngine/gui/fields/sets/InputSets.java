@@ -1,13 +1,13 @@
 package org.bigacl.renderEngine.gui.fields.sets;
 
-import org.bigacl.renderEngine.gui.fields.InputAbstract;
+import org.bigacl.renderEngine.gui.fields.InputInterface;
 
 import java.util.ArrayList;
 
 public abstract class InputSets {
-  protected ArrayList<InputAbstract> itemList = new ArrayList<InputAbstract>();
+  protected ArrayList<InputInterface> itemList = new ArrayList<InputInterface>();
   public void renderAll(){
-    for (InputAbstract item: itemList){
+    for (InputInterface item: itemList){
       item.render();
     }
   };

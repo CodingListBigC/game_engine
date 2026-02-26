@@ -1,8 +1,9 @@
-package org.bigacl.renderEngine.gui.fields.sets.addSubtract;
+package org.bigacl.renderEngine.gui.fields.button.addSubtract;
 
-import org.bigacl.renderEngine.gui.fields.Button;
+import org.bigacl.renderEngine.gui.fields.button.Button;
 import org.bigacl.renderEngine.gui.fields.TextLimits;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -10,6 +11,15 @@ import org.joml.Vector4f;
 import java.util.Objects;
 
 public class VectorButton extends AddSubtractBasic {
+  @Override
+  protected void leftClick() {
+
+  }
+
+  @Override
+  protected void rightClick() {
+
+  }
 
   // Default Button Size
   Vector2f defaultButtonSize = new Vector2f(25, 25);
@@ -18,7 +28,7 @@ public class VectorButton extends AddSubtractBasic {
   Vector3f defaultTextColor = new Vector3f(1, 0, 0);
 
   public VectorButton(Vector2f guiPosition, float width) {
-    this.guiPosition = guiPosition;
+    this.guiPosition = new Vector2f(guiPosition);
     this.guiWidth = width;
 
     init();
@@ -72,12 +82,12 @@ public class VectorButton extends AddSubtractBasic {
     return guiPosition.y + (row * (defaultButtonSize.y + rowSpacing));
   }
 
-  public Vector3f checkButtonInput(double mouseX, double mouseY, int action, Vector3f vector3f, float snap) {
+  public Vector3f checkButtonInput(Vector2d mouseLocation, int action, Vector3f vector3f, float snap) {
     // 1. Only trigger on the initial PRESS
     if (action != 1) return vector3f;
 
     for (Button button : buttonArrayList) {
-      if (!button.isHovered(mouseX, mouseY)) continue;
+      if (!button.isHovered(mouseLocation)) continue;
 
       char[] chars = button.getCode().toLowerCase().toCharArray();
       if (chars.length < 3) continue;
@@ -93,10 +103,13 @@ public class VectorButton extends AddSubtractBasic {
 
       if (chars[2] == '1') dz = snap;
       else if (chars[2] == '2') dz = -snap;
-      vector3f.add(dx, dy, dz);
+      Vector3f newPosition = new Vector3f(vector3f).add(dx, dy, dz);
+
+      updateText(newPosition);
+
+      ClassConst.window.setMouseAction(-1);
+      return newPosition;
     }
-    updateText(vector3f);
-    ClassConst.window.setMouseAction(-1);
     return vector3f;
   }
   private Vector2f getTextStartPos(int row){
@@ -115,7 +128,7 @@ public class VectorButton extends AddSubtractBasic {
   }
   private void updateText(Vector3f vector3f){
     for (TextLimits textLimits : textLimitsArrayList){
-      System.out.println("Checking code: " + textLimits.getCode());
+      System.out.println("Checking mainCode: " + textLimits.getCode());
       if (Objects.equals(textLimits.getCode(), "1")){
         textLimits.setText(String.valueOf(vector3f.x));
       }else if (Objects.equals(textLimits.getCode(), "2")){

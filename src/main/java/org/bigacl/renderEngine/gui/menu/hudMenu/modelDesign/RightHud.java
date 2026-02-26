@@ -1,6 +1,6 @@
 package org.bigacl.renderEngine.gui.menu.hudMenu.modelDesign;
 
-import org.bigacl.renderEngine.gui.fields.SelectButton;
+import org.bigacl.renderEngine.gui.fields.button.select.SelectButton;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 

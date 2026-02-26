@@ -2,6 +2,7 @@ package org.bigacl.renderEngine.window;
 
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.bigacl.renderEngine.utils.consts.Const;
+import org.joml.Vector2d;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL;
 
@@ -129,5 +130,9 @@ public class WindowMaster {
 
   public void setMouseAction(int i) {
     this.mouseAction = i;
+  }
+
+  public Vector2d getMouseLocation() {
+    return new Vector2d(getMouseX(), getMouseY());
   }
 }
