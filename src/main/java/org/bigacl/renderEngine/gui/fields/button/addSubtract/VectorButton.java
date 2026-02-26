@@ -1,5 +1,7 @@
 package org.bigacl.renderEngine.gui.fields.button.addSubtract;
 
+import org.bigacl.renderEngine.utils.consts.ClassConst;
+import org.bigacl.renderEngine.window.WindowMaster;
 import org.joml.Vector2d;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -36,6 +38,7 @@ public class VectorButton extends AddSubtractBasic {
   public Vector3f checkButtonInput(Vector2d mouseLocation, int action, Vector3f vector3f, float changeAmount) {
     // 1. Only trigger on the initial PRESS
     if (action != 1) return vector3f;
+
 
     int sizeOfVector = 3;
 

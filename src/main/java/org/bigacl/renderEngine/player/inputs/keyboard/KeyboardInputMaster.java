@@ -63,7 +63,11 @@ public class KeyboardInputMaster {
     }
     camera.CameraInput(window, moveSpeed, rotateSpeed, this.itemManger.getAllItems());
     hudInputs();
+    resetInputs();
+
   }
+
+
   private void hudInputs() {
     if (this.hudAbstract == null) {
       this.hudAbstract = ClassConst.hudAbstract;
@@ -75,6 +79,9 @@ public class KeyboardInputMaster {
     }
     this.lastDebugKeyStatus = currentDebugKeyStatus;
     this.hudAbstract.checkHudInputs();
+  }
+  private void resetInputs(){
+    ClassConst.window.setMouseAction(0);
   }
 
 }
