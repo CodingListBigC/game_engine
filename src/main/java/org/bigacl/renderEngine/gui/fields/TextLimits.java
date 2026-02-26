@@ -1,6 +1,6 @@
 package org.bigacl.renderEngine.gui.fields;
 
-import org.bigacl.renderEngine.gui.font.NanoVGUI;
+import org.bigacl.renderEngine.gui.drawing.NanoVGUI;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.joml.Vector2f;
 

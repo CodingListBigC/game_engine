@@ -3,7 +3,7 @@ package org.bigacl.renderEngine.utils.consts;
 import org.bigacl.renderEngine.gameManger.MainGame;
 import org.bigacl.renderEngine.player.camera.Camera;
 import org.bigacl.renderEngine.gui.font.FontSizing;
-import org.bigacl.renderEngine.gui.font.NanoVGUI;
+import org.bigacl.renderEngine.gui.drawing.NanoVGUI;
 import org.bigacl.renderEngine.gui.menu.hudMenu.MasterGameHud;
 import org.bigacl.renderEngine.gui.menu.hudMenu.HudAbstract;
 import org.bigacl.renderEngine.gui.menu.hudMenu.modelDesign.MasterHud;

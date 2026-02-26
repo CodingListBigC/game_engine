@@ -1,11 +1,7 @@
 package org.bigacl.renderEngine.gui.fields.button;
 
 import org.bigacl.renderEngine.gui.fields.Text;
-import org.bigacl.renderEngine.gui.font.NanoVGUI;
-import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.joml.Vector2f;
-import org.joml.Vector3f;
-import org.joml.Vector4f;
 
 import java.awt.*;
 

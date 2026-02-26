@@ -1,10 +1,9 @@
 package org.bigacl.renderEngine.gui.menu.hudMenu.modelDesign;
 
-import org.bigacl.renderEngine.gui.font.NanoVGUI;
+import org.bigacl.renderEngine.gui.drawing.NanoVGUI;
 import org.bigacl.renderEngine.gui.menu.hudMenu.HudAbstract;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.joml.Vector2f;
-import org.joml.Vector4f;
 
 public abstract class ModelDesignAbstractClass extends HudAbstract {
   public void drawSide(boolean isRightSide, NanoVGUI nanoVGUI, float widthPercentage, float heightPercentage) {

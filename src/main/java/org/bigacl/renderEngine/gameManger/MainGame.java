@@ -1,6 +1,6 @@
 package org.bigacl.renderEngine.gameManger;
 
-import org.bigacl.renderEngine.gui.font.NanoVGUI;
+import org.bigacl.renderEngine.gui.drawing.NanoVGUI;
 import org.bigacl.renderEngine.gui.menu.hudMenu.HudAbstract;
 import org.bigacl.renderEngine.gameItems.item.ItemManger;
 import org.bigacl.renderEngine.gameManger.logic.IGameLogic;

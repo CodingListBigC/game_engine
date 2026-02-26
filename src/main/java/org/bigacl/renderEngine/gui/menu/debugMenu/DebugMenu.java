@@ -1,13 +1,12 @@
 package org.bigacl.renderEngine.gui.menu.debugMenu;
 
 import org.bigacl.renderEngine.player.camera.Camera;
-import org.bigacl.renderEngine.gui.font.NanoVGUI;
+import org.bigacl.renderEngine.gui.drawing.NanoVGUI;
 import org.bigacl.renderEngine.gui.menu.design.BoxItems;
 import org.bigacl.renderEngine.gui.fields.uiSets.lists.TextItems;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
-import org.joml.Vector4f;
 
 import java.awt.*;
 

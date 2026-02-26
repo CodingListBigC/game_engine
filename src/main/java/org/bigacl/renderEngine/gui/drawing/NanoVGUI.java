@@ -1,9 +1,8 @@
-package org.bigacl.renderEngine.gui.font;
+package org.bigacl.renderEngine.gui.drawing;
 
 import org.bigacl.renderEngine.utils.consts.Const;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
-import org.joml.Vector4f;
 import org.lwjgl.nanovg.NVGColor;
 import org.lwjgl.nanovg.NanoVG;
 import org.lwjgl.system.MemoryStack;
@@ -217,24 +216,27 @@ public class NanoVGUI {
   }
 
   public void drawRect(Vector2f position, Vector2f rectSize, Color backgroundColor) {
-    drawRect(position.x, position.y, rectSize.x, rectSize.y, backgroundColor.getRed(), backgroundColor.getGreen(), backgroundColor.getGreen(), backgroundColor.getAlpha());
+    float[] c = backgroundColor.getRGBComponents(null); // returns [r, g, b, a] as 0.0-1.0 floats automatically
+    drawRect(position.x, position.y, rectSize.x, rectSize.y, c[0], c[1], c[2],c[3]);
   }
 
 
   public void drawRoundedRect(float radius, float x, float y, float w, float h, float r, float g, float b, float a) {
+    drawRoundedRect(radius, new Vector2f(x,y),new Vector2f(w,h),new Color(r,g,b,a));
+  }
+
+  public void drawRoundedRect(float radius,  Vector2f position, Vector2f rectSize, Color backgroundColor) {
+    float[] bgC = backgroundColor.getRGBComponents(null); // returns [r, g, b, a] as 0.0-1.0 floats automatically
+    drawRoundedRect(radius, position.x, position.y, rectSize.x, rectSize.y, bgC[0], bgC[1],bgC[2],bgC[3]);
+
     nvgBeginPath(vg);
-    nvgRoundedRect(vg, x, y, w, h, radius); // radius in pixels
+    nvgRoundedRect(vg, position.x, position.y, rectSize.x, rectSize.y, radius); // radius in pixels
 
     try (MemoryStack stack = MemoryStack.stackPush()) {
-      NVGColor nvgColor = NVGColor.calloc(stack);
-      nvgRGBAf(r, g, b, a, nvgColor);
+      NVGColor nvgColor = convertColor(backgroundColor,null);
       nvgFillColor(vg, nvgColor);
     }
     nvgFill(vg);
-  }
-
-  public void drawRoundedRect(float radius,  Vector2f position, Vector2f rectSize, Vector4f backgroundColor) {
-    drawRoundedRect(radius, position.x, position.y, rectSize.x, rectSize.y, backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
   }
 
   /**
@@ -270,7 +272,8 @@ public class NanoVGUI {
    * @param color    = RGB color vector
    */
   public void drawIconWithText(String icon, String text, Vector2f position, float iconSize, float textSize, Color color) {
-    drawIconWithText(icon, text, position.x, position.y, iconSize, textSize, color.getRed(), color.getGreen(), color.getBlue());
+    float[] c = color.getRGBComponents(null);
+    drawIconWithText(icon, text, position.x, position.y, iconSize, textSize, c[0], c[1], c[2]);
   }
 
   /**
@@ -286,24 +289,27 @@ public class NanoVGUI {
    */
   public void drawIconWithText(String icon, String text, Vector2f startPos, int position, float iconSize, float textSize, Color color) {
     float y = startPos.y + (position * (Math.max(iconSize, textSize) + Const.PADDING));
-    drawIconWithText(icon, text, startPos.x, y, iconSize, textSize, color.getRed(), color.getGreen(), color.getBlue());
+    float[] c = color.getRGBComponents(null);
+    drawIconWithText(icon, text, startPos.x, y, iconSize, textSize, c[0], c[1], c[2]);
   }
 
   public void drawCircle(Vector2f position, float diameter, Color backgroundColor, Color outlineColorInput) {
     nvgBeginPath(vg);
     nvgRoundedRect(vg, position.x, position.y, diameter, diameter, diameter / 2);
+    float[] bgC = backgroundColor.getRGBComponents(null);
+    float[] olC = outlineColorInput.getRGBComponents(null);
     try (MemoryStack stack = MemoryStack.stackPush()) {
-      NVGColor nvgColor = NVGColor.calloc(stack);
-      NVGColor outlineColor = NVGColor.calloc(stack);
+      NVGColor bgColor = NVGColor.calloc(stack);
+      NVGColor olColor = NVGColor.calloc(stack);
 
-      nvgRGBAf(backgroundColor.getRed(), backgroundColor.getGreen(), backgroundColor.getBlue(), backgroundColor.getAlpha(),nvgColor);
-      nvgFillColor(vg, nvgColor);
+      nvgRGBAf(bgC[0],bgC[1],bgC[2],bgC[3],bgColor);
+      nvgFillColor(vg, bgColor);
       nvgFill(vg);  // fill first
 
 
       // Background Transparency same as main background color
-      nvgRGBAf(outlineColorInput.getRed(), outlineColorInput.getGreen(), outlineColorInput.getBlue(), backgroundColor.getAlpha(), outlineColor);
-      nvgStrokeColor(vg, outlineColor);
+      nvgRGBf(olC[0],olC[1],olC[2],olColor);
+      nvgStrokeColor(vg, olColor);
       nvgStrokeWidth(vg, 2.0f);
       nvgStroke(vg); // outline second
     }
@@ -369,5 +375,20 @@ public class NanoVGUI {
     }
     if (!current.isEmpty()) lines.add(current.toString());
     return lines;
+  }
+
+  public static NVGColor convertColor(Color awtColor, NVGColor store) {
+    if (store == null) {
+      store = NVGColor.create(); // Create a new buffer-backed object if none provided
+    }
+    float r = awtColor.getRed() / 255.0f;
+    float g = awtColor.getGreen() / 255.0f;
+    float b = awtColor.getBlue() / 255.0f;
+    float a = awtColor.getAlpha() / 255.0f;
+
+    // The nvgRGBAf function populates the 'store' object directly
+    nvgRGBAf(r, g, b, a, store);
+
+    return store;
   }
 }
