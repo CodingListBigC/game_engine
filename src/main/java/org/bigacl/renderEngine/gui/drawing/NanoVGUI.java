@@ -1,27 +1,28 @@
 package org.bigacl.renderEngine.gui.drawing;
 
-import org.bigacl.renderEngine.utils.consts.Const;
-import org.joml.Vector2f;
-import org.joml.Vector3f;
+import org.bigacl.renderEngine.gui.drawing.types.CircleShape;
+import org.bigacl.renderEngine.gui.drawing.types.IconWithText;
+import org.bigacl.renderEngine.gui.drawing.types.RectangleShape;
+import org.bigacl.renderEngine.gui.drawing.types.RegularText;
 import org.lwjgl.nanovg.NVGColor;
 import org.lwjgl.nanovg.NanoVG;
-import org.lwjgl.system.MemoryStack;
 
 import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.nio.FloatBuffer;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.lwjgl.nanovg.NanoVG.*;
 import static org.lwjgl.nanovg.NanoVGGL3.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-@SuppressWarnings("unused")
-public class NanoVGUI {
+public class NanoVGUI implements RectangleShape, CircleShape, RegularText, IconWithText {
   private long vg;
+
+  @Override
+  public long getVg(){
+    return vg;
+  }
 
   public void init() {
     vg = nvgCreate(NVG_ANTIALIAS | NVG_STENCIL_STROKES);
@@ -84,238 +85,6 @@ public class NanoVGUI {
     nvgEndFrame(vg);
   }
 
-  /**
-   * Draw TextLimits Function spreadOut
-   *
-   * @param text       = TextLimits show on screen.
-   * @param x          = X position of text.
-   * @param y          = Y position of text.
-   * @param size       = Size of text.
-   * @param redColor   = Red color of text.
-   * @param greenColor = Green color of text,
-   * @param blueColor  = Blue color of text.
-   */
-  public void drawText(String text, float x, float y, float size, float redColor, float greenColor, float blueColor) {
-    try (MemoryStack stack = MemoryStack.stackPush()) {
-      NVGColor color = NVGColor.malloc(stack);
-      nvgTextAlign(vg, NVG_ALIGN_LEFT | NVG_ALIGN_TOP);
-      nvgRGBAf(redColor, greenColor, blueColor, 1.0f, color);
-
-      nvgFontFace(vg, "sans");
-      nvgFontSize(vg, size);
-      nvgFillColor(vg, color);
-      nvgText(vg, x, y, text);
-    }
-  }
-
-  /**
-   * Draw Function short
-   *
-   * @param text     = TextLimits show on screen.
-   * @param size     = Size of text.
-   * @param position = Position of text.
-   * @param color    = Color of text.
-   */
-  public void drawText(String text, float size, Vector2f position, Vector3f color) {
-    drawText(text, position.x, position.y, size, color.x, color.y, color.z);
-  }
-
-
-
-  public void drawTextFitToBoxCentered(String text, float x, float y, float sizeX, float sizeY, float startFontSize, float r, float g, float b) {
-    try (MemoryStack stack = MemoryStack.stackPush()) {
-      nvgSave(vg);
-      nvgFontFace(vg, "sans");
-      nvgTextAlign(vg, NVG_ALIGN_LEFT | NVG_ALIGN_TOP);
-
-      float currentSize = startFontSize;
-      List<String> fittedLines = null;
-      float lineHeight = 0;
-
-      // --- 1. FIND FONT SIZE & WORD-WRAP ---
-      while (currentSize > 1.0f) {
-        nvgFontSize(vg, currentSize);
-
-        FloatBuffer lineHeightBuf = stack.mallocFloat(1);
-        FloatBuffer ascentBuf    = stack.mallocFloat(1);
-        FloatBuffer descentBuf   = stack.mallocFloat(1);
-        nvgTextMetrics(vg, ascentBuf, descentBuf, lineHeightBuf);
-        lineHeight = lineHeightBuf.get(0);
-
-        fittedLines = wordWrap(vg, text, sizeX, stack);
-        float totalH = fittedLines.size() * lineHeight;
-
-        if (totalH <= sizeY) {
-          break;
-        }
-        currentSize -= 0.5f;
-      }
-
-      assert fittedLines != null;
-      float totalTextH = fittedLines.size() * lineHeight;
-      float startY = y + (sizeY - totalTextH) / 2.0f; // vertical center
-
-      // --- 2. DEBUG BOX ---
-      NVGColor debugColor = NVGColor.malloc(stack);
-      nvgRGBAf(1.0f, 1.0f, 1.0f, 1.0f, debugColor);
-      nvgBeginPath(vg);
-      nvgRect(vg, x, y, sizeX, sizeY);
-      nvgStrokeColor(vg, debugColor);
-      nvgStrokeWidth(vg, 1.0f);
-      nvgStroke(vg);
-
-      // --- 3. DRAW EACH LINE MANUALLY CENTERED ---
-      NVGColor textColor = NVGColor.malloc(stack);
-      nvgRGBAf(r, g, b, 1.0f, textColor);
-      nvgFillColor(vg, textColor);
-
-      FloatBuffer boundsBuf = stack.mallocFloat(4);
-      for (int i = 0; i < fittedLines.size(); i++) {
-        String line = fittedLines.get(i);
-        // Measure this line's actual pixel width
-        nvgTextBounds(vg, 0, 0, line, boundsBuf);
-        float lineW = boundsBuf.get(2) - boundsBuf.get(0);
-        // Offset so line is centered in the box
-        float lineX = x + (sizeX - lineW) / 2.0f;
-        float lineY = startY + i * lineHeight;
-        nvgText(vg, lineX, lineY, line);
-      }
-
-      nvgRestore(vg);
-    }
-  }
-
-
-  public void drawTextFitToBoxCentered(String text, Vector2f startPos, Vector2f boxSize, float startFontSize, Color textColor){
-    this.drawTextFitToBoxCentered(text, startPos.x, startPos.y, boxSize.x, boxSize.y, startFontSize, textColor.getRed(), textColor.getGreen(), textColor.getBlue());
-  }
-
-
-  public void drawNerdIcon(String icon, float x, float y, float size, float r, float g, float b) {
-    try (MemoryStack stack = MemoryStack.stackPush()) {
-      NVGColor color = NVGColor.malloc(stack);
-      nvgRGBAf(r, g, b, 1.0f, color);
-
-      nvgFontFace(vg, "nerd");
-      nvgFontSize(vg, size);
-      nvgFillColor(vg, color);
-      nvgText(vg, x, y, icon);
-    }
-  }
-
-  public void drawRect(float x, float y, float w, float h, float r, float g, float b, float a) {
-    nvgBeginPath(vg);
-    nvgRect(vg, x, y, w, h);
-    try (MemoryStack stack = MemoryStack.stackPush()) {
-      NVGColor color = NVGColor.calloc(stack);
-      nvgRGBAf(r, g, b, a, color);
-      nvgFillColor(vg, color);
-    }
-
-    nvgFill(vg);
-  }
-
-  public void drawRect(Vector2f position, Vector2f rectSize, Color backgroundColor) {
-    float[] c = backgroundColor.getRGBComponents(null); // returns [r, g, b, a] as 0.0-1.0 floats automatically
-    drawRect(position.x, position.y, rectSize.x, rectSize.y, c[0], c[1], c[2],c[3]);
-  }
-
-
-  public void drawRoundedRect(float radius, float x, float y, float w, float h, float r, float g, float b, float a) {
-    drawRoundedRect(radius, new Vector2f(x,y),new Vector2f(w,h),new Color(r,g,b,a));
-  }
-
-  public void drawRoundedRect(float radius,  Vector2f position, Vector2f rectSize, Color backgroundColor) {
-    float[] bgC = backgroundColor.getRGBComponents(null); // returns [r, g, b, a] as 0.0-1.0 floats automatically
-    drawRoundedRect(radius, position.x, position.y, rectSize.x, rectSize.y, bgC[0], bgC[1],bgC[2],bgC[3]);
-
-    nvgBeginPath(vg);
-    nvgRoundedRect(vg, position.x, position.y, rectSize.x, rectSize.y, radius); // radius in pixels
-
-    try (MemoryStack stack = MemoryStack.stackPush()) {
-      NVGColor nvgColor = convertColor(backgroundColor,null);
-      nvgFillColor(vg, nvgColor);
-    }
-    nvgFill(vg);
-  }
-
-  /**
-   * Draw Nerd icon with text next to it
-   *
-   * @param icon     = Nerd font icon (e.g., "", "")
-   * @param text     = TextLimits to display next to icon
-   * @param x        = X position
-   * @param y        = Y position
-   * @param iconSize = Size of the icon
-   * @param textSize = Size of the text
-   * @param r        = Red color
-   * @param g        = Green color
-   * @param b        = Blue color
-   */
-  public void drawIconWithText(String icon, String text, float x, float y, float iconSize, float textSize, float r, float g, float b) {
-    // Draw icon
-    drawNerdIcon(icon, x, y, iconSize, r, g, b);
-
-    // Draw text next to icon (offset by icon size + padding)
-    float textX = x + iconSize + Const.PADDING;
-    drawText(text, textX, y, textSize, r, g, b);
-  }
-
-  /**
-   * Draw Nerd icon with text - Vector version
-   *
-   * @param icon     = Nerd font icon
-   * @param text     = TextLimits to display
-   * @param position = Position vector
-   * @param iconSize = Size of icon
-   * @param textSize = Size of text
-   * @param color    = RGB color vector
-   */
-  public void drawIconWithText(String icon, String text, Vector2f position, float iconSize, float textSize, Color color) {
-    float[] c = color.getRGBComponents(null);
-    drawIconWithText(icon, text, position.x, position.y, iconSize, textSize, c[0], c[1], c[2]);
-  }
-
-  /**
-   * Draw Nerd icon with text - With position index
-   *
-   * @param icon     = Nerd font icon
-   * @param text     = TextLimits to display
-   * @param startPos = Starting position
-   * @param position = Item position index
-   * @param iconSize = Size of icon
-   * @param textSize = Size of text
-   * @param color    = RGB color vector
-   */
-  public void drawIconWithText(String icon, String text, Vector2f startPos, int position, float iconSize, float textSize, Color color) {
-    float y = startPos.y + (position * (Math.max(iconSize, textSize) + Const.PADDING));
-    float[] c = color.getRGBComponents(null);
-    drawIconWithText(icon, text, startPos.x, y, iconSize, textSize, c[0], c[1], c[2]);
-  }
-
-  public void drawCircle(Vector2f position, float diameter, Color backgroundColor, Color outlineColorInput) {
-    nvgBeginPath(vg);
-    nvgRoundedRect(vg, position.x, position.y, diameter, diameter, diameter / 2);
-    float[] bgC = backgroundColor.getRGBComponents(null);
-    float[] olC = outlineColorInput.getRGBComponents(null);
-    try (MemoryStack stack = MemoryStack.stackPush()) {
-      NVGColor bgColor = NVGColor.calloc(stack);
-      NVGColor olColor = NVGColor.calloc(stack);
-
-      nvgRGBAf(bgC[0],bgC[1],bgC[2],bgC[3],bgColor);
-      nvgFillColor(vg, bgColor);
-      nvgFill(vg);  // fill first
-
-
-      // Background Transparency same as main background color
-      nvgRGBf(olC[0],olC[1],olC[2],olColor);
-      nvgStrokeColor(vg, olColor);
-      nvgStrokeWidth(vg, 2.0f);
-      nvgStroke(vg); // outline second
-    }
-  }
-
-
   public void cleanup() {
     nvgDelete(vg);
   }
@@ -349,34 +118,7 @@ public class NanoVGUI {
     return nvgTextBounds(vg, 0, 0, text, bounds);
   }
 
-
-  public long getVg() {
-    return vg;
-  }
-
-
   // Manual word-wrap: splits text into lines that fit within maxWidth
-  private List<String> wordWrap(long vg, String text, float maxWidth, MemoryStack stack) {
-    List<String> lines = new ArrayList<>();
-    String[] words = text.split(" ");
-    StringBuilder current = new StringBuilder();
-    FloatBuffer bounds = stack.mallocFloat(4);
-
-    for (String word : words) {
-      String test = current.isEmpty() ? word : current + " " + word;
-      nvgTextBounds(vg, 0, 0, test, bounds);
-      float w = bounds.get(2) - bounds.get(0);
-      if (w > maxWidth && !current.isEmpty()) {
-        lines.add(current.toString());
-        current = new StringBuilder(word);
-      } else {
-        current = new StringBuilder(test);
-      }
-    }
-    if (!current.isEmpty()) lines.add(current.toString());
-    return lines;
-  }
-
   public static NVGColor convertColor(Color awtColor, NVGColor store) {
     if (store == null) {
       store = NVGColor.create(); // Create a new buffer-backed object if none provided
@@ -391,4 +133,5 @@ public class NanoVGUI {
 
     return store;
   }
+
 }
