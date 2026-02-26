@@ -5,6 +5,7 @@ import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
+import java.awt.*;
 import java.util.Objects;
 
 public class TextLimits {
@@ -15,10 +16,10 @@ public class TextLimits {
   private final String code;
   private final Vector2f startPos;
   private final Vector2f boxSize;
-  private final Vector3f textColor;
+  private final Color textColor;
   private float defaultFontSize = 20;
 
-  public TextLimits(String text, String code, Vector2f startPos, Vector2f boxSize, Vector3f textColor) {
+  public TextLimits(String text, String code, Vector2f startPos, Vector2f boxSize, Color textColor) {
     this.text = text;
     this.code = code;
     this.startPos = startPos;

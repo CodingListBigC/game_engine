@@ -8,6 +8,7 @@ import org.lwjgl.nanovg.NVGColor;
 import org.lwjgl.nanovg.NanoVG;
 import org.lwjgl.system.MemoryStack;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -186,8 +187,8 @@ public class NanoVGUI {
   }
 
 
-  public void drawTextFitToBoxCentered(String text, Vector2f startPos, Vector2f boxSize, float startFontSize, Vector3f textColor){
-    this.drawTextFitToBoxCentered(text, startPos.x, startPos.y, boxSize.x, boxSize.y, startFontSize, textColor.x, textColor.y, textColor.z);
+  public void drawTextFitToBoxCentered(String text, Vector2f startPos, Vector2f boxSize, float startFontSize, Color textColor){
+    this.drawTextFitToBoxCentered(text, startPos.x, startPos.y, boxSize.x, boxSize.y, startFontSize, textColor.getRed(), textColor.getGreen(), textColor.getBlue());
   }
 
 
@@ -215,8 +216,8 @@ public class NanoVGUI {
     nvgFill(vg);
   }
 
-  public void drawRect(Vector2f position, Vector2f rectSize, Vector4f backgroundColor) {
-    drawRect(position.x, position.y, rectSize.x, rectSize.y, backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w);
+  public void drawRect(Vector2f position, Vector2f rectSize, Color backgroundColor) {
+    drawRect(position.x, position.y, rectSize.x, rectSize.y, backgroundColor.getRed(), backgroundColor.getGreen(), backgroundColor.getGreen(), backgroundColor.getAlpha());
   }
 
 
@@ -268,8 +269,8 @@ public class NanoVGUI {
    * @param textSize = Size of text
    * @param color    = RGB color vector
    */
-  public void drawIconWithText(String icon, String text, Vector2f position, float iconSize, float textSize, Vector3f color) {
-    drawIconWithText(icon, text, position.x, position.y, iconSize, textSize, color.x, color.y, color.z);
+  public void drawIconWithText(String icon, String text, Vector2f position, float iconSize, float textSize, Color color) {
+    drawIconWithText(icon, text, position.x, position.y, iconSize, textSize, color.getRed(), color.getGreen(), color.getBlue());
   }
 
   /**
@@ -283,25 +284,25 @@ public class NanoVGUI {
    * @param textSize = Size of text
    * @param color    = RGB color vector
    */
-  public void drawIconWithText(String icon, String text, Vector2f startPos, int position, float iconSize, float textSize, Vector3f color) {
+  public void drawIconWithText(String icon, String text, Vector2f startPos, int position, float iconSize, float textSize, Color color) {
     float y = startPos.y + (position * (Math.max(iconSize, textSize) + Const.PADDING));
-    drawIconWithText(icon, text, startPos.x, y, iconSize, textSize, color.x, color.y, color.z);
+    drawIconWithText(icon, text, startPos.x, y, iconSize, textSize, color.getRed(), color.getGreen(), color.getBlue());
   }
 
-  public void drawCircle(Vector2f position, float diameter, Vector4f backgroundColor, Vector4f outlineColorInput) {
+  public void drawCircle(Vector2f position, float diameter, Color backgroundColor, Color outlineColorInput) {
     nvgBeginPath(vg);
     nvgRoundedRect(vg, position.x, position.y, diameter, diameter, diameter / 2);
     try (MemoryStack stack = MemoryStack.stackPush()) {
       NVGColor nvgColor = NVGColor.calloc(stack);
       NVGColor outlineColor = NVGColor.calloc(stack);
 
-      nvgRGBAf(backgroundColor.x, backgroundColor.y, backgroundColor.z, backgroundColor.w, nvgColor);
+      nvgRGBAf(backgroundColor.getRed(), backgroundColor.getGreen(), backgroundColor.getBlue(), backgroundColor.getAlpha(),nvgColor);
       nvgFillColor(vg, nvgColor);
       nvgFill(vg);  // fill first
 
 
       // Background Transparency same as main background color
-      nvgRGBAf(outlineColorInput.x, outlineColorInput.y, outlineColorInput.z, backgroundColor.w, outlineColor);
+      nvgRGBAf(outlineColorInput.getRed(), outlineColorInput.getGreen(), outlineColorInput.getBlue(), backgroundColor.getAlpha(), outlineColor);
       nvgStrokeColor(vg, outlineColor);
       nvgStrokeWidth(vg, 2.0f);
       nvgStroke(vg); // outline second

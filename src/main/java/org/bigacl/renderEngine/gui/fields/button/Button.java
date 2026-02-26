@@ -7,6 +7,8 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
+import java.awt.*;
+
 public class Button extends ClickAbstract{
   private final String code;
 
@@ -16,7 +18,7 @@ public class Button extends ClickAbstract{
    * @param size            Button Size (x=width, y=height)
    * @param textColor       Button TextLimits Color (x=red, y=green, z=blue)
    */
-  public Button(String label,String code, Vector2f size, Vector2f location, Vector4f backgroundColor, Vector3f textColor) {
+  public Button(String label, String code, Vector2f size, Vector2f location, Color backgroundColor, Color textColor) {
     this.text = new Text(label,0);
     this.code = code;
     this.size = size;
@@ -24,7 +26,7 @@ public class Button extends ClickAbstract{
     this.backgroundColor = backgroundColor;
     this.textColor = textColor;
   }
-  public Button(String label,String code, Vector2f size, Vector4f backgroundColor, Vector3f textColor) {
+  public Button(String label,String code, Vector2f size, Color backgroundColor, Color textColor) {
     this.text = new Text(label,0);
     this.code = code;
     this.size = size;
@@ -33,11 +35,11 @@ public class Button extends ClickAbstract{
     this.textColor = textColor;
   }
 
-  public void setBackgroundColor(Vector4f backgroundColor) {
+  public void setBackgroundColor(Color backgroundColor) {
     this.backgroundColor = backgroundColor;
   }
 
-  public void setTextColor(Vector3f textColor) {
+  public void setTextColor(Color textColor) {
     this.textColor = textColor;
   }
 

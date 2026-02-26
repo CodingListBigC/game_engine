@@ -7,20 +7,21 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class BoxItems {
   private final ArrayList<TextItems> items = new ArrayList<>();
   private final Vector3f textColor;
-  private final Vector4f backgroundColor;
+  private final Color backgroundColor;
   private float padding = Const.PADDING;
 
-  public BoxItems(Vector3f textColor, Vector4f backgroundColor) {
+  public BoxItems(Vector3f textColor, Color backgroundColor) {
     this.textColor = textColor;
     this.backgroundColor = backgroundColor;
   }
 
-  public BoxItems(Vector3f textColor, Vector4f backgroundColor, float padding) {
+  public BoxItems(Vector3f textColor, Color backgroundColor, float padding) {
     this.textColor = textColor;
     this.backgroundColor = backgroundColor;
     this.padding = padding;

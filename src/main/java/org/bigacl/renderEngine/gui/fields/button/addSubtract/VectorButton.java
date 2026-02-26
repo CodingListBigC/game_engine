@@ -8,6 +8,7 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
+import java.awt.*;
 import java.util.Objects;
 
 public class VectorButton extends AddSubtractBasic {
@@ -23,9 +24,9 @@ public class VectorButton extends AddSubtractBasic {
 
   // Default Button Size
   Vector2f defaultButtonSize = new Vector2f(25, 25);
-  Vector4f defaultButtonBackgroundColor = new Vector4f(0.5f, 0.5f, 0.5f, 1f);
-  Vector3f defaultButtonTextColor = new Vector3f(1, 1, 1);
-  Vector3f defaultTextColor = new Vector3f(1, 0, 0);
+  Color defaultButtonBackgroundColor = Color.darkGray;
+  Color defaultButtonTextColor = Color.white;
+  Color defaultTextColor = new Color(1, 0, 0);
 
   public VectorButton(Vector2f guiPosition, float width) {
     this.guiPosition = new Vector2f(guiPosition);

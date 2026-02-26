@@ -4,7 +4,12 @@ import org.bigacl.renderEngine.gui.fields.Text;
 import org.bigacl.renderEngine.gui.fields.button.Button;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.bigacl.renderEngine.utils.consts.Const;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
+import org.joml.Vector2i;
+import org.lwjgl.glfw.GLFW;
+
+import java.awt.*;
 
 public class AddSubtractButtonWithText {
   private Text text;
@@ -37,8 +42,8 @@ public class AddSubtractButtonWithText {
     setSizes();
     // Create Default Items
     this.text = new Text();
-    this.addBtn = new Button("+", mainCode + "-1",buttonSize, Const.DEFAULT_BACKGROUND_COLOR,Const.DEFAULT_TEXT_COLOR);
-    this.subBtn = new Button("-", mainCode + "-2",buttonSize, Const.DEFAULT_BACKGROUND_COLOR,Const.DEFAULT_TEXT_COLOR);
+    this.addBtn = new Button("+", mainCode + "-1",buttonSize, Color.darkGray,Color.white);
+    this.subBtn = new Button("-", mainCode + "-2",buttonSize, Color.darkGray, Color.white);
     // Set there position
     setItemPosition();
   }
@@ -76,6 +81,30 @@ public class AddSubtractButtonWithText {
     this.subBtn.render();
     this.text.renderLimits();
 
+  }
+
+  /**
+   *
+   * @param mouseLocation - Mouse Current Location
+   * @param mouseAction - Mouse Current Action
+   * @return return null if no click of wrong action, return string with number key
+   */
+  public String[] checkClicked(Vector2d mouseLocation, int mouseAction){
+    if (mouseAction != GLFW.GLFW_MOUSE_BUTTON_LEFT)
+      return null;
+    if (addBtn.isHovered(mouseLocation)) {
+      String[] itemReturn = addBtn.getCode().split("-");
+      if (itemReturn.length >= 2){
+        return itemReturn;
+      }
+    }
+    if (subBtn.isHovered(mouseLocation)) {
+      String[] itemReturn = addBtn.getCode().split("-");
+      if (itemReturn.length >= 2){
+        return itemReturn;
+      }
+    }
+    return null;
   }
 }
 

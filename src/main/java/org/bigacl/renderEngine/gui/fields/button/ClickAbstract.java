@@ -10,6 +10,8 @@ import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.lwjgl.glfw.GLFW;
 
+import java.awt.*;
+
 public abstract class ClickAbstract implements InputInterface {
   protected Vector2f size;
   protected Vector2f location;
@@ -18,12 +20,12 @@ public abstract class ClickAbstract implements InputInterface {
   /**
    * The color of the button background (x=R, y=G, z=B, w=A)
    */
-  protected Vector4f backgroundColor;
+  protected Color backgroundColor;
   /**
    * The color of the button text (x=R, y=G, z=B)
    */
-  Vector3f textColor;
-  protected Vector4f outlineColor;
+  Color textColor;
+  protected Color outlineColor;
 
 
   public void checkInput(Vector2d mouseLocation, int mouseAction){
@@ -54,7 +56,7 @@ public abstract class ClickAbstract implements InputInterface {
   public void render() {
     NanoVGUI nanoVGUI = ClassConst.nanoVGUI;
     nanoVGUI.drawRect(location, size, backgroundColor);
-    text.render(location,size,textColor);
+    text.renderLimits(location,size,textColor);
   }
 
   public void changeText(String changeTo){

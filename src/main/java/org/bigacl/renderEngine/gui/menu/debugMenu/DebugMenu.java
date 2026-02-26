@@ -9,6 +9,8 @@ import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
+import java.awt.*;
+
 
 public class DebugMenu extends DebugAbstract {
   private final NanoVGUI nanoVGUI = ClassConst.nanoVGUI;
@@ -16,7 +18,7 @@ public class DebugMenu extends DebugAbstract {
 
   public DebugMenu() {
     // Initialize inside the constructor to ensure ClassConst is populated
-    this.cameraInfo = new BoxItems(new Vector3f(10, 10, 0), new Vector4f(0, 0, 0, 0.7f));
+    this.cameraInfo = new BoxItems(new Vector3f(10, 10, 0), new Color(0, 0, 0, 0.7f));
     createCameraDebug();
   }
 

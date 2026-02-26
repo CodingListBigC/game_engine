@@ -9,6 +9,8 @@ import org.bigacl.renderEngine.utils.consts.Const;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
+import java.awt.*;
+
 public class PlayerStatsGui {
   private final IGameLogic game;
   private final NanoVGUI nanoVGUI;
@@ -37,7 +39,7 @@ public class PlayerStatsGui {
 
     // TextLimits configuration
     Vector2f startPos = new Vector2f(Const.PADDING, boxFromTop + Const.PADDING + itemSize);
-    Vector3f whiteColor = new Vector3f(1.0f, 1.0f, 1.0f);
+    Color whiteColor = Color.WHITE;
 
     // Draw items
     nanoVGUI.drawIconWithText("", stats.username(), startPos, 0, iconSize, itemSize, whiteColor);

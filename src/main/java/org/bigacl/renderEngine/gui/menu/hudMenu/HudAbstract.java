@@ -5,11 +5,13 @@ import org.bigacl.renderEngine.gui.menu.debugMenu.DebugMenu;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.joml.Vector4f;
 
+import java.awt.*;
+
 public abstract class HudAbstract {
   protected static DebugMenu debugMenu = null;
   protected static boolean debugStatus = false;
 
-  protected static Vector4f mainBackgroundColor = new Vector4f(.1f,.1f,.1f,.5f);
+  protected static Color mainBackgroundColor = new Color(.1f,.1f,.1f,.5f);
   protected float screenWidth = ClassConst.window.getWidth();
   protected float screenHeight= ClassConst.window.getHeight();
 

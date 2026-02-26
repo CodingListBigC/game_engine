@@ -6,10 +6,12 @@ import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
+import java.awt.*;
+
 public class SelectButton extends ClickAbstract {
   private boolean clickedStatus;
 
-  public SelectButton(Vector2f location, float diameter, Vector4f mainBackgroundColor, Vector4f outlineColor) {
+  public SelectButton(Vector2f location, float diameter, Color mainBackgroundColor, Color outlineColor) {
     this.location = location;
     this.size = new Vector2f(diameter);
     this.backgroundColor = mainBackgroundColor;
