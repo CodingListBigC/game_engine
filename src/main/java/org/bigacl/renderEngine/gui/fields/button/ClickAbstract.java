@@ -45,7 +45,7 @@ public abstract class ClickAbstract implements InputInterface {
 
   public boolean isHovered(Vector2d mouseLocation) {
     Vector2f startPosition = location;
-    Vector2f endPosition = location.add(size);
+    Vector2f endPosition = new Vector2f(startPosition).add(size);
     return mouseLocation.x >= startPosition.x && mouseLocation.x <= endPosition.x &&
             mouseLocation.y >= startPosition.y && mouseLocation.y <= endPosition.y;
   }

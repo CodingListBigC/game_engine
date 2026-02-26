@@ -24,7 +24,7 @@ public class VectorButton extends AddSubtractBasic {
 
   // Default Button Size
   Vector2f defaultButtonSize = new Vector2f(25, 25);
-  Color defaultButtonBackgroundColor = Color.darkGray;
+  Color defaultButtonBackgroundColor = new Color(.2f,.2f,.2f,.2f);
   Color defaultButtonTextColor = Color.white;
   Color defaultTextColor = new Color(1, 0, 0);
 
@@ -72,7 +72,14 @@ public class VectorButton extends AddSubtractBasic {
   }
 
   private Vector2f getButtonPos(boolean side, int row) {
-    float x = side ? guiWidth - defaultButtonSize.x - guiPosition.x - columSpacing : guiPosition.x + columSpacing;
+    float x;
+    if (side) {
+      // Right button: start of box + full width - button width - spacing
+      x = guiPosition.x + guiWidth - defaultButtonSize.x - columSpacing;
+    } else {
+      // Left button: start of box + spacing
+      x = guiPosition.x + columSpacing;
+    }
     float y = guiPosition.y + (row * (defaultButtonSize.y + rowSpacing));
 
     return new Vector2f(x, y);
@@ -115,7 +122,7 @@ public class VectorButton extends AddSubtractBasic {
   }
   private Vector2f getTextStartPos(int row){
     float y = getYPos(row);
-    float x = defaultButtonSize.x + (columSpacing * 2);
+    float x = guiPosition.x + defaultButtonSize.x + (columSpacing * 2);
     return new Vector2f(x,y);
   }
   private Vector2f getTextSize(){
