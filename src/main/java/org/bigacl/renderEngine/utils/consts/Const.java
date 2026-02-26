@@ -5,6 +5,7 @@ import org.joml.Vector3f;
 import org.joml.Vector4f;
 
 public class Const {
+  public static final float SNAP_AMOUNT = 10;
   public static String WINDOW_TITLE = "Bigacl Window";
   /**
    * Padding for text

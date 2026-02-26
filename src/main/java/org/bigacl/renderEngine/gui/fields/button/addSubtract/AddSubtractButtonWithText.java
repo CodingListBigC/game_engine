@@ -1,20 +1,20 @@
 package org.bigacl.renderEngine.gui.fields.button.addSubtract;
 
-import org.bigacl.renderEngine.gui.fields.Text;
+import org.bigacl.renderEngine.gui.fields.TextWithBackground;
 import org.bigacl.renderEngine.gui.fields.button.Button;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.bigacl.renderEngine.utils.consts.Const;
 import org.joml.Vector2d;
 import org.joml.Vector2f;
-import org.joml.Vector2i;
+import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;
 
 public class AddSubtractButtonWithText {
-  private Text text;
-  private Button addBtn;
-  private Button subBtn;
+  private final TextWithBackground text;
+  private final Button addBtn;
+  private final Button subBtn;
   private boolean viewStatus = true;
   // Size
   private final Vector2f itemPosition;
@@ -41,7 +41,7 @@ public class AddSubtractButtonWithText {
     // Set ui item sizes
     setSizes();
     // Create Default Items
-    this.text = new Text();
+    this.text = new TextWithBackground("0");
     this.addBtn = new Button("+", mainCode + "-1",buttonSize, Color.darkGray,Color.white);
     this.subBtn = new Button("-", mainCode + "-2",buttonSize, Color.darkGray, Color.white);
     // Set there position
@@ -50,8 +50,8 @@ public class AddSubtractButtonWithText {
 
   public void setSizes(){
     this.buttonSize = new Vector2f(this.buttonWidth,this.itemSize.y);
-    this.addBtnPosition = new Vector2f(this.spacing, this.itemSize.y);
-    this.subBtnPosition = new Vector2f(this.itemSize.x - this.spacing - this.buttonSize.x, this.itemSize.y);
+    this.addBtnPosition = new Vector2f(this.spacing, 0);
+    this.subBtnPosition = new Vector2f(this.itemSize.x - this.spacing - this.buttonSize.x, 0);
     float sideTextPadding = (this.spacing * 2) + this.buttonSize.x;
     float textWidth = this.itemSize.x - (sideTextPadding * 2);
     this.textPosition = new Vector2f(sideTextPadding, 0.0f);
@@ -65,6 +65,9 @@ public class AddSubtractButtonWithText {
     this.subBtn.setLocation(subBtnRenderPosition);
     Vector2f textRenderPosition = new Vector2f(this.textPosition).add(this.itemPosition);
     text.setPosition(textRenderPosition);
+    Vector2f textLimitsSize = new Vector2f(itemSize.x -  ((this.spacing * 4) + (this.buttonWidth * 2)), itemSize.y);
+    text.setSizeLimits(textLimitsSize);
+
   }
 
   public void setViewStatus(boolean viewStatus) {
@@ -79,7 +82,7 @@ public class AddSubtractButtonWithText {
 
     this.addBtn.render();
     this.subBtn.render();
-    this.text.renderLimits();
+    this.text.renderBg();
 
   }
 
@@ -105,6 +108,19 @@ public class AddSubtractButtonWithText {
       }
     }
     return null;
+  }
+
+  public boolean isHovered(Vector2d mouseLocation) {
+    return addBtn.isHovered(mouseLocation) || subBtn.isHovered(mouseLocation);
+  }
+
+  public float getInfo(Vector2d mouseLocation, float changeAmount){
+    if (addBtn.isHovered(mouseLocation))
+      return changeAmount; // Add Value
+    if (subBtn.isHovered(mouseLocation))
+      return -changeAmount; // Subtract Value
+
+    return 0; //  Default Value
   }
 }
 

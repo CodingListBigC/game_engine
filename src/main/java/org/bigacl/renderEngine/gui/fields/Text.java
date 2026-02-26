@@ -11,6 +11,12 @@ public class Text {
   private int type;
   private Vector2f size = new Vector2f(0,0);
 
+  public void setSizeLimits(Vector2f sizeLimits) {
+    this.sizeLimits = sizeLimits;
+  }
+
+  protected Vector2f sizeLimits = new Vector2f();
+
   private Vector2f position = new Vector2f(0.0f);
   private final Color textColor;
 
@@ -21,7 +27,7 @@ public class Text {
   }
 
   public Text() {
-    this.textColor = Color.BLACK;
+    this.textColor = Color.WHITE;
   }
 
   public Text(String text, int type, Vector2f position, Color textColor, Vector2f size) {
@@ -30,6 +36,11 @@ public class Text {
     this.position = position;
     this.textColor = textColor;
     this.size = size;
+  }
+
+  public Text(String text) {
+    this.text = text;
+    this.textColor = Color.BLACK;
   }
 
   public Vector2f getSize(){
@@ -73,10 +84,14 @@ public class Text {
     ClassConst.nanoVGUI.drawTextFitToBoxCentered(text,position,size,ClassConst.fontSizing.getFontSize(type),textColor);
   }
   public void renderLimits() {
-    ClassConst.nanoVGUI.drawTextFitToBoxCentered(text,this.position,size,ClassConst.fontSizing.getFontSize(type),textColor);
+    ClassConst.nanoVGUI.drawTextFitToBoxCentered(text,this.position,sizeLimits,ClassConst.fontSizing.getFontSize(type),textColor);
   }
 
   public void setPosition(Vector2f position) {
     this.position = position;
+  }
+
+  public Vector2f getPosition() {
+    return position;
   }
 }

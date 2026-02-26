@@ -1,15 +1,10 @@
 package org.bigacl.renderEngine.gui.fields.button.addSubtract;
 
-import org.bigacl.renderEngine.gui.fields.button.Button;
-import org.bigacl.renderEngine.gui.fields.TextLimits;
-import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.joml.Vector2d;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
-import org.joml.Vector4f;
 
 import java.awt.*;
-import java.util.Objects;
 
 public class VectorButton extends AddSubtractBasic {
   @Override
@@ -22,12 +17,6 @@ public class VectorButton extends AddSubtractBasic {
 
   }
 
-  // Default Button Size
-  Vector2f defaultButtonSize = new Vector2f(25, 25);
-  Color defaultButtonBackgroundColor = new Color(.2f,.2f,.2f,.2f);
-  Color defaultButtonTextColor = Color.white;
-  Color defaultTextColor = new Color(1, 0, 0);
-
   public VectorButton(Vector2f guiPosition, float width) {
     this.guiPosition = new Vector2f(guiPosition);
     this.guiWidth = width;
@@ -37,115 +26,51 @@ public class VectorButton extends AddSubtractBasic {
 
   @Override
   public void initButtons() {
-    createButton(-1, 0, "+", "100");
-    createButton(1, 0, "-", "200");
-    createButton(-1, 1, "+", "010");
-    createButton(1, 1, "-", "020");
-    createButton(-1, 2, "+", "001");
-    createButton(1, 2, "-", "002");
+    makeAmountOfNewItems(3);
   }
-
-  @Override
-  public void initText() {
-    this.createText(0, "1");
-    this.createText(1, "2");
-    this.createText(2, "3");
-  }
-
-  @Override
-  public Vector2f getSize() {
-    if (this.amountOfRows == 0){
-      return null;
-    }
-    float x = this.guiWidth;
-    float y = this.amountOfRows * (this.defaultButtonSize.y + this.rowSpacing);
-    return new Vector2f(x,y);
-  }
-
-  public void createButton(float rowLocation, int column, String label, String code) {
-    boolean buttonSide = rowLocation >= 0;
-    this.addButton(new Button(label, code, defaultButtonSize, getButtonPos(buttonSide, column), defaultButtonBackgroundColor, defaultButtonTextColor));
-    if (this.amountOfRows < column) {
-      this.amountOfRows = column;
-    }
-
-  }
-
-  private Vector2f getButtonPos(boolean side, int row) {
-    float x;
-    if (side) {
-      // Right button: start of box + full width - button width - spacing
-      x = guiPosition.x + guiWidth - defaultButtonSize.x - columSpacing;
-    } else {
-      // Left button: start of box + spacing
-      x = guiPosition.x + columSpacing;
-    }
-    float y = guiPosition.y + (row * (defaultButtonSize.y + rowSpacing));
-
-    return new Vector2f(x, y);
-  }
-
 
   private float getYPos(int row){
     return guiPosition.y + (row * (defaultButtonSize.y + rowSpacing));
   }
 
-  public Vector3f checkButtonInput(Vector2d mouseLocation, int action, Vector3f vector3f, float snap) {
+  public Vector3f checkButtonInput(Vector2d mouseLocation, int action, Vector3f vector3f, float changeAmount) {
     // 1. Only trigger on the initial PRESS
     if (action != 1) return vector3f;
 
-    for (Button button : buttonArrayList) {
-      if (!button.isHovered(mouseLocation)) continue;
+    int sizeOfVector = 3;
 
-      char[] chars = button.getCode().toLowerCase().toCharArray();
-      if (chars.length < 3) continue;
+    setAmountViewAble(sizeOfVector);
 
-      // Use a single 'changePosition' call to avoid logic overlap
-      float dx = 0, dy = 0, dz = 0;
+    float xValue = getInfo(0, mouseLocation, changeAmount);
+    float yValue = getInfo(1, mouseLocation, changeAmount);
+    float zValue = getInfo(2, mouseLocation, changeAmount);
+    Vector3f addVector = new Vector3f(xValue, yValue, zValue);
+    vector3f.add(addVector);
 
-      if (chars[0] == '1') dx = snap;
-      else if (chars[0] == '2') dx = -snap;
-
-      if (chars[1] == '1') dy = snap;
-      else if (chars[1] == '2') dy = -snap;
-
-      if (chars[2] == '1') dz = snap;
-      else if (chars[2] == '2') dz = -snap;
-      Vector3f newPosition = new Vector3f(vector3f).add(dx, dy, dz);
-
-      updateText(newPosition);
-
-      ClassConst.window.setMouseAction(-1);
-      return newPosition;
-    }
+    float[] floatArray = new float[3];
+    floatArray[0] = vector3f.x;
+    floatArray[1] = vector3f.y;
+    floatArray[2] = vector3f.z;
+    setTextWithArray(floatArray);
     return vector3f;
+
   }
+
+
   private Vector2f getTextStartPos(int row){
     float y = getYPos(row);
     float x = guiPosition.x + defaultButtonSize.x + (columSpacing * 2);
     return new Vector2f(x,y);
   }
+
+
   private Vector2f getTextSize(){
     float x = guiWidth - ((defaultButtonSize.x * 2) + (columSpacing * 4));
     float y = defaultButtonSize.y;
     return new Vector2f(x,y);
   }
-  private void createText(int row, String code){
-    TextLimits textLimits = new TextLimits("0", code, getTextStartPos(row), getTextSize(), defaultTextColor);
-    addText(textLimits);
-  }
-  private void updateText(Vector3f vector3f){
-    for (TextLimits textLimits : textLimitsArrayList){
-      System.out.println("Checking mainCode: " + textLimits.getCode());
-      if (Objects.equals(textLimits.getCode(), "1")){
-        textLimits.setText(String.valueOf(vector3f.x));
-      }else if (Objects.equals(textLimits.getCode(), "2")){
-        textLimits.setText(String.valueOf(vector3f.y));
-      }else if (Objects.equals(textLimits.getCode(), "3")){
-        textLimits.setText(String.valueOf(vector3f.z));
-      }
-    }
-  }
 
+  private void updateText(Vector3f vector3f){
+  }
 
 }

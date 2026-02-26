@@ -132,6 +132,8 @@ public interface RegularText {
   }
 
   default void drawTextFitToBoxCentered(String text, Vector2f startPos, Vector2f boxSize, float startFontSize, Color textColor){
+    if (text == null)
+      return;
     this.drawTextFitToBoxCentered(text, startPos.x, startPos.y, boxSize.x, boxSize.y, startFontSize, textColor.getRed(), textColor.getGreen(), textColor.getBlue());
   }
 
