@@ -45,6 +45,7 @@ public abstract class AddSubtractBasic extends ClickAbstract {
   public void renderAllText() {
     for (TextLimits textLimits : textLimitsArrayList) {
       textLimits.render();
+      textLimits.debugLog();
     }
   }
 

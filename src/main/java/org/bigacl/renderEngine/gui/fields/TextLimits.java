@@ -3,10 +3,8 @@ package org.bigacl.renderEngine.gui.fields;
 import org.bigacl.renderEngine.gui.font.NanoVGUI;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.joml.Vector2f;
-import org.joml.Vector3f;
 
 import java.awt.*;
-import java.util.Objects;
 
 public class TextLimits {
   private String text;
@@ -17,7 +15,6 @@ public class TextLimits {
   private final Vector2f startPos;
   private final Vector2f boxSize;
   private final Color textColor;
-  private float defaultFontSize = 20;
 
   public TextLimits(String text, String code, Vector2f startPos, Vector2f boxSize, Color textColor) {
     this.text = text;
@@ -34,16 +31,18 @@ public class TextLimits {
 
   public void render() {
     NanoVGUI nanoVGUI = ClassConst.nanoVGUI;
-    nanoVGUI.drawTextFitToBoxCentered(this.text, this.startPos, this.boxSize, this.defaultFontSize, this.textColor);
+    float defaultFontSize = 20;
+    nanoVGUI.drawTextFitToBoxCentered(this.text, this.startPos, this.boxSize, defaultFontSize, this.textColor);
   }
 
   public String getCode() {
     return code;
   }
 
-  public void log() {
+  public void debugLog() {
     System.out.print("Text: " + text + ",");
     System.out.print("BoxSize: " + boxSize + ",");
     System.out.println();
   }
+
 }
