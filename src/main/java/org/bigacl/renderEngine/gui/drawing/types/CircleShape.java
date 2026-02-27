@@ -21,8 +21,8 @@ public interface CircleShape {
       nvgFillColor(vg, bgColor); // Set color to red
       nvgFill(vg); // Fill the circle
       NVGColor olColor = convertColor(outlineColor,null);
-      nvgFillColor(vg, olColor); // Set color to red
-      nvgFill(vg); // Fill the circle
+      nvgStrokeColor(vg, olColor); // Set color to red
+      nvgStroke(vg); // Fill the circle
     }
   }
 }
