@@ -19,11 +19,12 @@ public interface CircleShape {
   default void drawCircle(Vector2f position, float diameter, Color backgroundColor, Color outlineColor){
     this.drawCircle(position,diameter,backgroundColor,outlineColor, strokeSize);
   }
-  default void drawCircle(Vector2f position, float diameter, Color backgroundColor, Color outlineColor, float strokeSize){
+ default void drawCircle(Vector2f position, float diameter, Color backgroundColor, Color outlineColor, float strokeSize){
+    Vector2f newPosition = new Vector2f(position).add(new Vector2f(diameter /2 , diameter/2));
     long vg = getVg();
     nvgBeginPath(vg);
     // nvgCircle(context, centerX, centerY, radius);
-    nvgCircle(vg, position.x, position.y, diameter / 2);
+    nvgCircle(vg, newPosition.x, newPosition.y, diameter / 2);
     try (MemoryStack stack = MemoryStack.stackPush()) {
       NVGColor bgColor = convertColor(backgroundColor,null);
       nvgFillColor(vg, bgColor); // Set color to red
@@ -34,4 +35,5 @@ public interface CircleShape {
       nvgStroke(vg); // Fill the circle
     }
   }
+
 }
