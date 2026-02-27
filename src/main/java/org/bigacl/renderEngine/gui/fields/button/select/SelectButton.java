@@ -11,9 +11,6 @@ import java.awt.*;
 public class SelectButton extends ClickAbstract{
   private boolean clickedStatus;
 
-
-
-
   public SelectButton(Vector2f location, float diameter, Color mainBackgroundColor, Color outlineColor) {
     this.location = location;
     this.size = new Vector2f(diameter);
@@ -29,19 +26,20 @@ public class SelectButton extends ClickAbstract{
       this.renderNotClicked();
   }
 
-
   private void renderNotClicked(){
     NanoVGUI nanoVGUI = ClassConst.nanoVGUI;
-    nanoVGUI.drawCircle(this.location,size.x,this.backgroundColor,this.backgroundColor);
+    nanoVGUI.drawCircle(this.location,size.x,this.backgroundColor);
   }
+
   private void renderClicked(){
     NanoVGUI nanoVGUI = ClassConst.nanoVGUI;
-    nanoVGUI.drawCircle(this.location,size.x,this.backgroundColor,this.outlineColor);
+    nanoVGUI.drawCircle(this.location,size.x,this.backgroundColor,this.outlineColor, 5);
   }
 
   public void toggleClickedStatus() {
     clickedStatus = !clickedStatus;
   }
+
   @Override
   public void rightClick() {
 
@@ -51,6 +49,7 @@ public class SelectButton extends ClickAbstract{
   public void leftClick() {
 
   }
+
   @Override
   public void setClickedStatus(boolean clicked){
     clickedStatus = clicked;

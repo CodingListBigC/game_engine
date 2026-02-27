@@ -11,8 +11,8 @@ import java.awt.*;
 public class SelectButtonSet extends InputSets {
 
   float columnWidth = 10;
-  final Color buttonBg = Color.lightGray;
-  final Color buttonOl = Color.darkGray;
+  final Color buttonBg = Color.DARK_GRAY;
+  final Color buttonOl = Color.GRAY;
   final Color fontColor = Color.white;
   final Vector2f setPos;
   @Override
