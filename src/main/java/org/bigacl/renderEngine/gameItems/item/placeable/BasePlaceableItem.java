@@ -98,7 +98,9 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
   }
 
   public void setWorldPosition(Vector3f snappedPos) {
-    worldPosition.set(snappedPos);
+    try {
+      worldPosition.set(snappedPos);
+    }catch (Exception e){}
     updateModelMatrix();
   }
 
@@ -118,6 +120,10 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
     for (Mesh mesh : currentMeshes) {
       mesh.render(modelMatrix);
     }
+  }
+
+  public String mainName() {
+    return name.main;
   }
 
   // --- Data Structures for GSON ---

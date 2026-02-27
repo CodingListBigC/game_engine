@@ -3,6 +3,7 @@ package org.bigacl.renderEngine.gui.menu.hudMenu.modelDesign;
 import org.bigacl.renderEngine.gui.drawing.NanoVGUI;
 import org.bigacl.renderEngine.gui.menu.hudMenu.HudAbstract;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
 
 public abstract class ModelDesignAbstractClass extends HudAbstract {
@@ -27,6 +28,8 @@ public abstract class ModelDesignAbstractClass extends HudAbstract {
 
     nanoVGUI.drawRect(pos, size, mainBackgroundColor);
   }
+
+  public abstract void checkHudInputs(Vector2d mouseLocation);
 
   public abstract void updateText();
 }

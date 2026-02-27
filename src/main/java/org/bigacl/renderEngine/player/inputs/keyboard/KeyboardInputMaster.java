@@ -10,6 +10,7 @@ import org.bigacl.renderEngine.player.inputs.mouse.MouseRayCast;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.bigacl.renderEngine.utils.timer.ClickTimer;
 import org.bigacl.renderEngine.window.WindowMaster;
+import org.joml.Vector2d;
 import org.joml.Vector3f;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -63,8 +64,13 @@ public class KeyboardInputMaster {
     }
     camera.CameraInput(window, moveSpeed, rotateSpeed, this.itemManger.getAllItems());
     hudInputs();
+    resetInputs();
+
   }
+
+
   private void hudInputs() {
+    Vector2d mouseLocation = ClassConst.window.getMouseLocation();
     if (this.hudAbstract == null) {
       this.hudAbstract = ClassConst.hudAbstract;
       if (this.hudAbstract == null) return;
@@ -74,7 +80,10 @@ public class KeyboardInputMaster {
       this.hudAbstract.toggleDebugStatus();
     }
     this.lastDebugKeyStatus = currentDebugKeyStatus;
-    this.hudAbstract.checkHudInputs();
+    this.hudAbstract.checkHudInputs(mouseLocation);
+  }
+  private void resetInputs(){
+    ClassConst.window.setMouseAction(0);
   }
 
 }

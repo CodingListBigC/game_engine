@@ -3,6 +3,7 @@ package org.bigacl.renderEngine.gui.fields;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
+import org.lwjgl.opencl.CLBusAddressAMD;
 
 import java.awt.*;
 
@@ -18,7 +19,7 @@ public class Text {
   protected Vector2f sizeLimits = new Vector2f();
 
   private Vector2f position = new Vector2f(0.0f);
-  private final Color textColor;
+  private Color textColor;
 
   public Text(String text, int type) {
     this.text = text;
@@ -66,8 +67,11 @@ public class Text {
       this.size.y = this.size.y * -1;
     }
   }
-  public void render(Vector2f position, Vector3f color){
+  public void render(Vector2f position, Color color){
     ClassConst.nanoVGUI.drawText(text,ClassConst.fontSizing.getFontSize(type),position,color);
+  }
+  public void render(){
+    ClassConst.nanoVGUI.drawText(text,ClassConst.fontSizing.getFontSize(type),position,textColor);
   }
 
 
@@ -93,5 +97,9 @@ public class Text {
 
   public Vector2f getPosition() {
     return position;
+  }
+
+  public void setTextColor(Color textColor) {
+    this.textColor = textColor;
   }
 }

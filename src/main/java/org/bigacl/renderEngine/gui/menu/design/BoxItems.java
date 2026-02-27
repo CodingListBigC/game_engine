@@ -12,16 +12,16 @@ import java.util.ArrayList;
 
 public class BoxItems {
   private final ArrayList<TextItems> items = new ArrayList<>();
-  private final Vector3f textColor;
+  private final Color textColor;
   private final Color backgroundColor;
   private float padding = Const.PADDING;
 
-  public BoxItems(Vector3f textColor, Color backgroundColor) {
+  public BoxItems(Color textColor, Color backgroundColor) {
     this.textColor = textColor;
     this.backgroundColor = backgroundColor;
   }
 
-  public BoxItems(Vector3f textColor, Color backgroundColor, float padding) {
+  public BoxItems(Color textColor, Color backgroundColor, float padding) {
     this.textColor = textColor;
     this.backgroundColor = backgroundColor;
     this.padding = padding;

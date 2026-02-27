@@ -1,5 +1,6 @@
 package org.bigacl.renderEngine.gui.fields.button.select;
 
+import org.bigacl.renderEngine.gui.fields.InputInterface;
 import org.bigacl.renderEngine.gui.fields.button.ClickAbstract;
 import org.bigacl.renderEngine.gui.drawing.NanoVGUI;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
@@ -7,7 +8,7 @@ import org.joml.Vector2f;
 
 import java.awt.*;
 
-public class SelectButton extends ClickAbstract {
+public class SelectButton extends ClickAbstract{
   private boolean clickedStatus;
 
   public SelectButton(Vector2f location, float diameter, Color mainBackgroundColor, Color outlineColor) {
@@ -18,34 +19,44 @@ public class SelectButton extends ClickAbstract {
   }
 
   @Override
-  protected void leftClick() {
-
-  }
-
-  @Override
-  protected void rightClick() {
-
-  }
-
-  @Override
   public void render(){
     if (clickedStatus)
-      this.renderNotClicked();
-    else
       this.renderClicked();
+    else
+      this.renderNotClicked();
   }
-
 
   private void renderNotClicked(){
     NanoVGUI nanoVGUI = ClassConst.nanoVGUI;
-    nanoVGUI.drawCircle(this.location,size.x,this.backgroundColor,this.backgroundColor);
+    nanoVGUI.drawCircle(this.location,size.x,this.backgroundColor);
   }
+
   private void renderClicked(){
     NanoVGUI nanoVGUI = ClassConst.nanoVGUI;
-    nanoVGUI.drawCircle(this.location,size.x,this.backgroundColor,this.outlineColor);
+    nanoVGUI.drawCircle(this.location,size.x,this.backgroundColor,this.outlineColor, 5);
   }
 
   public void toggleClickedStatus() {
     clickedStatus = !clickedStatus;
+  }
+
+  @Override
+  public void rightClick() {
+
+  }
+
+  @Override
+  public void leftClick() {
+
+  }
+
+  @Override
+  public void setClickedStatus(boolean clicked){
+    clickedStatus = clicked;
+  }
+
+  @Override
+  public boolean getClickedStatus(){
+    return clickedStatus;
   }
 }

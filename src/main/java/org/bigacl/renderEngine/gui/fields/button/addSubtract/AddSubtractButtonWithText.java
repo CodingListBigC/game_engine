@@ -2,6 +2,7 @@ package org.bigacl.renderEngine.gui.fields.button.addSubtract;
 
 import org.bigacl.renderEngine.gui.fields.TextWithBackground;
 import org.bigacl.renderEngine.gui.fields.button.Button;
+import org.bigacl.renderEngine.gui.fields.sets.InputWithText;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.bigacl.renderEngine.utils.consts.Const;
 import org.joml.Vector2d;
@@ -11,11 +12,9 @@ import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;
 
-public class AddSubtractButtonWithText {
-  private final TextWithBackground text;
+public class AddSubtractButtonWithText extends InputWithText {
   private final Button addBtn;
   private final Button subBtn;
-  private boolean viewStatus = true;
   // Size
   private final Vector2f itemPosition;
   private final Vector2f itemSize;
@@ -25,11 +24,7 @@ public class AddSubtractButtonWithText {
   private Vector2f buttonSize;
   private Vector2f addBtnPosition;
   private Vector2f subBtnPosition;
-  // Text Size
-  private Vector2f textSize;
-  private Vector2f textPosition;
 
-  private int fontType = ClassConst.fontSizing.NORMAL_TEXT_SIZE;
   String mainCode;
 
   public AddSubtractButtonWithText(String mainCode, Vector2f itemPosition, Vector2f itemSize, float spacing, float buttonWidth) {
@@ -70,20 +65,15 @@ public class AddSubtractButtonWithText {
 
   }
 
-  public void setViewStatus(boolean viewStatus) {
-    this.viewStatus = viewStatus;
-  }
-  public void setTextLabel(String textLabel){
-    this.text.setText(textLabel);
-  }
-  public void render(){
-    if (!this.viewStatus)
-      return;
-
+  @Override
+  public void renderInput() {
     this.addBtn.render();
     this.subBtn.render();
-    this.text.renderBg();
+  }
 
+  @Override
+  protected void setText() {
+    this.text = new TextWithBackground("hi");
   }
 
   /**
@@ -108,6 +98,16 @@ public class AddSubtractButtonWithText {
       }
     }
     return null;
+  }
+
+  @Override
+  protected void rightClick() {
+
+  }
+
+  @Override
+  protected void leftClick() {
+
   }
 
   public boolean isHovered(Vector2d mouseLocation) {

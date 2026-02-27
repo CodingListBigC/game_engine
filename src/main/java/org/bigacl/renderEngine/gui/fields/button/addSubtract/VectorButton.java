@@ -1,5 +1,7 @@
 package org.bigacl.renderEngine.gui.fields.button.addSubtract;
 
+import org.bigacl.renderEngine.utils.consts.ClassConst;
+import org.bigacl.renderEngine.window.WindowMaster;
 import org.joml.Vector2d;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -7,16 +9,7 @@ import org.joml.Vector3f;
 import java.awt.*;
 
 public class VectorButton extends AddSubtractBasic {
-  @Override
-  protected void leftClick() {
-
-  }
-
-  @Override
-  protected void rightClick() {
-
-  }
-
+  float[] currentTextArray;
   public VectorButton(Vector2f guiPosition, float width) {
     this.guiPosition = new Vector2f(guiPosition);
     this.guiWidth = width;
@@ -35,7 +28,8 @@ public class VectorButton extends AddSubtractBasic {
 
   public Vector3f checkButtonInput(Vector2d mouseLocation, int action, Vector3f vector3f, float changeAmount) {
     // 1. Only trigger on the initial PRESS
-    if (action != 1) return vector3f;
+    if (action != 1 || vector3f == null) return vector3f;
+
 
     int sizeOfVector = 3;
 
@@ -51,6 +45,7 @@ public class VectorButton extends AddSubtractBasic {
     floatArray[0] = vector3f.x;
     floatArray[1] = vector3f.y;
     floatArray[2] = vector3f.z;
+    this.currentTextArray = floatArray;
     setTextWithArray(floatArray);
     return vector3f;
 
@@ -71,6 +66,20 @@ public class VectorButton extends AddSubtractBasic {
   }
 
   private void updateText(Vector3f vector3f){
+  }
+
+  @Override
+  public void rightClick() {
+
+  }
+
+  @Override
+  public void leftClick() {
+
+  }
+
+  public void updateText(){
+    setTextWithArray(this.currentTextArray);
   }
 
 }

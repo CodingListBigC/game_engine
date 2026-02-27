@@ -17,7 +17,7 @@ public class DebugMenu extends DebugAbstract {
 
   public DebugMenu() {
     // Initialize inside the constructor to ensure ClassConst is populated
-    this.cameraInfo = new BoxItems(new Vector3f(10, 10, 0), new Color(0, 0, 0, 0.7f));
+    this.cameraInfo = new BoxItems(Color.yellow, new Color(0, 0, 0, 0.7f));
     createCameraDebug();
   }
 

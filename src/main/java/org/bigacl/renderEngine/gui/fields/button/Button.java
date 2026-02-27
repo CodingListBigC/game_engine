@@ -6,6 +6,17 @@ import org.joml.Vector2f;
 import java.awt.*;
 
 public class Button extends ClickAbstract{
+  boolean inputVisible = false;
+  @Override
+  public void rightClick() {
+
+  }
+
+  @Override
+  public void leftClick() {
+
+  }
+
   private final String code;
 
   /**
@@ -41,15 +52,6 @@ public class Button extends ClickAbstract{
 
   public String getCode() {
     return code;
-  }
-
-  @Override
-  protected void leftClick() {
-  }
-
-  @Override
-  protected void rightClick() {
-
   }
 
 }
