@@ -98,7 +98,9 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
   }
 
   public void setWorldPosition(Vector3f snappedPos) {
-    worldPosition.set(snappedPos);
+    try {
+      worldPosition.set(snappedPos);
+    }catch (Exception e){}
     updateModelMatrix();
   }
 

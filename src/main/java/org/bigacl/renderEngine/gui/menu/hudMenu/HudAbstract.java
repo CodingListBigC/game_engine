@@ -11,7 +11,7 @@ import java.awt.*;
 public abstract class HudAbstract {
   protected static DebugMenu debugMenu = null;
   protected static boolean debugStatus = false;
-
+  protected static ViewData viewData = new ViewData();
   protected static Color mainBackgroundColor = new Color(.1f,.1f,.1f,.5f);
   protected float screenWidth = ClassConst.window.getWidth();
   protected float screenHeight= ClassConst.window.getHeight();
@@ -42,4 +42,8 @@ public abstract class HudAbstract {
   }
 
   public abstract void checkHudInputs(Vector2d mouseLocation);
+
+  public static ViewData getViewData() {
+    return viewData;
+  }
 }

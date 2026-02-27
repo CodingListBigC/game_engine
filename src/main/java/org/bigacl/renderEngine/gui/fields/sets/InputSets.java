@@ -56,7 +56,7 @@ public abstract class InputSets<listType extends InputInterface> {
     return getY(itemList.size());
   }
 
-  public abstract int checkInput(Vector2d mouseLocation);
+  public abstract void checkInput(Vector2d mouseLocation);
 
   public abstract void updateText();
 }

@@ -30,10 +30,7 @@ SelectButtonSet selectButtonSet;
 
   @Override
   public void checkHudInputs(Vector2d mouseLocation) {
-    int buttonClicked = selectButtonSet.checkInput(mouseLocation);
-    if (buttonClicked != -1){
-      // TODO: Set variable to edit data
-    }
+    selectButtonSet.checkInput(mouseLocation);
   }
 
   @Override

@@ -4,6 +4,7 @@ import org.bigacl.renderEngine.gui.drawing.NanoVGUI;
 import org.bigacl.renderEngine.gui.fields.button.addSubtract.VectorButton;
 import org.bigacl.renderEngine.gameItems.item.ItemManger;
 import org.bigacl.renderEngine.gameItems.item.placeable.house.House;
+import org.bigacl.renderEngine.gui.menu.hudMenu.HudAbstract;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.joml.Vector2d;
 import org.joml.Vector2f;
@@ -44,19 +45,18 @@ public class LeftHud extends ModelDesignAbstractClass {
   @Override
   public void checkHudInputs(Vector2d mouseLocation) {
     ItemManger iM = ClassConst.itemManger;
-    if (iM.getHouseList().isEmpty()) {
-      House addHouse = new House(new Vector3f(0.0f, 0.0f, 0.0f));
-      iM.addItem(addHouse);
-      System.out.println("Add House");
-    }
     Vector3f changeLocation = this.vectorButton.checkButtonInput(
             ClassConst.window.getMouseLocation(),
             ClassConst.window.getMouseAction(),
-            iM.getHouseList().getFirst().getWorldPosition(),
+            HudAbstract.getViewData().getPosition(),
             1.0f
     );
 
-    iM.getHouseList().getFirst().setWorldPosition(changeLocation);
+    try {
+      iM.getHouseList().get(HudAbstract.getViewData().getViewIndex()).setWorldPosition(changeLocation);
+    }catch (IndexOutOfBoundsException e){
+
+    }
 
   }
   @Override

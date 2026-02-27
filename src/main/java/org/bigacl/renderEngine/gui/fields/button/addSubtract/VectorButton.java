@@ -27,7 +27,7 @@ public class VectorButton extends AddSubtractBasic {
 
   public Vector3f checkButtonInput(Vector2d mouseLocation, int action, Vector3f vector3f, float changeAmount) {
     // 1. Only trigger on the initial PRESS
-    if (action != 1) return vector3f;
+    if (action != 1 || vector3f == null) return vector3f;
 
 
     int sizeOfVector = 3;
