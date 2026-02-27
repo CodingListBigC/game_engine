@@ -39,7 +39,6 @@ public abstract class ClickAbstract extends InputInterface {
 
   public void render() {
     NanoVGUI nanoVGUI = ClassConst.nanoVGUI;
-    System.out.print(location);
     nanoVGUI.drawRect(location, size, backgroundColor);
     text.renderLimits(location,size,textColor);
   }

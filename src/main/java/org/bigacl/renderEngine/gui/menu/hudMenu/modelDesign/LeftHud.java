@@ -5,10 +5,13 @@ import org.bigacl.renderEngine.gui.fields.button.addSubtract.VectorButton;
 import org.bigacl.renderEngine.gameItems.item.ItemManger;
 import org.bigacl.renderEngine.gameItems.item.placeable.house.House;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 public class LeftHud extends ModelDesignAbstractClass {
+
+
   float widthPercentage;
   float heightPercentage;
   float panelWidth;
@@ -37,8 +40,9 @@ public class LeftHud extends ModelDesignAbstractClass {
     this.vectorButton.render();
   }
 
+
   @Override
-  public void checkHudInputs() {
+  public void checkHudInputs(Vector2d mouseLocation) {
     ItemManger iM = ClassConst.itemManger;
     if (iM.getHouseList().isEmpty()) {
       House addHouse = new House(new Vector3f(0.0f, 0.0f, 0.0f));
@@ -53,8 +57,8 @@ public class LeftHud extends ModelDesignAbstractClass {
     );
 
     iM.getHouseList().getFirst().setWorldPosition(changeLocation);
-  }
 
+  }
   @Override
   public void updateText() {
 

@@ -1,6 +1,7 @@
 package org.bigacl.renderEngine.gui.fields.sets;
 
 import org.bigacl.renderEngine.gui.fields.InputInterface;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ public abstract class InputSets {
 
   // Format
   protected float spacing = 10;
-  protected Vector2f rowSize = new Vector2f(200,10);
+  protected Vector2f rowSize = new Vector2f(200,30);
 
   public void renderAll(){
     for (InputInterface item: itemList){
@@ -55,4 +56,5 @@ public abstract class InputSets {
     return getY(itemList.size());
   }
 
+  public abstract int checkInput(Vector2d mouseLocation);
 }

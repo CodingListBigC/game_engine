@@ -5,13 +5,14 @@ import org.lwjgl.glfw.GLFW;
 
 public abstract class InputInterface {
   public abstract void render();
-  public void checkInput(Vector2d mouseLocation, int mouseAction){
+
+  public void checkInput(Vector2d mouseLocation, int mouseAction) {
     if (!isHovered(mouseLocation))
       return;
-    if (mouseAction == GLFW.GLFW_MOUSE_BUTTON_LEFT){
+    if (mouseAction == GLFW.GLFW_MOUSE_BUTTON_LEFT) {
       leftClick();
     }
-    if (mouseAction == GLFW.GLFW_MOUSE_BUTTON_RIGHT){
+    if (mouseAction == GLFW.GLFW_MOUSE_BUTTON_RIGHT) {
       rightClick();
     }
   }
@@ -23,11 +24,23 @@ public abstract class InputInterface {
   public abstract boolean isHovered(Vector2d mouseLocation);
 
   protected boolean visible = false;
-  public void setVisible(boolean visible){
-    this.visible = visible;
-  };
 
-  public void toggleVisibility(){
+  public void setVisible(boolean visible) {
+    this.visible = visible;
+  }
+
+  ;
+
+  public void toggleVisibility() {
     this.visible = !this.visible;
-  };
+  }
+
+  ;
+
+  public void setClickedStatus(boolean clicked) {
+  }
+
+  public boolean getClickedStatus(){
+    return false;
+  }
 }

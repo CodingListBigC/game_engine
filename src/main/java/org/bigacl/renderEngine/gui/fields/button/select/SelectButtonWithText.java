@@ -54,7 +54,16 @@ public class SelectButtonWithText extends InputWithText{
 
   @Override
   public boolean isHovered(Vector2d mouseLocation) {
-    return false;
+    return selectButton.isHovered(mouseLocation);
   }
 
+  @Override
+  public void setClickedStatus(boolean clicked) {
+    selectButton.setClickedStatus(clicked);
+  }
+
+  @Override
+  public boolean getClickedStatus() {
+    return selectButton.getClickedStatus();
+  }
 }

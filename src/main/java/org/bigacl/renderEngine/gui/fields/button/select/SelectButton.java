@@ -24,9 +24,9 @@ public class SelectButton extends ClickAbstract{
   @Override
   public void render(){
     if (clickedStatus)
-      this.renderNotClicked();
-    else
       this.renderClicked();
+    else
+      this.renderNotClicked();
   }
 
 
@@ -50,5 +50,14 @@ public class SelectButton extends ClickAbstract{
   @Override
   public void leftClick() {
 
+  }
+  @Override
+  public void setClickedStatus(boolean clicked){
+    clickedStatus = clicked;
+  }
+
+  @Override
+  public boolean getClickedStatus(){
+    return clickedStatus;
   }
 }

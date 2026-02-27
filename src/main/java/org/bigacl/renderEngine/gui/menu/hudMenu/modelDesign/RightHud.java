@@ -1,11 +1,9 @@
 package org.bigacl.renderEngine.gui.menu.hudMenu.modelDesign;
 
-import org.bigacl.renderEngine.gui.fields.button.select.SelectButton;
 import org.bigacl.renderEngine.gui.fields.button.select.SelectButtonSet;
+import org.bigacl.renderEngine.utils.consts.ClassConst;
+import org.joml.Vector2d;
 import org.joml.Vector2f;
-import org.joml.Vector4f;
-
-import java.awt.*;
 
 import static org.bigacl.renderEngine.utils.consts.ClassConst.nanoVGUI;
 
@@ -31,7 +29,11 @@ SelectButtonSet selectButtonSet;
 
 
   @Override
-  public void checkHudInputs() {
+  public void checkHudInputs(Vector2d mouseLocation) {
+    int buttonClicked = selectButtonSet.checkInput(mouseLocation);
+    if (buttonClicked != -1){
+      // TODO: Set variable to edit data
+    }
   }
 
   @Override

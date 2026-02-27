@@ -3,6 +3,7 @@ package org.bigacl.renderEngine.gui.menu.hudMenu;
 
 import org.bigacl.renderEngine.gui.menu.debugMenu.DebugMenu;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
+import org.joml.Vector2d;
 import org.joml.Vector4f;
 
 import java.awt.*;
@@ -34,13 +35,11 @@ public abstract class HudAbstract {
   }
 
 
-  public abstract void checkHudInputs();
-
-
-
   public abstract void renderMenu();
 
   public boolean getDebugStatus() {
     return debugStatus;
   }
+
+  public abstract void checkHudInputs(Vector2d mouseLocation);
 }
