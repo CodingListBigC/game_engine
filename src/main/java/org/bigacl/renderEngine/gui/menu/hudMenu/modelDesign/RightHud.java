@@ -38,12 +38,13 @@ SelectButtonSet selectButtonSet;
 
   @Override
   public void renderMenu() {
+    updateText();
     drawSide(true, nanoVGUI, widthPercentage, heightPercentage);
     selectButtonSet.renderAll();
   }
 
   @Override
   public void updateText() {
-
+    selectButtonSet.updateText();
   }
 }

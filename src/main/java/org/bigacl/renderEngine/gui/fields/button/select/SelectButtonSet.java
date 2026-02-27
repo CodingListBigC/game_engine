@@ -1,5 +1,6 @@
 package org.bigacl.renderEngine.gui.fields.button.select;
 
+import org.bigacl.renderEngine.gameItems.item.placeable.BasePlaceableItem;
 import org.bigacl.renderEngine.gui.fields.InputInterface;
 import org.bigacl.renderEngine.gui.fields.sets.InputSets;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
@@ -7,14 +8,21 @@ import org.joml.Vector2d;
 import org.joml.Vector2f;
 
 import java.awt.*;
+import java.util.ArrayList;
 
-public class SelectButtonSet extends InputSets {
+public class SelectButtonSet extends InputSets<SelectButtonWithText> {
 
   float columnWidth = 10;
   final Color buttonBg = Color.DARK_GRAY;
   final Color buttonOl = Color.GRAY;
   final Color fontColor = Color.white;
   final Vector2f setPos;
+
+  public void setShowItemSettings(int showItemSettings) {
+    this.showItemSettings = showItemSettings;
+  }
+
+  private int showItemSettings = 0;
   @Override
   public void newDefaultItem() {
     Vector2f location = new Vector2f(columnWidth, getNextY()).add(this.setPos);
@@ -48,6 +56,34 @@ public class SelectButtonSet extends InputSets {
     }
 
 
+  }
+
+  @Override
+  public void updateText() {
+    if (showItemSettings == 0){
+      this.setItemsText((ArrayList<BasePlaceableItem>) ClassConst.itemManger.getAllItems());
+    }
+  }
+
+  private void updateListText(int index, String text){
+    try {
+      checkAmount(index);
+      itemList.get(index).setTextLabel(text);
+
+    }catch (IndexOutOfBoundsException e){
+      System.out.checkError();
+    }
+  }
+
+  private void setItemsText(ArrayList<BasePlaceableItem> list){
+    viewAmount(list.size());
+    for (BasePlaceableItem item: list){
+      String name = item.mainName();
+      int index =  list.indexOf(item);
+      String setString = name + ": " + index;
+      updateListText(index, setString);
+
+    }
   }
   private void resetAll(){
     for (InputInterface item: itemList){

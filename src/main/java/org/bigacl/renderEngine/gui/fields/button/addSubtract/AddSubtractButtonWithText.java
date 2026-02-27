@@ -71,6 +71,11 @@ public class AddSubtractButtonWithText extends InputWithText {
     this.subBtn.render();
   }
 
+  @Override
+  protected void setText() {
+    this.text = new TextWithBackground("hi");
+  }
+
   /**
    *
    * @param mouseLocation - Mouse Current Location

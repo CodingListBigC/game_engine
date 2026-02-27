@@ -10,8 +10,8 @@ import java.awt.*;
 
 public class SelectButtonWithText extends InputWithText{
 
+
   SelectButton selectButton;
-  TextWithBackground text;
   protected Vector2f location;
   protected Vector2f rowSize;
   protected Color buttonBg;
@@ -33,10 +33,14 @@ public class SelectButtonWithText extends InputWithText{
     this.text = new TextWithBackground("");
     this.text.setTextColor(fontColor);
     this.text.setSizeLimits(new Vector2f((rowSize.x - (columnSpacing * 4) - rowSize.y), rowSize.y));
-    this.text.setPosition(new Vector2f((columnSpacing *2) + rowSize.y, 0f));
+    this.text.setPosition(new Vector2f((columnSpacing *2) + rowSize.y, 0f).add(this.location));
     this.selectButton = new SelectButton(new Vector2f(this.location).add(columnSpacing,0f),this.rowSize.y,buttonBg,buttonOl);
   }
 
+  @Override
+  protected void setText() {
+    this.text = new TextWithBackground("");
+  }
 
   @Override
   public void renderInput() {

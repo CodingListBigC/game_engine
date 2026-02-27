@@ -120,6 +120,10 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
     }
   }
 
+  public String mainName() {
+    return name.main;
+  }
+
   // --- Data Structures for GSON ---
   public static class NameData { public String main, plural; }
   public static class BaseModelParts {

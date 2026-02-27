@@ -6,8 +6,8 @@ import org.joml.Vector2f;
 
 import java.util.ArrayList;
 
-public abstract class InputSets {
-  protected ArrayList<InputInterface> itemList = new ArrayList<InputInterface>();
+public abstract class InputSets<listType extends InputInterface> {
+  protected ArrayList<listType> itemList = new ArrayList<listType>();
   protected int currentAmount;
 
   // Format
@@ -15,7 +15,7 @@ public abstract class InputSets {
   protected Vector2f rowSize = new Vector2f(200,30);
 
   public void renderAll(){
-    for (InputInterface item: itemList){
+    for (listType item: itemList){
       item.render();
     }
   };
@@ -44,8 +44,8 @@ public abstract class InputSets {
     }
   }
 
-  public void addItem(InputInterface inputInterface){
-    itemList.add(inputInterface);
+  public void addItem(listType item){
+    itemList.add(item);
   }
   public abstract void newDefaultItem();
 
@@ -57,4 +57,6 @@ public abstract class InputSets {
   }
 
   public abstract int checkInput(Vector2d mouseLocation);
+
+  public abstract void updateText();
 }
