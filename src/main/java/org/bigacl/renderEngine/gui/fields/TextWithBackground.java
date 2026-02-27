@@ -15,7 +15,16 @@ public class TextWithBackground extends Text{
   }
 
   public void renderBg() {
-    ClassConst.nanoVGUI.drawRect(getPosition(),sizeLimits,backgroundColor);
+    drawBg();
+    super.renderLimits();
+  }
+  public void drawBg(){
+
+    ClassConst.nanoVGUI.drawRect(getPosition(),sizeLimits,backgroundColor,outlineColor);
+  }
+  @Override
+  public void render(){
+    drawBg();
     super.renderLimits();
   }
 

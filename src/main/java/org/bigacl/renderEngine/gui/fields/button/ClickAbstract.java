@@ -26,17 +26,6 @@ public abstract class ClickAbstract implements InputInterface {
   protected Color outlineColor;
 
 
-  public void checkInput(Vector2d mouseLocation, int mouseAction){
-    if (!isHovered(mouseLocation))
-      return;
-    if (mouseAction == GLFW.GLFW_MOUSE_BUTTON_LEFT){
-      leftClick();
-    }
-    if (mouseAction == GLFW.GLFW_MOUSE_BUTTON_RIGHT){
-      rightClick();
-    }
-  };
-
   public boolean checkClickable(Vector2d mouseLocation, int mouseAction){
     return mouseAction == GLFW.GLFW_MOUSE_BUTTON_LEFT && isHovered(mouseLocation);
   };
@@ -47,9 +36,6 @@ public abstract class ClickAbstract implements InputInterface {
     return mouseLocation.x >= startPosition.x && mouseLocation.x <= endPosition.x &&
             mouseLocation.y >= startPosition.y && mouseLocation.y <= endPosition.y;
   }
-
-  abstract protected void leftClick();
-  abstract protected void rightClick();
 
   public void render() {
     NanoVGUI nanoVGUI = ClassConst.nanoVGUI;

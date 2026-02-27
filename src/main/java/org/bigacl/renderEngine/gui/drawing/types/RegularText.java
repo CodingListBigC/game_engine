@@ -63,8 +63,8 @@ public interface RegularText {
    * @param position = Position of text.
    * @param color    = Color of text.
    */
-  default void drawText(String text, float size, Vector2f position, Vector3f color) {
-    drawText(text, position.x, position.y, size, color.x, color.y, color.z);
+  default void drawText(String text, float size, Vector2f position, Color color) {
+    drawText(text, position.x, position.y, size, (float)color.getRed() / 255, (float) color.getGreen() / 255, (float) color.getBlue() /255);
   }
 
   default void drawTextFitToBoxCentered(String text, float x, float y, float sizeX, float sizeY, float startFontSize, float r, float g, float b) {

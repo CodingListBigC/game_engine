@@ -1,5 +1,6 @@
 package org.bigacl.renderEngine.gui.fields.button.select;
 
+import org.bigacl.renderEngine.gui.fields.InputInterface;
 import org.bigacl.renderEngine.gui.fields.button.ClickAbstract;
 import org.bigacl.renderEngine.gui.drawing.NanoVGUI;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
@@ -7,24 +8,30 @@ import org.joml.Vector2f;
 
 import java.awt.*;
 
-public class SelectButton extends ClickAbstract {
+public class SelectButton extends ClickAbstract implements InputInterface {
   private boolean clickedStatus;
+
+  @Override
+  public void rightClick() {
+
+  }
+
+  @Override
+  public void leftClick() {
+
+  }
+
+  private boolean visible = false;
+  @Override
+  public boolean isInputVisible() {
+    return visible;
+  }
 
   public SelectButton(Vector2f location, float diameter, Color mainBackgroundColor, Color outlineColor) {
     this.location = location;
     this.size = new Vector2f(diameter);
     this.backgroundColor = mainBackgroundColor;
     this.outlineColor = outlineColor;
-  }
-
-  @Override
-  protected void leftClick() {
-
-  }
-
-  @Override
-  protected void rightClick() {
-
   }
 
   @Override

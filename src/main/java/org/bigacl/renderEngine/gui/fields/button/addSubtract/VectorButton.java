@@ -9,16 +9,6 @@ import org.joml.Vector3f;
 import java.awt.*;
 
 public class VectorButton extends AddSubtractBasic {
-  @Override
-  protected void leftClick() {
-
-  }
-
-  @Override
-  protected void rightClick() {
-
-  }
-
   public VectorButton(Vector2f guiPosition, float width) {
     this.guiPosition = new Vector2f(guiPosition);
     this.guiWidth = width;
@@ -76,4 +66,19 @@ public class VectorButton extends AddSubtractBasic {
   private void updateText(Vector3f vector3f){
   }
 
+  @Override
+  public void rightClick() {
+
+  }
+
+  @Override
+  public void leftClick() {
+
+  }
+
+  boolean inputVisible = false;
+  @Override
+  public boolean isInputVisible() {
+    return inputVisible;
+  }
 }
