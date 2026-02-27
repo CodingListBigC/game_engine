@@ -10,6 +10,12 @@ public class ViewData {
   ArrayList<? extends BasePlaceableItem> viewDataList;
   int viewIndex;
 
+  public int getViewType() {
+    return viewType;
+  }
+
+  int viewType = 0;
+
   public Vector3f getPosition() {
     if (viewDataList != null) {
       try {

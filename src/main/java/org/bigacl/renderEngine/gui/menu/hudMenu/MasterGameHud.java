@@ -7,6 +7,11 @@ import org.joml.Vector2d;
 public class MasterGameHud extends HudAbstract {
 
   @Override
+  public void updateText() {
+
+  }
+
+  @Override
   public void checkHudInputs(Vector2d mouseLocation) {
 
   }

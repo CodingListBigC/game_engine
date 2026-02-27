@@ -16,6 +16,8 @@ public abstract class HudAbstract {
   protected float screenWidth = ClassConst.window.getWidth();
   protected float screenHeight= ClassConst.window.getHeight();
 
+  public abstract void updateText();
+
   public void render() {
     if (debugStatus) {
       renderDebug();

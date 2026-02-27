@@ -28,6 +28,9 @@ public abstract class InputSets<listType extends InputInterface> {
   public void viewAmount(int amount){
     checkAmount(amount);
     hideAll();
+    if (amount == 0){
+      System.out.println("Amount zero");
+    }
     for (int itemNumber = 0; itemNumber < amount; itemNumber++) {
       itemList.get(itemNumber).setVisible(true);
     }

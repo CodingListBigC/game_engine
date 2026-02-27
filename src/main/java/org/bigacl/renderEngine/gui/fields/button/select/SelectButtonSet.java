@@ -55,7 +55,7 @@ public class SelectButtonSet extends InputSets<SelectButtonWithText> {
   @Override
   public void updateText() {
     ArrayList<? extends BasePlaceableItem> listToShow;
-    int showItemSettings = HudAbstract.getViewData().getViewIndex();
+    int showItemSettings = HudAbstract.getViewData().getViewType();
     if (showItemSettings == 1) {
       listToShow = (ArrayList<? extends BasePlaceableItem>) ClassConst.itemManger.getHouseList();
     } else if (showItemSettings == 2) {

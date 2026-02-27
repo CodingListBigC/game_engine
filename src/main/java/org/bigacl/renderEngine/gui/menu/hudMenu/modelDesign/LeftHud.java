@@ -61,6 +61,6 @@ public class LeftHud extends ModelDesignAbstractClass {
   }
   @Override
   public void updateText() {
-
+    vectorButton.updateText();
   }
 }

@@ -9,6 +9,7 @@ import org.joml.Vector3f;
 import java.awt.*;
 
 public class VectorButton extends AddSubtractBasic {
+  float[] currentTextArray;
   public VectorButton(Vector2f guiPosition, float width) {
     this.guiPosition = new Vector2f(guiPosition);
     this.guiWidth = width;
@@ -44,6 +45,7 @@ public class VectorButton extends AddSubtractBasic {
     floatArray[0] = vector3f.x;
     floatArray[1] = vector3f.y;
     floatArray[2] = vector3f.z;
+    this.currentTextArray = floatArray;
     setTextWithArray(floatArray);
     return vector3f;
 
@@ -74,6 +76,10 @@ public class VectorButton extends AddSubtractBasic {
   @Override
   public void leftClick() {
 
+  }
+
+  public void updateText(){
+    setTextWithArray(this.currentTextArray);
   }
 
 }
