@@ -17,11 +17,6 @@ public class Button extends ClickAbstract{
 
   }
 
-  @Override
-  public boolean isInputVisible() {
-    return inputVisible;
-  }
-
   private final String code;
 
   /**

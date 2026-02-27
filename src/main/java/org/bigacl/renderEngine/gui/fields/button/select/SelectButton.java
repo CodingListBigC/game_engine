@@ -8,24 +8,11 @@ import org.joml.Vector2f;
 
 import java.awt.*;
 
-public class SelectButton extends ClickAbstract implements InputInterface {
+public class SelectButton extends ClickAbstract{
   private boolean clickedStatus;
 
-  @Override
-  public void rightClick() {
 
-  }
 
-  @Override
-  public void leftClick() {
-
-  }
-
-  private boolean visible = false;
-  @Override
-  public boolean isInputVisible() {
-    return visible;
-  }
 
   public SelectButton(Vector2f location, float diameter, Color mainBackgroundColor, Color outlineColor) {
     this.location = location;
@@ -54,5 +41,14 @@ public class SelectButton extends ClickAbstract implements InputInterface {
 
   public void toggleClickedStatus() {
     clickedStatus = !clickedStatus;
+  }
+  @Override
+  public void rightClick() {
+
+  }
+
+  @Override
+  public void leftClick() {
+
   }
 }

@@ -82,10 +82,10 @@ public abstract class AddSubtractBasic extends ClickAbstract {
   public void setAmountViewAble(int amountViewAble){
     makeAmountOfNewItems(amountViewAble);
     for (AddSubtractButtonWithText item: itemArrayList){
-      item.setViewStatus(false);
+      item.setVisible(false);
     }
     for (int i = 0; i < amountViewAble; i++) {
-      itemArrayList.get(i).setViewStatus(true);
+      itemArrayList.get(i).setVisible(true);
     }
   }
   public float getInfo(int itemNumber, Vector2d mouseLocation, float changeAmout){

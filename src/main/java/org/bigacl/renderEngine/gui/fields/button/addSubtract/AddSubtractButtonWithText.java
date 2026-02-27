@@ -95,6 +95,16 @@ public class AddSubtractButtonWithText extends InputWithText {
     return null;
   }
 
+  @Override
+  protected void rightClick() {
+
+  }
+
+  @Override
+  protected void leftClick() {
+
+  }
+
   public boolean isHovered(Vector2d mouseLocation) {
     return addBtn.isHovered(mouseLocation) || subBtn.isHovered(mouseLocation);
   }

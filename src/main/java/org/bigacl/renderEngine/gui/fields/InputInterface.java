@@ -3,9 +3,9 @@ package org.bigacl.renderEngine.gui.fields;
 import org.joml.Vector2d;
 import org.lwjgl.glfw.GLFW;
 
-public interface InputInterface {
-  void render();
-  default void checkInput(Vector2d mouseLocation, int mouseAction){
+public abstract class InputInterface {
+  public abstract void render();
+  public void checkInput(Vector2d mouseLocation, int mouseAction){
     if (!isHovered(mouseLocation))
       return;
     if (mouseAction == GLFW.GLFW_MOUSE_BUTTON_LEFT){
@@ -16,20 +16,18 @@ public interface InputInterface {
     }
   }
 
-  void rightClick();
+  protected abstract void rightClick();
 
-  void leftClick();
+  protected abstract void leftClick();
 
-  boolean isHovered(Vector2d mouseLocation);
+  public abstract boolean isHovered(Vector2d mouseLocation);
 
-  boolean isInputVisible();
-  default  void setInputVisible(boolean visible){
-    if (isInputVisible() != visible){
-      toggleVisibility();
-    }
+  protected boolean visible = false;
+  public void setVisible(boolean visible){
+    this.visible = visible;
   };
 
-  default void toggleVisibility(){
-    setInputVisible(!isInputVisible());
-  }
+  public void toggleVisibility(){
+    this.visible = !this.visible;
+  };
 }

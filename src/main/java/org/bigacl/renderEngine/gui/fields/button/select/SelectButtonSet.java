@@ -7,12 +7,20 @@ import java.awt.*;
 
 public class SelectButtonSet extends InputSets {
 
-  float buttonOffSetLeft = 10;
+  float columnWidth = 10;
   final Color buttonBg = Color.lightGray;
   final Color buttonOl = Color.gray;
+  final Color fontColor = Color.white;
+  final Vector2f setPos;
   @Override
   public void newDefaultItem() {
-    Vector2f location = new Vector2f(buttonOffSetLeft, getNextY());
-    addItem(new SelectButton(location,rowHeight,buttonBg,buttonOl));
+    Vector2f location = new Vector2f(columnWidth, getNextY()).add(this.setPos);
+    addItem(new SelectButtonWithText(location,this.rowSize,this.buttonBg,this.buttonOl, this.fontColor));
+  }
+
+  public SelectButtonSet(Vector2f setPos) {
+    this.setPos = new Vector2f(setPos);
+    checkAmount(10);
+    viewAmount(4);
   }
 }

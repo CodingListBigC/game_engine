@@ -76,9 +76,4 @@ public class VectorButton extends AddSubtractBasic {
 
   }
 
-  boolean inputVisible = false;
-  @Override
-  public boolean isInputVisible() {
-    return inputVisible;
-  }
 }

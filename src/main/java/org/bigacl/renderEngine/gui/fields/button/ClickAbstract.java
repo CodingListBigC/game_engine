@@ -10,7 +10,7 @@ import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;
 
-public abstract class ClickAbstract implements InputInterface {
+public abstract class ClickAbstract extends InputInterface {
   protected Vector2f size;
   protected Vector2f location;
   protected String label;

@@ -1,6 +1,7 @@
 package org.bigacl.renderEngine.gui.fields.sets;
 
 import org.bigacl.renderEngine.gui.fields.InputInterface;
+import org.joml.Vector2f;
 
 import java.util.ArrayList;
 
@@ -10,7 +11,7 @@ public abstract class InputSets {
 
   // Format
   protected float spacing = 10;
-  protected float rowHeight = 10;
+  protected Vector2f rowSize = new Vector2f(200,10);
 
   public void renderAll(){
     for (InputInterface item: itemList){
@@ -27,17 +28,17 @@ public abstract class InputSets {
     checkAmount(amount);
     hideAll();
     for (int itemNumber = 0; itemNumber < amount; itemNumber++) {
-      itemList.get(itemNumber).setInputVisible(true);
+      itemList.get(itemNumber).setVisible(true);
     }
   }
 
   private void hideAll(){
     for (InputInterface item: itemList){
-      item.setInputVisible(false);
+      item.setVisible(false);
     }
   }
   public void checkAmount(int amount){
-    while (amount <= itemList.size()){
+    while (itemList.size() <= amount){
       newDefaultItem();
     }
   }
@@ -48,9 +49,10 @@ public abstract class InputSets {
   public abstract void newDefaultItem();
 
   private float getY(int row){
-    return row * (spacing + rowHeight);
+    return row * (spacing + rowSize.y);
   }
   protected float getNextY(){
     return getY(itemList.size());
   }
+
 }

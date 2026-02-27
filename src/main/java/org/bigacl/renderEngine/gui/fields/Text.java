@@ -19,7 +19,7 @@ public class Text {
   protected Vector2f sizeLimits = new Vector2f();
 
   private Vector2f position = new Vector2f(0.0f);
-  private final Color textColor;
+  private Color textColor;
 
   public Text(String text, int type) {
     this.text = text;
@@ -97,5 +97,9 @@ public class Text {
 
   public Vector2f getPosition() {
     return position;
+  }
+
+  public void setTextColor(Color textColor) {
+    this.textColor = textColor;
   }
 }

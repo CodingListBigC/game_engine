@@ -1,6 +1,7 @@
 package org.bigacl.renderEngine.gui.menu.hudMenu.modelDesign;
 
 import org.bigacl.renderEngine.gui.fields.button.select.SelectButton;
+import org.bigacl.renderEngine.gui.fields.button.select.SelectButtonSet;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 
@@ -15,8 +16,7 @@ public class RightHud extends ModelDesignAbstractClass {
   float panelWidth;
   float panelHeight;
 
-  SelectButton selectButton1 = new SelectButton(new Vector2f(1500,20), 20,new Color(1,1,1,1),new Color(1,0,0,1));
-  SelectButton selectButton2 = new SelectButton(new Vector2f(1500,60), 20,new Color(1,1,1,1),new Color(1,0,0,1));
+SelectButtonSet selectButtonSet;
 
   public RightHud() {
     this.widthPercentage = 0.125f;
@@ -25,20 +25,19 @@ public class RightHud extends ModelDesignAbstractClass {
     // This is how wide the actual panel is
     this.panelWidth = screenWidth * widthPercentage;
     this.panelHeight = screenHeight * heightPercentage;
-    selectButton1.toggleClickedStatus();
+    Vector2f selectButtonSetPos = new Vector2f((screenWidth - panelWidth), 20);
+    selectButtonSet = new SelectButtonSet(new Vector2f(selectButtonSetPos));
   }
 
 
   @Override
   public void checkHudInputs() {
-
   }
 
   @Override
   public void renderMenu() {
     drawSide(true, nanoVGUI, widthPercentage, heightPercentage);
-    selectButton1.render();
-    selectButton2.render();
+    selectButtonSet.renderAll();
   }
 
   @Override
