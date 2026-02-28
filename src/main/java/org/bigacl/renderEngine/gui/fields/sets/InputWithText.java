@@ -33,7 +33,6 @@ public abstract class InputWithText<typeOfText extends TextWithBackground> exten
       setText();
       return;
     }
-    System.out.println("Test Label: " + textLabel);
     this.text.setText(textLabel);
   }
   protected abstract void setText();
