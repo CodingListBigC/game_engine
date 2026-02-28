@@ -29,7 +29,7 @@ SelectButtonSet selectButtonSet;
 
 
   @Override
-  public void checkHudInputs(Vector2d mouseLocation) {
+  public void checkHudInputs(Vector2d mouseLocation, int mouseAction) {
     selectButtonSet.checkInput(mouseLocation);
   }
 
@@ -39,6 +39,7 @@ SelectButtonSet selectButtonSet;
     drawSide(true, nanoVGUI, widthPercentage, heightPercentage);
     selectButtonSet.renderAll();
   }
+
 
   @Override
   public void updateText() {

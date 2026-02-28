@@ -25,7 +25,6 @@ public class TextLimits {
   }
 
   public void setText(String text) {
-    System.out.println("Update Text: " + text);
     this.text = text;
   }
 

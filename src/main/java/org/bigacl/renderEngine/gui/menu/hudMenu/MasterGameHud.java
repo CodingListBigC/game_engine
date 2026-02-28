@@ -12,7 +12,7 @@ public class MasterGameHud extends HudAbstract {
   }
 
   @Override
-  public void checkHudInputs(Vector2d mouseLocation) {
+  public void checkHudInputs(Vector2d mouseLocation, int mouseAction) {
 
   }
 

@@ -86,6 +86,7 @@ public class KeyboardInputMaster {
 
   private void hudInputs() {
     Vector2d mouseLocation = ClassConst.window.getMouseLocation();
+    int mouseAction = ClassConst.window.getMouseAction();
     if (this.hudAbstract == null) {
       this.hudAbstract = ClassConst.hudAbstract;
       if (this.hudAbstract == null) return;
@@ -95,10 +96,10 @@ public class KeyboardInputMaster {
       this.hudAbstract.toggleDebugStatus();
     }
     this.lastDebugKeyStatus = currentDebugKeyStatus;
-    this.hudAbstract.checkHudInputs(mouseLocation);
+    this.hudAbstract.checkHudInputs(mouseLocation, mouseAction);
   }
   private void resetInputs(){
-    ClassConst.window.setMouseAction(0);
+    ClassConst.window.setMouseAction(-1);
   }
 
 }

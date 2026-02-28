@@ -43,7 +43,7 @@ public abstract class HudAbstract {
     return debugStatus;
   }
 
-  public abstract void checkHudInputs(Vector2d mouseLocation);
+  public abstract void checkHudInputs(Vector2d mouseLocation, int mouseAction);
 
   public static ViewData getViewData() {
     return viewData;

@@ -29,8 +29,6 @@ public abstract class ModelDesignAbstractClass extends HudAbstract {
     nanoVGUI.drawRect(pos, size, mainBackgroundColor);
   }
 
-  public abstract void checkHudInputs(Vector2d mouseLocation);
-
   public abstract void updateText();
 }
 

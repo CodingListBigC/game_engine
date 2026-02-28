@@ -23,7 +23,7 @@ public class LeftHud extends ModelDesignAbstractClass {
 
   public LeftHud() {
     this.widthPercentage = 0.125f;
-    this.heightPercentage = 0.75f;
+    this.heightPercentage = 0.90f;
 
     // This is how wide the actual panel is
     this.panelWidth = screenWidth * widthPercentage;
@@ -44,11 +44,11 @@ public class LeftHud extends ModelDesignAbstractClass {
 
 
   @Override
-  public void checkHudInputs(Vector2d mouseLocation) {
+  public void checkHudInputs(Vector2d mouseLocation, int mouseAction) {
     ItemManger iM = ClassConst.itemManger;
     Vector3f changeLocation = this.vectorButton.checkButtonInput(
-            ClassConst.window.getMouseLocation(),
-            ClassConst.window.getMouseAction(),
+            mouseLocation,
+            mouseAction,
             HudAbstract.getViewData().getPosition(),
             1.0f
     );

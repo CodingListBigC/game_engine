@@ -25,7 +25,6 @@ public class SelectButtonSet extends InputSets<SelectButtonWithText> {
     Vector2f location = new Vector2f(columnWidth, getNextY()).add(this.setPos);
     addItem(new SelectButtonWithText(location, this.rowSize, this.buttonBg, this.buttonOl, this.fontColor));
     itemList.getFirst().setClickedStatus(true);
-    System.out.println("Clicked Status First: " + itemList.getFirst().getClickedStatus());
   }
 
   @Override
