@@ -1,11 +1,13 @@
 package org.bigacl.renderEngine.gui.fields;
 
 import org.joml.Vector2d;
+import org.joml.Vector2f;
 import org.lwjgl.glfw.GLFW;
 
 public abstract class InputInterface {
   public abstract void render();
 
+  public Vector2f inputSize;
   public void checkInput(Vector2d mouseLocation, int mouseAction) {
     if (!isHovered(mouseLocation))
       return;
@@ -43,4 +45,9 @@ public abstract class InputInterface {
   public boolean getClickedStatus(){
     return false;
   }
+
+  public abstract void setSize(Vector2f size);
+
+  public abstract void setLocation(Vector2f location);
+
 }

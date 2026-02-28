@@ -54,4 +54,8 @@ public class Button extends ClickAbstract{
     return code;
   }
 
+  @Override
+  public void setSize(Vector2f size) {
+    this.size = size;
+  }
 }
