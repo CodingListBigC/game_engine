@@ -9,12 +9,17 @@ public class ViewData {
   Vector3f position;
   ArrayList<? extends BasePlaceableItem> viewDataList;
   int viewIndex;
+  int lastViewType;
+
+  public int getLastViewType() {
+    return lastViewType;
+  }
 
   public int getViewType() {
     return viewType;
   }
 
-  int viewType = 0;
+  int viewType = -1;
 
   public Vector3f getPosition() {
     if (viewDataList != null) {
@@ -41,5 +46,6 @@ public class ViewData {
 
   public void setViewIndex(int viewIndex) {
     this.viewIndex = viewIndex;
+    this.lastViewType = viewIndex;
   }
 }

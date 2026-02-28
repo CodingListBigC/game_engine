@@ -41,7 +41,7 @@ public class Text {
 
   public Text(String text) {
     this.text = text;
-    this.textColor = Color.BLACK;
+    this.textColor = Color.WHITE;
   }
 
   public Vector2f getSize(){

@@ -34,6 +34,7 @@ public class LeftHud extends ModelDesignAbstractClass {
 
   @Override
   public void renderMenu() {
+    updateText();
     NanoVGUI nanoVGUI = ClassConst.nanoVGUI;
 
 
@@ -53,7 +54,7 @@ public class LeftHud extends ModelDesignAbstractClass {
     );
 
     try {
-      iM.getHouseList().get(HudAbstract.getViewData().getViewIndex()).setWorldPosition(changeLocation);
+      iM.getDefaultData().get(HudAbstract.getViewData().getViewIndex()).setWorldPosition(changeLocation);
     }catch (IndexOutOfBoundsException e){
 
     }

@@ -3,7 +3,9 @@ package org.bigacl.renderEngine.gameItems.item;
 import org.bigacl.renderEngine.gameItems.item.placeable.BasePlaceableItem;
 import org.bigacl.renderEngine.gameItems.item.placeable.aparment.Aparment;
 import org.bigacl.renderEngine.gameItems.item.placeable.house.House;
+import org.bigacl.renderEngine.gui.menu.hudMenu.HudAbstract;
 import org.bigacl.renderEngine.player.BoundingBox;
+import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -35,6 +37,23 @@ public class ItemManger {
   public void addItem(@NotNull Aparment apartment) {
     apartment.setupHitbox();
     apartmentList.add(apartment);
+  }
+
+  public ArrayList<? extends BasePlaceableItem> getDefaultData(){
+    ArrayList<? extends BasePlaceableItem> listToShow;
+    int viewIndex = HudAbstract.getViewData().getViewType();
+    int lastViewIndex = HudAbstract.getViewData().getLastViewType();
+    if (viewIndex == 1) {
+      listToShow = (ArrayList<? extends BasePlaceableItem>) ClassConst.itemManger.getHouseList();
+    } else if (viewIndex == 2) {
+      listToShow = ClassConst.itemManger.getApartmentList();
+    } else {
+      listToShow = (ArrayList<? extends BasePlaceableItem>) ClassConst.itemManger.getAllItems();
+    }
+    if (lastViewIndex != viewIndex){
+      HudAbstract.getViewData().setViewDataList(listToShow);
+    }
+    return listToShow;
   }
 
   // Render Items

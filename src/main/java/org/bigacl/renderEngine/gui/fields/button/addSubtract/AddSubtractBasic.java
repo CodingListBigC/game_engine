@@ -98,6 +98,9 @@ public abstract class AddSubtractBasic extends ClickAbstract {
   }
 
   public void setTextWithArray(float[] floatArray) {
+    if (floatArray == null){
+      return;
+    }
     String[] array = new String[floatArray.length];
     for (int i = 0; i < floatArray.length; i++) {
       array[i] = String.valueOf(floatArray[i]);
