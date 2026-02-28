@@ -59,4 +59,6 @@ public class SelectButton extends ClickAbstract{
   public boolean getClickedStatus(){
     return clickedStatus;
   }
+
+
 }

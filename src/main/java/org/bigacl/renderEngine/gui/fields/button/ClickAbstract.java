@@ -37,6 +37,24 @@ public abstract class ClickAbstract extends InputInterface {
             mouseLocation.y >= startPosition.y && mouseLocation.y <= endPosition.y;
   }
 
+  public boolean checkIfClicked(Vector2d mouseLocation) {
+    if (isHovered(mouseLocation)) {
+      this.onClick();
+      return true;
+    }
+    return false;
+  }
+
+  private Runnable onClick;
+
+  protected void onClick() {
+    if (onClick != null) onClick.run();
+  }
+
+  public void setOnClick(Runnable onClick) {
+    this.onClick = onClick;
+  }
+
   public void render() {
     NanoVGUI nanoVGUI = ClassConst.nanoVGUI;
     nanoVGUI.drawRect(location, size, backgroundColor);
@@ -49,6 +67,11 @@ public abstract class ClickAbstract extends InputInterface {
 
   public void setLocation(Vector2f location) {
     this.location = location;
+  }
+
+  @Override
+  public void setSize(Vector2f size) {
+    this.size = size;
   }
 }
 
