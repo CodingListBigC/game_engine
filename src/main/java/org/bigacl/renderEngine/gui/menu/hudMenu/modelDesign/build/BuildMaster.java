@@ -5,6 +5,7 @@ import org.bigacl.renderEngine.gui.menu.hudMenu.modelDesign.ModelDesignAbstractC
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.joml.Vector2d;
 import org.joml.Vector2f;
+import org.joml.Vector2i;
 import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;
@@ -14,9 +15,11 @@ import static org.bigacl.renderEngine.utils.ColorSetter.setNewAlpha;
 public class BuildMaster extends ModelDesignAbstractClass {
   boolean menuStatus = false;
   Button openCloseBtn;
+  BuildClickType buildClickType = new BuildClickType();
 
   public BuildMaster() {
     makeOpenCloseButton();
+    makeClickMenu();
   }
 
   @Override
@@ -43,11 +46,19 @@ public class BuildMaster extends ModelDesignAbstractClass {
     openCloseBtn.render();
   }
 
-  public void makeOpenCloseButton(){
+  private void makeOpenCloseButton(){
     Vector2f buttonScreenPercentages = new Vector2f(0.125f, 0.10f);
     Vector2f buttonSize= new Vector2f(ClassConst.window.getWidth() * buttonScreenPercentages.x, buttonScreenPercentages.y * ClassConst.window.getHeight());
     Vector2f buttonLocation  = new Vector2f(0, ClassConst.window.getHeight()).sub(0f,buttonSize.y);
     this.openCloseBtn = new Button("Open Build", "",buttonSize, buttonLocation, setNewAlpha(Color.DARK_GRAY, 100),Color.LIGHT_GRAY);
+  }
+
+  private void makeClickMenu(){
+    Vector2f size = new Vector2f(500,500);
+    Vector2i tableSize = new Vector2i(5,5);
+    buildClickType.setTableSize(size);
+    buildClickType.setRowColumns(tableSize);
+    buildClickType.setTableLocation(new Vector2f((screenWidth / 2) - (size.x / 2), (screenHeight / 2) - (size.y / 2)));
 
   }
 }

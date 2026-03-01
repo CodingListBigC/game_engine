@@ -7,6 +7,8 @@ import java.awt.*;
 
 public class Button extends ClickAbstract{
   boolean inputVisible = false;
+
+
   @Override
   public void rightClick() {
 
@@ -30,6 +32,14 @@ public class Button extends ClickAbstract{
     this.code = code;
     this.size = size;
     this.location = location;
+    this.backgroundColor = backgroundColor;
+    this.textColor = textColor;
+  }
+  public Button(String label, Color backgroundColor, Color textColor) {
+    this.text = new Text(label,0);
+    this.code = "";
+    this.size = new Vector2f();
+    this.location = new Vector2f();
     this.backgroundColor = backgroundColor;
     this.textColor = textColor;
   }

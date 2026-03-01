@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class TableMaster<listType extends InputInterface> {
   Vector2i rowColumns;
   Vector2f tableSize;
+  Vector2f location;
   Vector2f itemSize;
 
   ArrayList<listType> itemArray;
@@ -41,5 +42,13 @@ public class TableMaster<listType extends InputInterface> {
     float xPos = row * this.itemSize.x;
     float yPos = column * this.itemSize.y;
     return new Vector2f(xPos, yPos);
+  }
+
+  public ArrayList<listType> getItemArray() {
+    return itemArray;
+  }
+
+  public void setTableLocation(Vector2f location) {
+    this.location = location;
   }
 }

@@ -37,4 +37,15 @@ public abstract class InputWithText<typeOfText extends TextWithBackground> exten
   }
   protected abstract void setText();
 
+  @Override
+  public void setLocation(Vector2f location) {
+    // your implementation
+  }
+
+  @Override
+  public void setSize(Vector2f size){
+  
+  }
+
+
 }
