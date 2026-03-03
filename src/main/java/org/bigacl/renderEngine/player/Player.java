@@ -49,3 +49,4 @@ public class Player {
     return new PlayerStats(this.username, this.color, this.money, this.level);
   }
 }
+

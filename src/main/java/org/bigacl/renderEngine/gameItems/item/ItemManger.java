@@ -17,6 +17,9 @@ public class ItemManger {
   private final ArrayList<House> houseList = new ArrayList<>();
   private final ArrayList<Aparment> apartmentList = new ArrayList<Aparment>();
 
+  private final House defaultHouse = new House();
+  private final Aparment defaultAparment = new Aparment();
+
   public void renderAll() {
     renderHouse();
     renderApartment();
@@ -24,22 +27,36 @@ public class ItemManger {
 
   /**
    * Add item to manger for house
+   *
    * @param house - House Item
    */
-  public void addItem(@NotNull House house) {
+  public void addItemHouse(@NotNull House house) {
     house.setupHitbox();
     houseList.add(house);
   }
+
   /**
    * Add item to manger for aparment.
+   *
    * @param apartment - Apartment Item
    */
-  public void addItem(@NotNull Aparment apartment) {
+  public void addItemAparment(@NotNull Aparment apartment) {
     apartment.setupHitbox();
     apartmentList.add(apartment);
   }
 
-  public ArrayList<? extends BasePlaceableItem> getDefaultData(){
+  public void addItemAll(BasePlaceableItem item) {
+    if (defaultHouse.getClass() == item.getClass()) {
+      addItemHouse((House) item);
+    } else {
+      if (defaultAparment.getClass() == item.getClass()) {
+        addItemAparment((Aparment) item);
+
+      }
+    }
+  }
+
+  public ArrayList<? extends BasePlaceableItem> getDefaultData() {
     ArrayList<? extends BasePlaceableItem> listToShow;
     int viewIndex = HudAbstract.getViewData().getViewType();
     int lastViewIndex = HudAbstract.getViewData().getLastViewType();
@@ -50,7 +67,7 @@ public class ItemManger {
     } else {
       listToShow = (ArrayList<? extends BasePlaceableItem>) ClassConst.itemManger.getAllItems();
     }
-    if (lastViewIndex != viewIndex){
+    if (lastViewIndex != viewIndex) {
       HudAbstract.getViewData().setViewDataList(listToShow);
     }
     return listToShow;
@@ -73,6 +90,7 @@ public class ItemManger {
       }
     }
   }
+
   private void renderApartment() {
     for (Aparment aparment : apartmentList) {
       BoundingBox box = aparment.getBoundingBox();
@@ -93,6 +111,7 @@ public class ItemManger {
   public List<House> getHouseList() {
     return houseList;
   }
+
   public ArrayList<Aparment> getApartmentList() {
     return apartmentList;
   }
@@ -117,8 +136,8 @@ public class ItemManger {
   /**
    * Clean up all houses
    */
-  private void cleanupHouse(){
-    for (House house: houseList){
+  private void cleanupHouse() {
+    for (House house : houseList) {
       house.cleanup();
     }
   }
@@ -126,10 +145,11 @@ public class ItemManger {
   /**
    * Clean Up Apartments
    */
-  private void cleanupApartment(){
-    for (Aparment aparment: apartmentList){
+  private void cleanupApartment() {
+    for (Aparment aparment : apartmentList) {
       aparment.cleanup();
     }
 
   }
+
 }

@@ -31,7 +31,7 @@ public abstract class ClickAbstract extends InputInterface {
   };
 
   public boolean isHovered(Vector2d mouseLocation) {
-    Vector2f startPosition = location;
+    Vector2f startPosition = new Vector2f(location);
     Vector2f endPosition = new Vector2f(startPosition).add(size);
     return mouseLocation.x >= startPosition.x && mouseLocation.x <= endPosition.x &&
             mouseLocation.y >= startPosition.y && mouseLocation.y <= endPosition.y;
@@ -47,7 +47,12 @@ public abstract class ClickAbstract extends InputInterface {
 
   private Runnable onClick;
 
-  protected void onClick() {
+  public Vector2f getLocation() {
+    return location;
+  }
+
+  public void onClick() {
+    System.out.println("Button On click");
     if (onClick != null) onClick.run();
   }
 

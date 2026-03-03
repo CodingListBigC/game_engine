@@ -24,15 +24,16 @@ public class BuildMaster extends ModelDesignAbstractClass {
 
   @Override
   public void checkHudInputs(Vector2d mouseLocation, int mouseAction) {
-    if (mouseAction == GLFW.GLFW_MOUSE_BUTTON_RIGHT){
+    if (mouseAction == GLFW.GLFW_MOUSE_BUTTON_RIGHT) {
       leftClickInput(mouseLocation);
     }
   }
 
-  private void leftClickInput(Vector2d mouseLocation){
+  private void leftClickInput(Vector2d mouseLocation) {
     if (openCloseBtn.isHovered(mouseLocation)) {
       menuStatus = !menuStatus;
     }
+    buildClickType.checkClick(mouseLocation);
 
   }
 
@@ -44,18 +45,24 @@ public class BuildMaster extends ModelDesignAbstractClass {
   @Override
   public void renderMenu() {
     openCloseBtn.render();
+    if (menuStatus) {
+      this.buildClickType.render();
+    }
+
   }
 
-  private void makeOpenCloseButton(){
+  private void makeOpenCloseButton() {
     Vector2f buttonScreenPercentages = new Vector2f(0.125f, 0.10f);
-    Vector2f buttonSize= new Vector2f(ClassConst.window.getWidth() * buttonScreenPercentages.x, buttonScreenPercentages.y * ClassConst.window.getHeight());
-    Vector2f buttonLocation  = new Vector2f(0, ClassConst.window.getHeight()).sub(0f,buttonSize.y);
-    this.openCloseBtn = new Button("Open Build", "",buttonSize, buttonLocation, setNewAlpha(Color.DARK_GRAY, 100),Color.LIGHT_GRAY);
+    Vector2f buttonSize = new Vector2f(ClassConst.window.getWidth() * buttonScreenPercentages.x,
+            buttonScreenPercentages.y * ClassConst.window.getHeight());
+    Vector2f buttonLocation = new Vector2f(0, ClassConst.window.getHeight()).sub(0f, buttonSize.y);
+    this.openCloseBtn = new Button("Open Build", "", buttonSize, buttonLocation, setNewAlpha(Color.DARK_GRAY, 100),
+            Color.LIGHT_GRAY);
   }
 
-  private void makeClickMenu(){
-    Vector2f size = new Vector2f(500,500);
-    Vector2i tableSize = new Vector2i(5,5);
+  private void makeClickMenu() {
+    Vector2f size = new Vector2f(500, 500);
+    Vector2i tableSize = new Vector2i(5, 5);
     buildClickType.setTableSize(size);
     buildClickType.setRowColumns(tableSize);
     buildClickType.setTableLocation(new Vector2f((screenWidth / 2) - (size.x / 2), (screenHeight / 2) - (size.y / 2)));

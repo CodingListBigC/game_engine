@@ -19,12 +19,12 @@ public class MainLauncher {
 
     // Add House item
     House house = new House();
-    itemManger.addItem(house);
+    itemManger.addItemHouse(house);
 
     // Add Aparment Item
     Aparment aparment = new Aparment();
     aparment.place(new Vector3f(10,0,10), 0);
-    itemManger.addItem(aparment);
+    itemManger.addItemAparment(aparment);
 
     // Render loop
     window.loop();

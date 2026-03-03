@@ -60,7 +60,7 @@ public class KeyboardInputMaster {
         House house = new House();
         house.setWorldPosition(snappedPos);
         // 3. Add to manager
-        itemManger.addItem(house);
+        itemManger.addItemAll(house);
       }
     }
     if (window.isKeyPressed(GLFW_KEY_J)) {
@@ -74,7 +74,7 @@ public class KeyboardInputMaster {
         Aparment aparment = new Aparment();
         aparment.setWorldPosition(snappedPos);
         // 3. Add to manager
-        itemManger.addItem(aparment);
+        itemManger.addItemAll(aparment);
       }
     }
     camera.CameraInput(window, moveSpeed, rotateSpeed, this.itemManger.getAllItems());
