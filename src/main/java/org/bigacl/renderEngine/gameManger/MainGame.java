@@ -80,32 +80,7 @@ public class MainGame implements MainLogic {
     keyboardInputMaster.updateHudAbstract();
   }
 
-  @Override
-  public void render() {
-    // Render your scene
-    shader3d.bind();
-    shader3d.setUniformMatrix4f("projection", camera.getProjectionMatrix());
-    shader3d.setUniformMatrix4f("view", camera.getViewMatrix());
-    Matrix4f modelMatrix = new Matrix4f().identity();
-    shader3d.setUniformMatrix4f("model", modelMatrix);
-    render3dModels();
-    shader3d.unbind();
 
-    glBindTexture(GL_TEXTURE_2D, 0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    glUseProgram(0);
-    glDisable(GL_DEPTH_TEST);
-
-
-    int windowWidth = window.getWidth();
-    int windowHeight = window.getHeight();
-    gui.beginFrame(windowWidth, windowHeight, 1.0f);
-    renderHud();
-    gui.endFrame();
-    glEnable(GL_DEPTH_TEST);
-  }
 
   @Override
   public void render3dModels() {
@@ -113,27 +88,6 @@ public class MainGame implements MainLogic {
     ground.render(DefaultModelFunctions.getPlainModelMatrix(new Vector3f(0.0f),new Vector3f(0.0f)));
   }
 
-  @Override
-  public void renderHud() {
-    if (this.hudAbstract == null) {
-      initializeHud();
-    }
-
-    // Ensure we don't call render if initialization failed
-    if (this.hudAbstract != null) {
-      this.hudAbstract.render();
-    }
-  }
-
-  private void initializeHud() {
-    ClassConst.setHudAbstract();
-    this.hudAbstract = ClassConst.hudAbstract;
-  }
-
-  @Override
-  public void cleanup() {
-    // Clean up resources
-  }
 
   public Camera getCamera() {
     return camera;

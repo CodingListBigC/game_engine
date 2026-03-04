@@ -1,6 +1,7 @@
 package org.bigacl.renderEngine.utils.consts;
 
 import org.bigacl.renderEngine.gameManger.MainGame;
+import org.bigacl.renderEngine.gameManger.ModelDesignLogic;
 import org.bigacl.renderEngine.player.camera.Camera;
 import org.bigacl.renderEngine.gui.font.FontSizing;
 import org.bigacl.renderEngine.gui.drawing.NanoVGUI;
@@ -71,6 +72,7 @@ public class ClassConst {
     }
     if (Const.hudMode == 1) {
       hudAbstract = new MasterHud();
+      mainLogic = new ModelDesignLogic();
     } else {
       hudAbstract = new MasterGameHud();
     }
