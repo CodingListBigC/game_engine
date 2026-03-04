@@ -14,7 +14,7 @@ import static org.bigacl.renderEngine.utils.consts.ClassConst.camera;
 public abstract class ItemMangerAbstract<renderItem extends BasePlaceableItem, itemType extends ItemConst.BasicPlaceableTypes> {
   protected final ArrayList<renderItem> allItems = new ArrayList<>();
 
-  void renderAll() {
+  public void renderAll() {
     renderPlaceableItems();
   }
 

@@ -2,8 +2,7 @@ package org.bigacl.renderEngine.gui.menu.hudMenu.modelDesign;
 
 import org.bigacl.renderEngine.gui.drawing.NanoVGUI;
 import org.bigacl.renderEngine.gui.fields.button.addSubtract.VectorButton;
-import org.bigacl.renderEngine.gameItems.item.ItemManger;
-import org.bigacl.renderEngine.gameItems.item.placeable.house.House;
+import org.bigacl.renderEngine.gameItems.item.ItemMangerMainGame;
 import org.bigacl.renderEngine.gui.menu.hudMenu.HudAbstract;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.joml.Vector2d;
@@ -45,7 +44,7 @@ public class LeftHud extends ModelDesignAbstractClass {
 
   @Override
   public void checkHudInputs(Vector2d mouseLocation, int mouseAction) {
-    ItemManger iM = ClassConst.itemManger;
+    ItemMangerMainGame iM = ClassConst.itemManger;
     Vector3f changeLocation = this.vectorButton.checkButtonInput(
             mouseLocation,
             mouseAction,

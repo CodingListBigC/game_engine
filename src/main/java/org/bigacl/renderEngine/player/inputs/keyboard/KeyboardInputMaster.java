@@ -3,7 +3,7 @@ package org.bigacl.renderEngine.player.inputs.keyboard;
 import org.bigacl.renderEngine.gameItems.item.placeable.aparment.Apartment;
 import org.bigacl.renderEngine.player.camera.Camera;
 import org.bigacl.renderEngine.gui.menu.hudMenu.HudAbstract;
-import org.bigacl.renderEngine.gameItems.item.ItemManger;
+import org.bigacl.renderEngine.gameItems.item.ItemMangerMainGame;
 import org.bigacl.renderEngine.gameItems.item.grid.GridUtils;
 import org.bigacl.renderEngine.gameItems.item.placeable.house.House;
 import org.bigacl.renderEngine.player.Player;
@@ -21,7 +21,7 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_H;
 
 public class KeyboardInputMaster {
   private WindowMaster window;
-  private ItemManger itemManger;
+  private ItemMangerMainGame itemManger;
   private HudAbstract hudAbstract;
   private Camera camera;
   private double currentTime;

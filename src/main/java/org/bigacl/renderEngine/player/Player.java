@@ -1,6 +1,6 @@
 package org.bigacl.renderEngine.player;
 
-import org.bigacl.renderEngine.gameItems.item.ItemManger;
+import org.bigacl.renderEngine.gameItems.item.ItemMangerMainGame;
 import org.bigacl.renderEngine.player.level.Level;
 import org.joml.Vector3f;
 
@@ -17,7 +17,8 @@ public class Player {
     this.name = name;
     this.color = color;
   }
-  public void addItem(ItemManger item){
+
+  public void addItem(ItemMangerMainGame item) {
     inventory.addItem(item);
   };
 

@@ -1,6 +1,6 @@
 package org.bigacl.test.launcher;
 
-import org.bigacl.renderEngine.gameItems.item.ItemManger;
+import org.bigacl.renderEngine.gameItems.item.ItemMangerMainGame;
 import org.bigacl.renderEngine.gameItems.item.placeable.aparment.Apartment;
 import org.bigacl.renderEngine.gameItems.item.placeable.house.House;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
@@ -15,7 +15,7 @@ public class MainLauncher {
     // Get class from consts
     WindowMaster window = ClassConst.window;
     ShaderMaster shaderMaster = ClassConst.shader3d;
-    ItemManger itemManger = ClassConst.itemManger;
+    ItemMangerMainGame itemManger = ClassConst.itemManger;
 
     // Add House item
     House house = new House();

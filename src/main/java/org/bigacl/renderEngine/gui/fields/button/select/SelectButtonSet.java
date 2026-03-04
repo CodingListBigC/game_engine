@@ -53,7 +53,7 @@ public class SelectButtonSet extends InputSets<SelectButtonWithText> {
 
   @Override
   public void updateText() {
-    setItemsText(ClassConst.itemManger.getDefaultData());
+    setItemsText(ClassConst.itemMangerAbstract.getDefaultData());
   }
 
   private void updateListText(int index, String text) {

@@ -1,22 +1,22 @@
 package org.bigacl.renderEngine.player;
 
-import org.bigacl.renderEngine.gameItems.item.ItemManger;
+import org.bigacl.renderEngine.gameItems.item.ItemMangerMainGame;
 
 import java.util.ArrayList;
 
 public class Inventory {
-  private ArrayList<ItemManger> itemList;
+  private ArrayList<ItemMangerMainGame> itemList;
   private int[] slotItems = new int[9];
 
-  public ItemManger[] getSlotsItems() {
-    ItemManger[] returnItems = new ItemManger[slotItems.length];
+  public ItemMangerMainGame[] getSlotsItems() {
+    ItemMangerMainGame[] returnItems = new ItemMangerMainGame[slotItems.length];
     for (int slot = 0; slot < slotItems.length; slot++) {
       returnItems[slot] = itemList.get(slot);
     }
     return returnItems;
   }
 
-  public ArrayList<ItemManger> getItemList() {
+  public ArrayList<ItemMangerMainGame> getItemList() {
     return itemList;
   }
 
@@ -24,7 +24,7 @@ public class Inventory {
     return slotItems;
   }
 
-  public void addItem(ItemManger item) {
+  public void addItem(ItemMangerMainGame item) {
     int addToSlotNumber = checkAdaviableSlots();
     itemList.add(item);
     if (addToSlotNumber != 0) {

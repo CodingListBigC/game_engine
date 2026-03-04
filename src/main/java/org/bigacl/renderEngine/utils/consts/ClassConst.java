@@ -1,5 +1,6 @@
 package org.bigacl.renderEngine.utils.consts;
 
+import org.bigacl.renderEngine.gameItems.item.ItemMangerAbstract;
 import org.bigacl.renderEngine.gameManger.MainGame;
 import org.bigacl.renderEngine.gameManger.ModelDesignLogic;
 import org.bigacl.renderEngine.player.camera.Camera;
@@ -8,7 +9,7 @@ import org.bigacl.renderEngine.gui.drawing.NanoVGUI;
 import org.bigacl.renderEngine.gui.menu.hudMenu.MasterGameHud;
 import org.bigacl.renderEngine.gui.menu.hudMenu.HudAbstract;
 import org.bigacl.renderEngine.gui.menu.hudMenu.modelDesign.MasterHud;
-import org.bigacl.renderEngine.gameItems.item.ItemManger;
+import org.bigacl.renderEngine.gameItems.item.ItemMangerMainGame;
 import org.bigacl.renderEngine.gameManger.MainLogic;
 import org.bigacl.renderEngine.player.level.MainLevel;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
@@ -34,7 +35,7 @@ public class ClassConst {
   /**
    * Manager handling all placeable items, houses, and models
    */
-  public static ItemManger itemManger;
+  public static ItemMangerAbstract<?, ?> itemMangerAbstract;
   /**
    * The GLFW window and input handler
    */
@@ -60,7 +61,7 @@ public class ClassConst {
     camera = new Camera();
     shader3d = new ShaderMaster();
     nanoVGUI = new NanoVGUI();
-    itemManger = new ItemManger();
+    itemMangerAbstract = new ItemMangerMainGame();
     fontSizing = new FontSizing(16);
     mainLevel = new MainLevel();
     game = new MainGame();

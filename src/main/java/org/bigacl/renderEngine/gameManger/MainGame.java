@@ -56,7 +56,7 @@ public class MainGame implements MainLogic {
 
   @Override
   public void render3dModels() {
-    itemManger.renderAll();
+    itemMangerAbstract.renderAll();
     ground.render(DefaultModelFunctions.getPlainModelMatrix(new Vector3f(0.0f),new Vector3f(0.0f)));
   }
 
