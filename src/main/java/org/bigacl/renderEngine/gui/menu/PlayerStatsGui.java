@@ -1,7 +1,7 @@
 package org.bigacl.renderEngine.gui.menu;
 
 import org.bigacl.renderEngine.gui.drawing.NanoVGUI;
-import org.bigacl.renderEngine.gameManger.logic.IGameLogic;
+import org.bigacl.renderEngine.gameManger.MainLogic;
 import org.bigacl.renderEngine.player.PlayerStats;
 import org.bigacl.renderEngine.player.level.Level;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
@@ -11,10 +11,10 @@ import org.joml.Vector2f;
 import java.awt.*;
 
 public class PlayerStatsGui {
-  private final IGameLogic game;
+  private final MainLogic game;
   private final NanoVGUI nanoVGUI;
 
-  public PlayerStatsGui(IGameLogic game, NanoVGUI nanoVGUI) {
+  public PlayerStatsGui(MainLogic game, NanoVGUI nanoVGUI) {
     this.game = game;
     this.nanoVGUI = nanoVGUI;
   }
@@ -23,7 +23,7 @@ public class PlayerStatsGui {
    * Render Player Stats on top left of the screen
    */
   public void renderStats() {
-    PlayerStats stats = ClassConst.iGameLogic.getPlayer().getPlayerStats();
+    PlayerStats stats = ClassConst.mainLogic.getPlayer().getPlayerStats();
 
     // Box dimensions
     float boxFromTop = 0;

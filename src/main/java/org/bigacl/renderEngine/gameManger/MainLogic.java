@@ -1,9 +1,9 @@
-package org.bigacl.renderEngine.gameManger.logic;
+package org.bigacl.renderEngine.gameManger;
 
 import org.bigacl.renderEngine.player.Player;
 import org.joml.Vector3f;
 
-public interface IGameLogic {
+public interface MainLogic {
   void input();           // Handle input
   void update(float delta); // Update game state (delta = time since last frame)
   void render();          // Render the scene

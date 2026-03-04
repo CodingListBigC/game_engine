@@ -8,7 +8,7 @@ import org.bigacl.renderEngine.gui.menu.hudMenu.MasterGameHud;
 import org.bigacl.renderEngine.gui.menu.hudMenu.HudAbstract;
 import org.bigacl.renderEngine.gui.menu.hudMenu.modelDesign.MasterHud;
 import org.bigacl.renderEngine.gameItems.item.ItemManger;
-import org.bigacl.renderEngine.gameManger.logic.IGameLogic;
+import org.bigacl.renderEngine.gameManger.MainLogic;
 import org.bigacl.renderEngine.player.level.MainLevel;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
 import org.bigacl.renderEngine.window.WindowMaster;
@@ -21,7 +21,7 @@ public class ClassConst {
   /**
    * The main game state and logic controller
    */
-  public static IGameLogic game;
+  public static MainLogic game;
   /**
    * The primary shader provider for 3D world rendering
    */
@@ -50,7 +50,7 @@ public class ClassConst {
   public static FontSizing fontSizing;
   public static MainLevel mainLevel;
   public static HudAbstract hudAbstract;
-  public static IGameLogic iGameLogic;
+  public static MainLogic mainLogic;
 
   static {
     window = new WindowMaster();
@@ -80,8 +80,8 @@ public class ClassConst {
     setHudAbstract();
   }
 
-  public static void setIGameLogic(IGameLogic iGameLogicInput) {
-    iGameLogic = iGameLogicInput;
+  public static void setIGameLogic(MainLogic mainLogicInput) {
+    mainLogic = mainLogicInput;
 
   }
 }

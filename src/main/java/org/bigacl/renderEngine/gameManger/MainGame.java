@@ -3,7 +3,6 @@ package org.bigacl.renderEngine.gameManger;
 import org.bigacl.renderEngine.gui.drawing.NanoVGUI;
 import org.bigacl.renderEngine.gui.menu.hudMenu.HudAbstract;
 import org.bigacl.renderEngine.gameItems.item.ItemManger;
-import org.bigacl.renderEngine.gameManger.logic.IGameLogic;
 import org.bigacl.renderEngine.player.camera.Camera;
 import org.bigacl.renderEngine.model.mesh.Mesh;
 import org.bigacl.renderEngine.model.mesh.OBJLoader;
@@ -25,7 +24,7 @@ import static org.lwjgl.opengl.GL30.glBindVertexArray;
 /**
  * Mangers the whole main game.
  */
-public class MainGame implements IGameLogic {
+public class MainGame implements MainLogic {
   private final Camera camera;
   private final WindowMaster window;
   private final ShaderMaster shader3d;
