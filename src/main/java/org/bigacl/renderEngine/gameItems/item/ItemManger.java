@@ -8,22 +8,18 @@ import org.bigacl.renderEngine.player.BoundingBox;
 import org.bigacl.renderEngine.utils.consts.ItemConst;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.bigacl.renderEngine.utils.consts.ClassConst.camera;
 
 public class ItemManger {
-  private final ArrayList<BasePlaceableItem> allPlacableList = new ArrayList<>();
-
-  private final House defaultHouse = new House();
-  private final Apartment defaultApartment = new Apartment();
+  private final ArrayList<BasePlaceableItem> allPlaceableList = new ArrayList<>();
 
   public void renderAll() {
     renderPlaceableItems();
   }
 
   private void renderPlaceableItems() {
-    for (BasePlaceableItem item : allPlacableList) {
+    for (BasePlaceableItem item : allPlaceableList) {
       BoundingBox box = item.getBoundingBox();
       BoundingBox offSetBox = item.getBoundingBoxOffSet();
 
@@ -39,7 +35,7 @@ public class ItemManger {
   }
 
   public void addItemAll(BasePlaceableItem item) {
-    allPlacableList.add(item);
+    allPlaceableList.add(item);
   }
 
   public ArrayList<? extends BasePlaceableItem> getDefaultData() {
@@ -57,10 +53,10 @@ public class ItemManger {
   public ArrayList<BasePlaceableItem> getTypeList(ItemConst.BasicPlaceableTypes type) {
     Class<?> itemClass = getTypeClass(type);
     if (itemClass == null) {
-      return allPlacableList;
+      return allPlaceableList;
     }
     ArrayList<BasePlaceableItem> returnList = new ArrayList<>();
-    for (BasePlaceableItem item : allPlacableList) {
+    for (BasePlaceableItem item : allPlaceableList) {
       if (itemClass.isInstance(item)) {
         returnList.add(item);
       }
@@ -80,7 +76,7 @@ public class ItemManger {
    * Clean Up Item Manger
    */
   public void cleanupAll() {
-    for (BasePlaceableItem item : allPlacableList) {
+    for (BasePlaceableItem item : allPlaceableList) {
       item.cleanup();
     }
   }
