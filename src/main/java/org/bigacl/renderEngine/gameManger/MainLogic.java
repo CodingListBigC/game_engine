@@ -1,7 +1,6 @@
 package org.bigacl.renderEngine.gameManger;
 
 import org.bigacl.renderEngine.player.Player;
-import org.bigacl.renderEngine.shaders.ShaderMaster;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -71,8 +70,6 @@ public interface MainLogic {
     }
   }
 
-  ;
-
   default void initializeHud() {
     ClassConst.setHudAbstract();
   }
@@ -81,12 +78,9 @@ public interface MainLogic {
 
   }
 
-  ;         // Clean up resources
 
-  default void initialCleanup() {
-  }
 
   default Player getPlayer(){
     return new Player("", "", new Vector3f(0.0f,0.0f,0.0f));
-  };
+  }
 }

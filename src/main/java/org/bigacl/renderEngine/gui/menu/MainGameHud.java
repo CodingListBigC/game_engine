@@ -1,9 +1,6 @@
 package org.bigacl.renderEngine.gui.menu;
 
-import org.bigacl.renderEngine.gui.drawing.NanoVGUI;
 import org.bigacl.renderEngine.gui.menu.debugMenu.DebugMenu;
-import org.bigacl.renderEngine.gameManger.MainLogic;
-import org.bigacl.renderEngine.utils.consts.ClassConst;
 
 public class MainGameHud {
 
@@ -15,14 +12,7 @@ public class MainGameHud {
   private final DebugMenu debugMenu = new DebugMenu();
 
   public MainGameHud() {
-    // MainGame Variables Get
-    MainLogic game = ClassConst.mainLogic;
-    NanoVGUI nanoVGUI = ClassConst.nanoVGUI;
-    this.playerStatsGui = new PlayerStatsGui(game, nanoVGUI);
-  }
-  public void toogleDebugMenu(){
-    // Flips debugMenuStatus
-    debugMenuStatus = !debugMenuStatus;
+    this.playerStatsGui = new PlayerStatsGui();
   }
 
   public void renderAll(){

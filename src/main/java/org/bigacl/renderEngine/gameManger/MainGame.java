@@ -1,34 +1,20 @@
 package org.bigacl.renderEngine.gameManger;
 
-import org.bigacl.renderEngine.gui.drawing.NanoVGUI;
-import org.bigacl.renderEngine.gui.menu.hudMenu.HudAbstract;
-import org.bigacl.renderEngine.gameItems.item.ItemManger;
-import org.bigacl.renderEngine.player.camera.Camera;
 import org.bigacl.renderEngine.model.mesh.Mesh;
 import org.bigacl.renderEngine.model.mesh.OBJLoader;
 import org.bigacl.renderEngine.model.DefaultModelFunctions;
 import org.bigacl.renderEngine.player.Player;
-import org.bigacl.renderEngine.shaders.ShaderMaster;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.bigacl.renderEngine.player.inputs.keyboard.KeyboardInputMaster;
-import org.bigacl.renderEngine.window.WindowMaster;
-import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
+import static org.bigacl.renderEngine.utils.consts.ClassConst.*;
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL15.*;
-import static org.lwjgl.opengl.GL20.glUseProgram;
-import static org.lwjgl.opengl.GL30.glBindVertexArray;
 
 /**
  * Mangers the whole main game.
  */
 public class MainGame implements MainLogic {
-  private final Camera camera;
-  private final WindowMaster window;
-  private final ShaderMaster shader3d;
-  private final ItemManger itemManger;
   private final Mesh ground;
 
   // Player Variables
@@ -36,25 +22,18 @@ public class MainGame implements MainLogic {
 
 
   // HUD Variables;
-  private final NanoVGUI gui;
-  private HudAbstract hudAbstract;
 
   // Inputs
   private final KeyboardInputMaster keyboardInputMaster;
 
   public MainGame() {
     ClassConst.setIGameLogic(this);
-    this.window = ClassConst.window;
-    this.shader3d = ClassConst.shader3d;
-    this.itemManger = ClassConst.itemManger;
-    this.camera = ClassConst.camera;
-    this.camera.setFullPositionReset(0.0f, 4.0f, 3.25f, -50.0f, 0.0f);
+    camera.setFullPositionReset(0.0f, 4.0f, 3.25f, -50.0f, 0.0f);
     this.ground = OBJLoader.loadOBJ("models/plane.obj");
     this.ground.setColor(0.004f, 0.05f, 0.0f);
     // HUd setup
-    this.gui = ClassConst.nanoVGUI;
-    this.gui.init();
-    this.hudAbstract = null;
+    nanoVGUI.init();
+    hudAbstract = null;
     // Input Setups
     this.keyboardInputMaster = new KeyboardInputMaster();
 
@@ -75,26 +54,10 @@ public class MainGame implements MainLogic {
     // delta helps make movement frame-rate independent
   }
 
-  public void updateHudAbstract() {
-    this.hudAbstract = ClassConst.hudAbstract;
-    keyboardInputMaster.updateHudAbstract();
-  }
-
-
-
   @Override
   public void render3dModels() {
     itemManger.renderAll();
     ground.render(DefaultModelFunctions.getPlainModelMatrix(new Vector3f(0.0f),new Vector3f(0.0f)));
   }
 
-
-  public Camera getCamera() {
-    return camera;
-  }
-
-  @Override
-  public Player getPlayer() {
-    return this.player;
-  }
 }

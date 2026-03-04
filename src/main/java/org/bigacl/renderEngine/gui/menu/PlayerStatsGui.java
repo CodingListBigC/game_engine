@@ -1,22 +1,18 @@
 package org.bigacl.renderEngine.gui.menu;
 
-import org.bigacl.renderEngine.gui.drawing.NanoVGUI;
-import org.bigacl.renderEngine.gameManger.MainLogic;
 import org.bigacl.renderEngine.player.PlayerStats;
 import org.bigacl.renderEngine.player.level.Level;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.bigacl.renderEngine.utils.consts.Const;
 import org.joml.Vector2f;
 
+import static org.bigacl.renderEngine.utils.consts.ClassConst.nanoVGUI;
+
 import java.awt.*;
 
 public class PlayerStatsGui {
-  private final MainLogic game;
-  private final NanoVGUI nanoVGUI;
 
-  public PlayerStatsGui(MainLogic game, NanoVGUI nanoVGUI) {
-    this.game = game;
-    this.nanoVGUI = nanoVGUI;
+  public PlayerStatsGui() {
   }
 
   /*
