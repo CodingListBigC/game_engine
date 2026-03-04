@@ -1,6 +1,6 @@
 package org.bigacl.renderEngine.player.inputs.keyboard;
 
-import org.bigacl.renderEngine.gameItems.item.placeable.aparment.Aparment;
+import org.bigacl.renderEngine.gameItems.item.placeable.aparment.Apartment;
 import org.bigacl.renderEngine.player.camera.Camera;
 import org.bigacl.renderEngine.gui.menu.hudMenu.HudAbstract;
 import org.bigacl.renderEngine.gameItems.item.ItemManger;
@@ -71,10 +71,10 @@ public class KeyboardInputMaster {
         Vector3f snappedPos = GridUtils.snapVector(hitPoint);
         // 2. Set the house position (using your Blender-to-Java logic)
         // Note: Since we are placing on the floor, Y is usually 0.
-        Aparment aparment = new Aparment();
-        aparment.setWorldPosition(snappedPos);
+        Apartment apartment = new Apartment();
+        apartment.setWorldPosition(snappedPos);
         // 3. Add to manager
-        itemManger.addItemAll(aparment);
+        itemManger.addItemAll(apartment);
       }
     }
     camera.CameraInput(window, moveSpeed, rotateSpeed, this.itemManger.getAllItems());

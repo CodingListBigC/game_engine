@@ -1,155 +1,89 @@
 package org.bigacl.renderEngine.gameItems.item;
 
 import org.bigacl.renderEngine.gameItems.item.placeable.BasePlaceableItem;
-import org.bigacl.renderEngine.gameItems.item.placeable.aparment.Aparment;
+import org.bigacl.renderEngine.gameItems.item.placeable.aparment.Apartment;
 import org.bigacl.renderEngine.gameItems.item.placeable.house.House;
 import org.bigacl.renderEngine.gui.menu.hudMenu.HudAbstract;
 import org.bigacl.renderEngine.player.BoundingBox;
-import org.bigacl.renderEngine.utils.consts.ClassConst;
-import org.jetbrains.annotations.NotNull;
+import org.bigacl.renderEngine.utils.consts.ItemConst;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.bigacl.renderEngine.utils.consts.ClassConst.camera;
 
 public class ItemManger {
-  private final ArrayList<House> houseList = new ArrayList<>();
-  private final ArrayList<Aparment> apartmentList = new ArrayList<Aparment>();
+  private final ArrayList<BasePlaceableItem> allPlacableList = new ArrayList<>();
 
   private final House defaultHouse = new House();
-  private final Aparment defaultAparment = new Aparment();
+  private final Apartment defaultApartment = new Apartment();
 
   public void renderAll() {
-    renderHouse();
-    renderApartment();
+    renderPlaceableItems();
   }
 
-  /**
-   * Add item to manger for house
-   *
-   * @param house - House Item
-   */
-  public void addItemHouse(@NotNull House house) {
-    house.setupHitbox();
-    houseList.add(house);
-  }
+  private void renderPlaceableItems() {
+    for (BasePlaceableItem item : allPlacableList) {
+      BoundingBox box = item.getBoundingBox();
+      BoundingBox offSetBox = item.getBoundingBoxOffSet();
 
-  /**
-   * Add item to manger for aparment.
-   *
-   * @param apartment - Apartment Item
-   */
-  public void addItemAparment(@NotNull Aparment apartment) {
-    apartment.setupHitbox();
-    apartmentList.add(apartment);
-  }
+      if (box == null) {
+        item.render();
+        continue;
+      }
 
-  public void addItemAll(BasePlaceableItem item) {
-    if (defaultHouse.getClass() == item.getClass()) {
-      addItemHouse((House) item);
-    } else {
-      if (defaultAparment.getClass() == item.getClass()) {
-        addItemAparment((Aparment) item);
-
+      if (camera.getFrustum().testAab(offSetBox.minX, offSetBox.minY, offSetBox.minZ, offSetBox.maxX, offSetBox.maxY, offSetBox.maxZ)) {
+        item.render();
       }
     }
   }
 
+
+  public void addItemAll(BasePlaceableItem item) {
+    allPlacableList.add(item);
+  }
+
   public ArrayList<? extends BasePlaceableItem> getDefaultData() {
-    ArrayList<? extends BasePlaceableItem> listToShow;
-    int viewIndex = HudAbstract.getViewData().getViewType();
-    int lastViewIndex = HudAbstract.getViewData().getLastViewType();
-    if (viewIndex == 1) {
-      listToShow = (ArrayList<? extends BasePlaceableItem>) ClassConst.itemManger.getHouseList();
-    } else if (viewIndex == 2) {
-      listToShow = ClassConst.itemManger.getApartmentList();
-    } else {
-      listToShow = (ArrayList<? extends BasePlaceableItem>) ClassConst.itemManger.getAllItems();
-    }
+    ItemConst.BasicPlaceableTypes lastViewIndex = HudAbstract.getViewData().getLastViewType();
+    ItemConst.BasicPlaceableTypes viewIndex = HudAbstract.getViewData().getViewType();
+
+    ArrayList<? extends BasePlaceableItem> listToShow = getTypeList(viewIndex);
+
     if (lastViewIndex != viewIndex) {
       HudAbstract.getViewData().setViewDataList(listToShow);
     }
     return listToShow;
   }
 
-  // Render Items
-  private void renderHouse() {
-    for (House house : houseList) {
-      BoundingBox box = house.getBoundingBox();
-      BoundingBox offSetBox = house.getBoundingBoxOffSet();
 
-      if (box == null) {
-        house.render();
-        continue;
-      }
-
-      if (camera.getFrustum().testAab(offSetBox.minX, offSetBox.minY, offSetBox.minZ, offSetBox.maxX, offSetBox.maxY, offSetBox.maxZ)) {
-        // System.out.println("Rendering: " + houseList.indexOf(house));
-        house.render();
+  private ArrayList<BasePlaceableItem> getTypeList(ItemConst.BasicPlaceableTypes type) {
+    Class<?> itemClass = getTypeClass(type);
+    if (itemClass == null) {
+      return allPlacableList;
+    }
+    ArrayList<BasePlaceableItem> returnList = new ArrayList<>();
+    for (BasePlaceableItem item : allPlacableList) {
+      if (itemClass.isInstance(item)) {
+        returnList.add(item);
       }
     }
+    return returnList;
   }
 
-  private void renderApartment() {
-    for (Aparment aparment : apartmentList) {
-      BoundingBox box = aparment.getBoundingBox();
-      BoundingBox offSetBox = aparment.getBoundingBoxOffSet();
-
-      if (box == null) {
-        aparment.render();
-        continue;
-      }
-
-      if (camera.getFrustum().testAab(offSetBox.minX, offSetBox.minY, offSetBox.minZ, offSetBox.maxX, offSetBox.maxY, offSetBox.maxZ)) {
-        aparment.render();
-      }
-    }
-  }
-
-  // Get List
-  public List<House> getHouseList() {
-    return houseList;
-  }
-
-  public ArrayList<Aparment> getApartmentList() {
-    return apartmentList;
-  }
-
-  public List<BasePlaceableItem> getAllItems() {
-    List<BasePlaceableItem> allItems = new ArrayList<>();
-
-    allItems.addAll(houseList);
-    allItems.addAll(apartmentList);
-
-    return allItems;
+  private Class<?> getTypeClass(ItemConst.BasicPlaceableTypes type) {
+    return switch (type) {
+      case APARTMENT -> Apartment.class; // Fixed spelling of Apartment
+      case HOUSE -> House.class;
+      default -> null;
+    };
   }
 
   /**
    * Clean Up Item Manger
    */
-  public void cleanup() {
-    cleanupHouse();
-    cleanupApartment();
-  }
-
-  /**
-   * Clean up all houses
-   */
-  private void cleanupHouse() {
-    for (House house : houseList) {
-      house.cleanup();
+  public void cleanupAll() {
+    for (BasePlaceableItem item : allPlacableList) {
+      item.cleanup();
     }
-  }
-
-  /**
-   * Clean Up Apartments
-   */
-  private void cleanupApartment() {
-    for (Aparment aparment : apartmentList) {
-      aparment.cleanup();
-    }
-
   }
 
 }

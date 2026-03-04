@@ -3,12 +3,13 @@ package org.bigacl.renderEngine.gameItems.item.placeable.aparment;
 import org.bigacl.renderEngine.gameItems.item.placeable.BasePlaceableItem;
 import org.joml.Vector3f;
 
-public class Aparment extends BasePlaceableItem {
+public class Apartment extends BasePlaceableItem {
 
-  public Aparment() {
+  public Apartment() {
     defaultSettings();
   }
-  public Aparment(Vector3f pos){
+
+  public Apartment(Vector3f pos) {
     defaultSettings();
     this.worldPosition = pos;
   }

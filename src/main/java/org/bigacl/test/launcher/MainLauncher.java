@@ -1,7 +1,7 @@
 package org.bigacl.test.launcher;
 
 import org.bigacl.renderEngine.gameItems.item.ItemManger;
-import org.bigacl.renderEngine.gameItems.item.placeable.aparment.Aparment;
+import org.bigacl.renderEngine.gameItems.item.placeable.aparment.Apartment;
 import org.bigacl.renderEngine.gameItems.item.placeable.house.House;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
@@ -21,10 +21,10 @@ public class MainLauncher {
     House house = new House();
     itemManger.addItemHouse(house);
 
-    // Add Aparment Item
-    Aparment aparment = new Aparment();
-    aparment.place(new Vector3f(10,0,10), 0);
-    itemManger.addItemAparment(aparment);
+    // Add Apartment Item
+    Apartment apartment = new Apartment();
+    apartment.place(new Vector3f(10, 0, 10), 0);
+    itemManger.addItemAparment(apartment);
 
     // Render loop
     window.loop();

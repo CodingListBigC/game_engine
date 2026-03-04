@@ -1,6 +1,7 @@
 package org.bigacl.renderEngine.gui.menu.hudMenu;
 
 import org.bigacl.renderEngine.gameItems.item.placeable.BasePlaceableItem;
+import org.bigacl.renderEngine.utils.consts.ItemConst;
 import org.joml.Vector3f;
 
 import java.util.ArrayList;
@@ -9,17 +10,17 @@ public class ViewData {
   Vector3f position;
   ArrayList<? extends BasePlaceableItem> viewDataList;
   int viewIndex;
-  int lastViewType;
+  ItemConst.BasicPlaceableTypes lastViewType;
+  ItemConst.BasicPlaceableTypes viewType = ItemConst.BasicPlaceableTypes.ALL;
 
-  public int getLastViewType() {
+  public ItemConst.BasicPlaceableTypes getLastViewType() {
     return lastViewType;
   }
 
-  public int getViewType() {
+  public ItemConst.BasicPlaceableTypes getViewType() {
     return viewType;
   }
 
-  int viewType = -1;
 
   public Vector3f getPosition() {
     if (viewDataList != null) {
