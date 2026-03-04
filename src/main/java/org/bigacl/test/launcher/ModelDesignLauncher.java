@@ -1,24 +1,19 @@
 package org.bigacl.test.launcher;
 
-import org.bigacl.renderEngine.gameItems.item.ItemManger;
-import org.bigacl.renderEngine.shaders.ShaderMaster;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
-import org.bigacl.renderEngine.window.WindowMaster;
+
+import static org.bigacl.renderEngine.utils.consts.ClassConst.*;
 
 public class ModelDesignLauncher {
   public static void main(String[] args) {
     ClassConst.setHudAbstract(1);
-    // Get class from consts
-    WindowMaster window = ClassConst.window;
-    ShaderMaster shaderMaster = ClassConst.shader3d;
-    ItemManger itemManger = ClassConst.itemManger;
 
     // Start Main Loop
     window.loop();
 
     // Clean up functions
     itemManger.cleanupAll();
-    shaderMaster.cleanup();
+    shader3d.cleanup();
     window.cleanup();
   }
 }
