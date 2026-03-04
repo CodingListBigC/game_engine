@@ -18,6 +18,8 @@ import java.util.Map;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.bigacl.renderEngine.utils.consts.ClassConst.camera;
+
 public abstract class BasePlaceableItem implements ItemInterface, PlaceableInterface {
 
   // Transformation Data
@@ -102,6 +104,20 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
       worldPosition.set(snappedPos);
     }catch (Exception e){}
     updateModelMatrix();
+  }
+
+  public void checkRenderCamera() {
+    BoundingBox box = getBoundingBox();
+    BoundingBox offSetBox = getBoundingBoxOffSet();
+
+    if (box == null) {
+      render();
+      return;
+    }
+
+    if (camera.getFrustum().testAab(offSetBox.minX, offSetBox.minY, offSetBox.minZ, offSetBox.maxX, offSetBox.maxY, offSetBox.maxZ)) {
+      render();
+    }
   }
 
   @Override
