@@ -9,6 +9,7 @@ import org.bigacl.renderEngine.gameItems.item.placeable.house.House;
 import org.bigacl.renderEngine.player.Player;
 import org.bigacl.renderEngine.player.inputs.mouse.MouseRayCast;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
+import org.bigacl.renderEngine.utils.consts.ItemConst;
 import org.bigacl.renderEngine.utils.timer.ClickTimer;
 import org.bigacl.renderEngine.window.WindowMaster;
 import org.joml.Vector2d;
@@ -77,7 +78,7 @@ public class KeyboardInputMaster {
         itemManger.addItemAll(apartment);
       }
     }
-    camera.CameraInput(window, moveSpeed, rotateSpeed, this.itemManger.getAllItems());
+    camera.CameraInput(window, moveSpeed, rotateSpeed, this.itemManger.getTypeList(ItemConst.BasicPlaceableTypes.ALL));
     hudInputs();
     resetInputs();
 

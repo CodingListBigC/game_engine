@@ -19,18 +19,18 @@ public class MainLauncher {
 
     // Add House item
     House house = new House();
-    itemManger.addItemHouse(house);
+    itemManger.addItemAll(house);
 
     // Add Apartment Item
     Apartment apartment = new Apartment();
     apartment.place(new Vector3f(10, 0, 10), 0);
-    itemManger.addItemAparment(apartment);
+    itemManger.addItemAll(apartment);
 
     // Render loop
     window.loop();
 
     // Clean up functions
-    itemManger.cleanup();
+    itemManger.cleanupAll();
     shaderMaster.cleanup();
     window.cleanup();
   }

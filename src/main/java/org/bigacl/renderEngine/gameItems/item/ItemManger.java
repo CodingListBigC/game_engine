@@ -8,6 +8,7 @@ import org.bigacl.renderEngine.player.BoundingBox;
 import org.bigacl.renderEngine.utils.consts.ItemConst;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.bigacl.renderEngine.utils.consts.ClassConst.camera;
 
@@ -37,7 +38,6 @@ public class ItemManger {
     }
   }
 
-
   public void addItemAll(BasePlaceableItem item) {
     allPlacableList.add(item);
   }
@@ -54,8 +54,7 @@ public class ItemManger {
     return listToShow;
   }
 
-
-  private ArrayList<BasePlaceableItem> getTypeList(ItemConst.BasicPlaceableTypes type) {
+  public ArrayList<BasePlaceableItem> getTypeList(ItemConst.BasicPlaceableTypes type) {
     Class<?> itemClass = getTypeClass(type);
     if (itemClass == null) {
       return allPlacableList;

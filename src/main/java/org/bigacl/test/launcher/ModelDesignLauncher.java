@@ -17,7 +17,7 @@ public class ModelDesignLauncher {
     window.loop();
 
     // Clean up functions
-    itemManger.cleanup();
+    itemManger.cleanupAll();
     shaderMaster.cleanup();
     window.cleanup();
   }

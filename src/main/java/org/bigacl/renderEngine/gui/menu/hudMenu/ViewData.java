@@ -47,6 +47,5 @@ public class ViewData {
 
   public void setViewIndex(int viewIndex) {
     this.viewIndex = viewIndex;
-    this.lastViewType = viewIndex;
   }
 }
