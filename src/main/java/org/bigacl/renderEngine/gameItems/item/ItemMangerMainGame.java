@@ -5,10 +5,4 @@ import org.bigacl.renderEngine.utils.consts.ItemConst;
 
 public class ItemMangerMainGame extends ItemMangerAbstract<BasePlaceableItem, ItemConst.BasicPlaceableTypes> {
 
-  @Override
-  protected void renderAllItems() {
-    for (BasePlaceableItem item : allItems) {
-      item.checkRenderCamera();
-    }
-  }
 }

@@ -66,5 +66,11 @@ public abstract class ItemMangerAbstract<renderItem extends BasePlaceableItem, i
     }
   }
 
-  protected abstract void renderAllItems();
+  protected void renderAllItems() {
+    for (renderItem item : allItems) {
+      item.render();
+    }
+  }
+
+  ;
 }
