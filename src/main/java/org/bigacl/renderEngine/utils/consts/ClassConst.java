@@ -87,4 +87,12 @@ public class ClassConst {
     mainLogic = mainLogicInput;
 
   }
+
+  public static void cleanup() {
+    // Clean up functions
+    itemMangerAbstract.cleanupAll();
+    shader3d.cleanup();
+    window.cleanup();
+
+  }
 }

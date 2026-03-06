@@ -10,18 +10,19 @@ import org.bigacl.renderEngine.player.Player;
 import org.bigacl.renderEngine.player.inputs.mouse.MouseRayCast;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.bigacl.renderEngine.utils.consts.ItemConst;
+import org.bigacl.renderEngine.utils.item.ItemUtils;
 import org.bigacl.renderEngine.utils.timer.ClickTimer;
 import org.bigacl.renderEngine.window.WindowMaster;
 import org.joml.Vector2d;
 import org.joml.Vector3f;
 
+import static org.bigacl.renderEngine.utils.consts.ClassConst.itemMangerAbstract;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_F3;
 import static org.lwjgl.glfw.GLFW.GLFW_KEY_H;
 
 public class KeyboardInputMaster {
   private WindowMaster window;
-  private ItemMangerMainGame itemManger;
   private HudAbstract hudAbstract;
   private Camera camera;
   private double currentTime;
@@ -35,7 +36,6 @@ public class KeyboardInputMaster {
 
   public void updateVariables() {
     this.window = ClassConst.window;
-    this.itemManger = ClassConst.itemManger;
     this.hudAbstract = ClassConst.hudAbstract;
     this.camera = ClassConst.camera;
   }
@@ -61,7 +61,7 @@ public class KeyboardInputMaster {
         House house = new House();
         house.setWorldPosition(snappedPos);
         // 3. Add to manager
-        itemManger.addItemAll(house);
+        ItemUtils.addItemHelper(itemMangerAbstract, house);
       }
     }
     if (window.isKeyPressed(GLFW_KEY_J)) {
@@ -75,10 +75,11 @@ public class KeyboardInputMaster {
         Apartment apartment = new Apartment();
         apartment.setWorldPosition(snappedPos);
         // 3. Add to manager
-        itemManger.addItemAll(apartment);
+        ItemUtils.addItemHelper(itemMangerAbstract, apartment);
+
       }
     }
-    camera.CameraInput(window, moveSpeed, rotateSpeed, this.itemManger.getTypeList(ItemConst.BasicPlaceableTypes.ALL));
+    camera.CameraInput(window, moveSpeed, rotateSpeed, ItemUtils.getTypeListHelper(itemMangerAbstract, ItemConst.BasicPlaceableTypes.ALL));
     hudInputs();
     resetInputs();
 

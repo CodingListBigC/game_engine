@@ -1,5 +1,6 @@
 package org.bigacl.renderEngine.gui.menu.hudMenu.modelDesign.build;
 
+import org.bigacl.renderEngine.gameItems.item.ItemMangerAbstract;
 import org.bigacl.renderEngine.gameItems.item.placeable.BasePlaceableItem;
 import org.bigacl.renderEngine.gameItems.item.placeable.aparment.Apartment;
 import org.bigacl.renderEngine.gameItems.item.placeable.house.House;
@@ -11,7 +12,8 @@ import org.joml.Vector3f;
 
 import java.awt.*;
 
-import static org.bigacl.renderEngine.utils.consts.ClassConst.itemManger;
+import static org.bigacl.renderEngine.utils.consts.ClassConst.itemMangerAbstract;
+import static org.bigacl.renderEngine.utils.item.ItemUtils.addItemHelper;
 
 public class BuildClickType extends TableMaster<Button> {
 
@@ -54,7 +56,8 @@ public class BuildClickType extends TableMaster<Button> {
   private void defaultPlaceMeant(BasePlaceableItem defaultItem) {
     // Note: Since we are placing on the floor, Y is usually 0.
     defaultItem.place(new Vector3f(0), 0);
-    itemManger.addItemAll(defaultItem);
+    addItemHelper(itemMangerAbstract, defaultItem);
   }
+
 
 }

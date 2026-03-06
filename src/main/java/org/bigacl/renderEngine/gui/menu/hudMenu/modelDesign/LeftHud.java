@@ -44,7 +44,6 @@ public class LeftHud extends ModelDesignAbstractClass {
 
   @Override
   public void checkHudInputs(Vector2d mouseLocation, int mouseAction) {
-    ItemMangerMainGame iM = ClassConst.itemManger;
     Vector3f changeLocation = this.vectorButton.checkButtonInput(
             mouseLocation,
             mouseAction,
@@ -53,8 +52,8 @@ public class LeftHud extends ModelDesignAbstractClass {
     );
 
     try {
-      iM.getDefaultData().get(HudAbstract.getViewData().getViewIndex()).setWorldPosition(changeLocation);
-    }catch (IndexOutOfBoundsException e){
+      ClassConst.itemMangerAbstract.getDefaultData().get(HudAbstract.getViewData().getViewIndex()).setWorldPosition(changeLocation);
+    } catch (IndexOutOfBoundsException ignored) {
 
     }
 

@@ -15,19 +15,18 @@ public abstract class ItemMangerAbstract<renderItem extends BasePlaceableItem, i
   protected final ArrayList<renderItem> allItems = new ArrayList<>();
 
   public void renderAll() {
-    renderPlaceableItems();
+    renderAllItems();
   }
 
-
-  void addItemAll(renderItem item) {
+  public void addItemAll(renderItem item) {
     allItems.add(item);
   }
 
-  public ArrayList<? extends BasePlaceableItem> getDefaultData() {
+  public ArrayList<renderItem> getDefaultData() {
     itemType lastViewIndex = (itemType) HudAbstract.getViewData().getLastViewType();
     itemType viewIndex = (itemType) HudAbstract.getViewData().getViewType();
 
-    ArrayList<? extends BasePlaceableItem> listToShow = getTypeList(viewIndex);
+    ArrayList<renderItem> listToShow = getTypeList(viewIndex);
 
     if (lastViewIndex != viewIndex) {
       HudAbstract.getViewData().setViewDataList(listToShow);
@@ -49,7 +48,7 @@ public abstract class ItemMangerAbstract<renderItem extends BasePlaceableItem, i
     return returnList;
   }
 
-  private Class<?> getTypeClass(itemType type) {
+  private Class<?> getTypeClass(ItemConst.BasicPlaceableTypes type) {
     return switch (type) {
       case APARTMENT -> Apartment.class;
       case HOUSE -> House.class;

@@ -12,7 +12,7 @@ public class ModelDesignLauncher {
     window.loop();
 
     // Clean up functions
-    itemManger.cleanupAll();
+    itemMangerAbstract.cleanupAll();
     shader3d.cleanup();
     window.cleanup();
   }
