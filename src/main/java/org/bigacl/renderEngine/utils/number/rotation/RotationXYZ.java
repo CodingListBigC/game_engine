@@ -30,15 +30,15 @@ public class RotationXYZ {
   }
 
 
-  public void setXValue(int degree) {
+  public void setXValue(double degree) {
     this.xValue.set(degree);
   }
 
-  public void setYValue(int degree) {
+  public void setYValue(double degree) {
     this.yValue.set(degree);
   }
 
-  public void setZValue(int degree) {
+  public void setZValue(double degree) {
     this.zValue.set(degree);
   }
 
@@ -52,5 +52,17 @@ public class RotationXYZ {
 
   public void setZValue(RotationFunction.CardinalDirection cardinal) {
     this.zValue.set(cardinal);
+  }
+
+  public double getX() {
+    return xValue.degree;
+  }
+
+  public double getY() {
+    return yValue.degree;
+  }
+
+  public double getZ() {
+    return zValue.degree;
   }
 }

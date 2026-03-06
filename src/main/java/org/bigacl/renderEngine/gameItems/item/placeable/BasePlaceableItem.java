@@ -2,6 +2,7 @@ package org.bigacl.renderEngine.gameItems.item.placeable;
 
 import com.google.gson.Gson;
 import org.bigacl.renderEngine.gameItems.item.ItemInterface;
+import org.bigacl.renderEngine.model.ModelAbstract;
 import org.bigacl.renderEngine.model.mesh.Mesh;
 import org.bigacl.renderEngine.model.mesh.OBJLoader;
 import org.bigacl.renderEngine.player.BoundingBox;
@@ -9,24 +10,15 @@ import org.bigacl.renderEngine.shaders.ShaderMaster;
 import org.bigacl.renderEngine.model.texture.Texture;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.jetbrains.annotations.NotNull;
-import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Map;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.bigacl.renderEngine.utils.consts.ClassConst.camera;
 
-public abstract class BasePlaceableItem implements ItemInterface, PlaceableInterface {
-
-  // Transformation Data
-  protected Vector3f worldPosition = new Vector3f(0.0f, 0.0f, 0.0f);
-  protected Vector3f rotation = new Vector3f(0.0f, 0.0f, 0.0f);
-  protected float scale = 1.0f;
-  protected Matrix4f modelMatrix = new Matrix4f();
+public abstract class BasePlaceableItem extends ModelAbstract implements ItemInterface, PlaceableInterface {
 
   // File management
   protected String folderPath;
@@ -37,7 +29,6 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
   protected String type;
   protected Map<String, LevelData> level;
   protected int currentLevel = 1;
-  protected List<Mesh> currentMeshes = new ArrayList<>();
   protected boolean isPlaced = false;
   protected BoundingBox boundingBox;
 
@@ -79,30 +70,6 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
         System.err.println("Failed to load part: " + e.getMessage());
       }
     }
-    updateModelMatrix();
-  }
-
-  /**
-   * Combines position, rotation, and scale into one matrix for the GPU.
-   */
-  protected void updateModelMatrix() {
-    this.modelMatrix.identity()
-            .translate(worldPosition)
-            .rotateX((float) Math.toRadians(rotation.x))
-            .rotateY((float) Math.toRadians(rotation.y))
-            .rotateZ((float) Math.toRadians(rotation.z))
-            .scale(scale);
-  }
-
-  public void changePosition(float x, float y, float z) {
-    worldPosition.add(x, y, z);
-    updateModelMatrix(); // Rebuild matrix so the move shows up on screen
-  }
-
-  public void setWorldPosition(Vector3f snappedPos) {
-    try {
-      worldPosition.set(snappedPos);
-    }catch (Exception e){}
     updateModelMatrix();
   }
 
@@ -165,7 +132,7 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
   @Override
   public void place(Vector3f position, float rotation) {
     this.worldPosition.set(position);
-    this.rotation.y = rotation;
+    this.rotation.setYValue(rotation);
     this.isPlaced = true;
     loadModel();
     setupHitbox();
@@ -194,8 +161,7 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
         String levelJson = gson.toJson(data.level);
         this.level = gson.fromJson(levelJson, new com.google.gson.reflect.TypeToken<Map<String, LevelData>>(){}.getType());
       }
-    } catch (Exception e) {
-      e.printStackTrace();
+    } catch (Exception ignored) {
     }
   }
 
@@ -245,6 +211,5 @@ public abstract class BasePlaceableItem implements ItemInterface, PlaceableInter
   @Override public void rightClick() {}
   @Override public boolean checkPlace(Vector3f position, float rotation) { return true; }
   public abstract void defaultSettings();
-  public Vector3f getWorldPosition() { return new Vector3f(worldPosition); }
   public Vector3f getPosition() { return worldPosition; }
 }
