@@ -137,6 +137,8 @@ public abstract class BasePlaceableItem extends ModelAbstract implements ItemInt
     loadModel();
     setupHitbox();
   }
+
+  @Override
   protected void loadData() {
     String jsonFilePath = folderPath + "/" + jsonName;
     try (InputStream in = getClass().getClassLoader().getResourceAsStream(jsonFilePath)) {

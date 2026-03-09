@@ -1,8 +1,6 @@
 package org.bigacl.renderEngine.model;
 
 import org.bigacl.renderEngine.model.mesh.Mesh;
-import org.bigacl.renderEngine.shaders.ShaderMaster;
-import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.bigacl.renderEngine.utils.number.rotation.RotationXYZ;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -46,5 +44,7 @@ public abstract class ModelAbstract {
   public void cleanup() {
     for (Mesh m : currentMeshes) m.cleanup();
   }
+
+  protected abstract void loadData();
 }
 
