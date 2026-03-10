@@ -1,0 +1,50 @@
+{
+  "name": {
+    "main": "Stair",
+    "plural": "Stairs"
+  },
+  "amount_of_types": 1,
+  "type": "stairs",
+  "modelTypes": {
+    "0": {
+      "partName": "Type 0",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "type0.obj",
+        "texture": {
+          "0": ""
+        }
+      }
+    },
+    "1": {
+      "partName": "Type 1",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "type1.obj",
+        "texture": {
+          "default": ""
+        }
+      }
+    },
+    "2": {
+      "partName": "Type 2",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "type2.obj",
+        "texture": {
+          "default": ""
+        }
+      }
+    },
+    "3": {
+      "partName": "Type 3",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "type3.obj",
+        "texture": {
+          "default": ""
+        }
+      }
+    }
+  }
+}

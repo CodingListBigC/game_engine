@@ -4,6 +4,7 @@ import java.util.Map;
 
 public class BuildItemData {
   public String name;
-  public Map<String, BuildItemsAbstract.ItemTypeData> modelsPath;
-  public int numberOfTypes;
+  public int number_of_types;
+  public String type;
+  public Map<String, BuildItemsAbstract.ItemTypeData> modelsTypes;
 }

@@ -12,23 +12,44 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class BuildItemsAbstract extends ModelAbstract {
-  protected String jsonName;
+public abstract class BuildItemsAbstract extends ModelAbstract {
+  // Item Location Variable
+  protected String jsonName = "default.json";
   protected String folderPath;
 
   // Item Data
   protected int numberOfTypes;
   protected String name;
-
   public Map<String, BasePlaceableItem.BaseModelParts> baseModel;
-  protected Map<String, ItemTypeData> modelsPath;
+  protected Map<String, BuildItemsAbstract.ItemTypeData> modelType;
 
   public static class ItemTypeData {
     public int type;
-    public Map<String, BasePlaceableItem.MakeData> make;
+    public Map<String, ItemModelTypes> make;
   }
 
+  public static class ItemModelTypes {
+    public String partName;
+    public int defaultFacing;
+    public SeparatePartsLink separatePartsLink;
+  }
 
+  public static class SeparatePartsLink {
+    public String model;
+    public Map<String, String> textureClass;
+  }
+
+  protected abstract void initData();
+
+  /**
+   * Init BuildItemAbstract
+   * By settings all the correct data variables and making the models.
+   */
+  protected void init() {
+    initData();
+    loadData();
+    loadModel();
+  }
   // Item Type
   protected int currentType;
 
@@ -46,8 +67,8 @@ public class BuildItemsAbstract extends ModelAbstract {
 
       if (data != null) {
         this.name = data.name;
-        this.numberOfTypes = data.numberOfTypes;
-        this.modelsPath = data.modelsPath;
+        this.numberOfTypes = data.number_of_types;
+        this.modelType = data.modelsTypes;
       }
     } catch (Exception ignored) {
     }
@@ -57,30 +78,21 @@ public class BuildItemsAbstract extends ModelAbstract {
     // Make sure current type is in range
     this.currentType = Math.min(currentType, numberOfTypes);
 
-    ItemTypeData itemData = modelsPath.get(String.valueOf(this.currentType));
+    ItemTypeData itemData = modelType.get(String.valueOf(this.currentType));
 
-    if (itemData == null || itemData.make == null) return;
-
-
-    for (BasePlaceableItem.MakeData placement : itemData.make.values()) {
+    for (ItemModelTypes placement : itemData.make.values()) {
       try {
-        BasePlaceableItem.BaseModelParts partConfig = this.baseModel.get(placement.item.id);
-        if (partConfig == null) continue;
+        String partFileName = placement.separatePartsLink.model;
+        String texture = placement.separatePartsLink.textureClass.get("0");
 
-        BasePlaceableItem.SeparatePartsLink link = partConfig.separateParts.get(placement.item.type);
-        if (link == null) continue;
+        if (partFileName == null || texture == null) return;
 
-        Mesh mesh = OBJLoader.loadOBJ(folderPath + "/" + link.model);
-        mesh.setTexture(new Texture(folderPath + "/" + link.texture));
+        Mesh mesh = OBJLoader.loadOBJ(folderPath + "/" + partFileName);
+        mesh.setTexture(new Texture(folderPath + "/" + texture));
 
-        BasePlaceableItem.XYZMatrix p = (placement.pos != null) ? placement.pos : new BasePlaceableItem.XYZMatrix();
-        BasePlaceableItem.XYZMatrix origin = (link.origin != null) ? link.origin : new BasePlaceableItem.XYZMatrix();
+        BasePlaceableItem.XYZMatrix p = new BasePlaceableItem.XYZMatrix();
 
-        mesh.setPosition(
-                p.x - origin.x,
-                p.z - origin.z,
-                -p.y + origin.y
-        );
+        mesh.setPosition(p.x, p.z, -p.y);
 
         currentMeshes.add(mesh);
       } catch (Exception e) {
@@ -111,7 +123,7 @@ public class BuildItemsAbstract extends ModelAbstract {
   }
 
   public ArrayList<String> getTypesNameList() {
-    ArrayList<String> returnArray = new ArrayList<String>();
+    ArrayList<String> returnArray = new ArrayList<>();
     // TODO: Able to add item to list then return list of items
     return returnArray;
   }

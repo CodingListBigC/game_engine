@@ -1,6 +1,7 @@
 package org.bigacl.renderEngine.model;
 
 import org.bigacl.renderEngine.model.mesh.Mesh;
+import org.bigacl.renderEngine.utils.number.rotation.Rotation;
 import org.bigacl.renderEngine.utils.number.rotation.RotationXYZ;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
@@ -11,7 +12,7 @@ import java.util.List;
 public abstract class ModelAbstract {
   // Transformation Data
   protected Vector3f worldPosition = new Vector3f(0.0f, 0.0f, 0.0f);
-  protected RotationXYZ rotation;
+  protected RotationXYZ rotation = new RotationXYZ(new Rotation(0));
   protected float scale = 1.0f;
   protected Matrix4f modelMatrix = new Matrix4f();
   protected List<Mesh> currentMeshes = new ArrayList<>();
