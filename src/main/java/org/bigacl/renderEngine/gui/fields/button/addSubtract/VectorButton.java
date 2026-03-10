@@ -26,31 +26,35 @@ public class VectorButton extends AddSubtractBasic {
     return guiPosition.y + (row * (defaultButtonSize.y + rowSpacing));
   }
 
-  public Vector3f checkButtonInput(Vector2d mouseLocation, int action, Vector3f vector3f, float changeAmount) {
-    // 1. Only trigger on the initial PRESS
-    if (action != 1 || vector3f == null) return vector3f;
+  public Vector3f checkButtonInput(Vector2d mouseLocation, int action, Vector3f originalVector, float changeAmount) {
+    // 1. Safety Check: If the action isn't a PRESS (1) or the vector is missing, stop.
+    if (action != 1 || originalVector == null) {
+      return originalVector;
+    }
 
+    // 2. Create a copy so we don't modify the original object until we are sure
+    Vector3f editVector = new Vector3f(originalVector);
 
+    // 3. Update the UI state
     int sizeOfVector = 3;
-
     setAmountViewAble(sizeOfVector);
 
-    float xValue = getInfo(0, mouseLocation, changeAmount);
-    float yValue = getInfo(1, mouseLocation, changeAmount);
-    float zValue = getInfo(2, mouseLocation, changeAmount);
-    Vector3f addVector = new Vector3f(xValue, yValue, zValue);
-    vector3f.add(addVector);
+    // 4. Calculate changes.
+    // Logic: getInfo should return 0.0f if that specific axis button wasn't clicked.
+    float xChange = getInfo(0, mouseLocation, changeAmount);
+    float yChange = getInfo(1, mouseLocation, changeAmount);
+    float zChange = getInfo(2, mouseLocation, changeAmount);
 
-    float[] floatArray = new float[3];
-    floatArray[0] = vector3f.x;
-    floatArray[1] = vector3f.y;
-    floatArray[2] = vector3f.z;
+    // 5. Apply the changes
+    editVector.add(xChange, yChange, zChange);
+
+    // 6. Update the display text/array
+    float[] floatArray = new float[]{editVector.x, editVector.y, editVector.z};
     this.currentTextArray = floatArray;
     setTextWithArray(floatArray);
-    return vector3f;
 
+    return editVector;
   }
-
 
   private Vector2f getTextStartPos(int row){
     float y = getYPos(row);
@@ -65,7 +69,11 @@ public class VectorButton extends AddSubtractBasic {
     return new Vector2f(x,y);
   }
 
-  private void updateText(Vector3f vector3f){
+  public void updateText(Vector3f vector3f) {
+    if (vector3f == null) return;
+    float[] floatArray = new float[]{vector3f.x, vector3f.y, vector3f.z};
+    this.currentTextArray = floatArray;
+    setTextWithArray(floatArray);
   }
 
   @Override

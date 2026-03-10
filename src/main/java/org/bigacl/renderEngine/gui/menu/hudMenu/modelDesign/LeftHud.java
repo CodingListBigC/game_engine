@@ -17,8 +17,8 @@ public class LeftHud extends ModelDesignAbstractClass {
   float panelWidth;
   float panelHeight;
 
-  VectorButton vectorButton;
-
+  VectorButton positionButton;
+  VectorButton rotationButton;
 
   public LeftHud() {
     this.widthPercentage = 0.125f;
@@ -28,7 +28,8 @@ public class LeftHud extends ModelDesignAbstractClass {
     this.panelWidth = screenWidth * widthPercentage;
     this.panelHeight = screenHeight * heightPercentage;
 
-    this.vectorButton = new VectorButton(new Vector2f(0, 50), panelWidth);
+    this.positionButton = new VectorButton(new Vector2f(0, 50), panelWidth);
+    this.rotationButton = new VectorButton(new Vector2f(0, 200), panelWidth);
   }
 
   @Override
@@ -38,21 +39,28 @@ public class LeftHud extends ModelDesignAbstractClass {
 
 
     drawSide(false, nanoVGUI, widthPercentage, heightPercentage);
-    this.vectorButton.render();
+    this.positionButton.render();
+    this.rotationButton.render();
   }
 
 
   @Override
   public void checkHudInputs(Vector2d mouseLocation, int mouseAction) {
-    Vector3f changeLocation = this.vectorButton.checkButtonInput(
+    Vector3f changeLocation = this.positionButton.checkButtonInput(
             mouseLocation,
             mouseAction,
             HudAbstract.getViewData().getPosition(),
             1.0f
     );
+    Vector3f changeRotation = this.rotationButton.checkButtonInput(
+            mouseLocation,
+            mouseAction,
+            HudAbstract.getViewData().getPosition(), 90f
+    );
 
     try {
       ClassConst.itemMangerAbstract.getDefaultData().get(HudAbstract.getViewData().getViewIndex()).setWorldPosition(changeLocation);
+      //TODO: Add change location function
     } catch (IndexOutOfBoundsException ignored) {
 
     }
@@ -60,6 +68,7 @@ public class LeftHud extends ModelDesignAbstractClass {
   }
   @Override
   public void updateText() {
-    vectorButton.updateText();
+    positionButton.updateText(HudAbstract.getViewData().getPosition());
+    rotationButton.updateText(new Vector3f());
   }
 }
