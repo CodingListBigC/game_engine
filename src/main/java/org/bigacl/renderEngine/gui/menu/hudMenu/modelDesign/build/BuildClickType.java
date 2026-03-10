@@ -1,5 +1,7 @@
 package org.bigacl.renderEngine.gui.menu.hudMenu.modelDesign.build;
 
+import org.bigacl.renderEngine.designItem.BuildItemsAbstract;
+import org.bigacl.renderEngine.designItem.building.Stairs;
 import org.bigacl.renderEngine.gameItems.item.ItemMangerAbstract;
 import org.bigacl.renderEngine.gameItems.item.placeable.BasePlaceableItem;
 import org.bigacl.renderEngine.gameItems.item.placeable.aparment.Apartment;
@@ -38,25 +40,19 @@ public class BuildClickType extends TableMaster<Button> {
   public void initButtons() {
     Button apartmentBtn = new Button("Apartment", btnBackGroundColor, btnTextColor);
     apartmentBtn.setOnClick(() -> {
-      Apartment newApartment = new Apartment();
-      System.out.println("Item class: " + newApartment.getClass());
-      this.defaultPlaceMeant(newApartment);
+      Stairs newStair = new Stairs();
+      System.out.println("Item class: " + newStair.getClass());
+      this.defaultPlaceMeant(newStair);
     });
     this.addItem(apartmentBtn);
-    Button houseBtn = new Button("House", btnBackGroundColor, btnTextColor);
-    houseBtn.setOnClick(() -> {
-      House newItem = new House();
-      this.defaultPlaceMeant(newItem);
-    });
-    this.addItem(houseBtn);
 
     this.setSizes();
   }
 
-  private void defaultPlaceMeant(BasePlaceableItem defaultItem) {
+  private void defaultPlaceMeant(BuildItemsAbstract defaultItem) {
     // Note: Since we are placing on the floor, Y is usually 0.
-    defaultItem.place(new Vector3f(0), 0);
-    addItemHelper(itemMangerAbstract, defaultItem);
+    // defaultItem.place(new Vector3f(0), 0);
+    //addItemHelper(itemMangerAbstract, defaultItem);
   }
 
 

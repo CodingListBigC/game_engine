@@ -10,7 +10,7 @@
       "partName": "Type 0",
       "defaultFacing": 0,
       "separateParts": {
-        "model": "type0.obj",
+        "model": "part0.obj",
         "texture": {
           "0": ""
         }
@@ -20,7 +20,7 @@
       "partName": "Type 1",
       "defaultFacing": 0,
       "separateParts": {
-        "model": "type1.obj",
+        "model": "part1.obj",
         "texture": {
           "default": ""
         }
@@ -30,7 +30,7 @@
       "partName": "Type 2",
       "defaultFacing": 0,
       "separateParts": {
-        "model": "type2.obj",
+        "model": "part2.obj",
         "texture": {
           "default": ""
         }
@@ -40,7 +40,7 @@
       "partName": "Type 3",
       "defaultFacing": 0,
       "separateParts": {
-        "model": "type3.obj",
+        "model": "part3.obj",
         "texture": {
           "default": ""
         }

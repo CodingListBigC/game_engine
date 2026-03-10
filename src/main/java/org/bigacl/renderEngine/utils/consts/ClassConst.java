@@ -1,6 +1,7 @@
 package org.bigacl.renderEngine.utils.consts;
 
 import org.bigacl.renderEngine.gameItems.item.ItemMangerAbstract;
+import org.bigacl.renderEngine.gameItems.item.tool.ItemMangerModelDesign;
 import org.bigacl.renderEngine.gameManger.MainGame;
 import org.bigacl.renderEngine.gameManger.ModelDesignLogic;
 import org.bigacl.renderEngine.player.camera.Camera;
@@ -74,6 +75,7 @@ public class ClassConst {
     if (Const.hudMode == 1) {
       hudAbstract = new MasterHud();
       mainLogic = new ModelDesignLogic();
+      itemMangerAbstract = new ItemMangerModelDesign();
     } else {
       hudAbstract = new MasterGameHud();
     }

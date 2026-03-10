@@ -4,7 +4,12 @@ import org.bigacl.renderEngine.designItem.BuildItemsAbstract;
 
 public class Stairs extends BuildItemsAbstract {
   @Override
-  protected void initData() {
+  public void defaultSettings() {
     this.folderPath = "modelDesignData/stairs";
+
+  }
+
+  public Stairs() {
+    init();
   }
 }
