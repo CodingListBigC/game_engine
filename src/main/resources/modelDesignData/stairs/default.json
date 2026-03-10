@@ -12,7 +12,7 @@
       "separateParts": {
         "model": "part0.obj",
         "texture": {
-          "0": ""
+          "0": "stairsTexture.png"
         }
       }
     },
@@ -22,7 +22,7 @@
       "separateParts": {
         "model": "part1.obj",
         "texture": {
-          "default": ""
+          "default": "stairsTexture.png"
         }
       }
     },
@@ -32,7 +32,7 @@
       "separateParts": {
         "model": "part2.obj",
         "texture": {
-          "default": ""
+          "default": "stairsTexture.png"
         }
       }
     },
@@ -42,7 +42,7 @@
       "separateParts": {
         "model": "part3.obj",
         "texture": {
-          "default": ""
+          "default": "stairsTexture.png"
         }
       }
     }

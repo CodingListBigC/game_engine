@@ -38,21 +38,21 @@ public class BuildClickType extends TableMaster<Button> {
   }
 
   public void initButtons() {
-    Button apartmentBtn = new Button("Apartment", btnBackGroundColor, btnTextColor);
-    apartmentBtn.setOnClick(() -> {
+    Button stairsBtn = new Button("Stairs", btnBackGroundColor, btnTextColor);
+    stairsBtn.setOnClick(() -> {
       Stairs newStair = new Stairs();
       System.out.println("Item class: " + newStair.getClass());
       this.defaultPlaceMeant(newStair);
     });
-    this.addItem(apartmentBtn);
+    this.addItem(stairsBtn);
 
     this.setSizes();
   }
 
   private void defaultPlaceMeant(BuildItemsAbstract defaultItem) {
     // Note: Since we are placing on the floor, Y is usually 0.
-    // defaultItem.place(new Vector3f(0), 0);
-    //addItemHelper(itemMangerAbstract, defaultItem);
+    defaultItem.place(new Vector3f(0), 0);
+    addItemHelper(itemMangerAbstract, defaultItem);
   }
 
 

@@ -5,6 +5,8 @@ import org.bigacl.renderEngine.gameItems.item.placeable.BasePlaceableItem;
 import org.bigacl.renderEngine.model.mesh.Mesh;
 import org.bigacl.renderEngine.model.mesh.OBJLoader;
 import org.bigacl.renderEngine.model.texture.Texture;
+import org.bigacl.renderEngine.shaders.ShaderMaster;
+import org.bigacl.renderEngine.utils.consts.ClassConst;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,7 +19,6 @@ public abstract class BuildItemsAbstract extends BasePlaceableItem {
   protected String folderPath;
 
   protected int numberOfTypes;
-  protected String name;
   protected int currentType = 0;
 
   // Holds the raw parsed data from JSON
@@ -45,7 +46,7 @@ public abstract class BuildItemsAbstract extends BasePlaceableItem {
 
         if (rawData != null) {
           // Pull top-level data into class variables
-          this.name = (rawData.name != null) ? rawData.name.main : "Unknown";
+          this.name = (rawData.name != null) ? rawData.name : new BuildItemData.NameInfo();
           this.numberOfTypes = rawData.number_of_types;
           System.out.println("Successfully loaded Item: " + this.name);
         }
@@ -116,5 +117,23 @@ public abstract class BuildItemsAbstract extends BasePlaceableItem {
       }
     }
     return names;
+  }
+
+  @Override
+  public void render() {
+    if (!isPlaced) return;
+
+    if (currentMeshes.isEmpty()) {
+      loadModel();
+    }
+
+    ShaderMaster shader = ClassConst.shader3d;
+    // 1. Send the matrix once for the whole object
+    shader.setUniformMatrix4f("modelMatrix", this.modelMatrix);
+
+    // 2. Draw all parts (they use the matrix above in the shader)
+    for (Mesh mesh : currentMeshes) {
+      mesh.render(modelMatrix);
+    }
   }
 }

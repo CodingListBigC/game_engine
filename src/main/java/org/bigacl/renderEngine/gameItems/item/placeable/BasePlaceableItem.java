@@ -1,6 +1,7 @@
 package org.bigacl.renderEngine.gameItems.item.placeable;
 
 import com.google.gson.Gson;
+import org.bigacl.renderEngine.designItem.BuildItemData;
 import org.bigacl.renderEngine.gameItems.item.ItemInterface;
 import org.bigacl.renderEngine.model.ModelAbstract;
 import org.bigacl.renderEngine.model.mesh.Mesh;
@@ -23,7 +24,7 @@ public abstract class BasePlaceableItem extends ModelAbstract implements ItemInt
   // File management
   protected String folderPath;
   protected String jsonName;
-  protected NameData name;
+  protected BuildItemData.NameInfo name;
   public Map<String, BasePlaceableItem.BaseModelParts> baseModel;
   protected int amount_of_levels;
   protected String type;
@@ -106,6 +107,8 @@ public abstract class BasePlaceableItem extends ModelAbstract implements ItemInt
   }
 
   public String mainName() {
+    if (name == null)
+      return null;
     return name.main;
   }
 
@@ -168,6 +171,13 @@ public abstract class BasePlaceableItem extends ModelAbstract implements ItemInt
   }
 
   public void setupHitbox() {
+    if (level != null)
+      setupLevelHitbox();
+    else
+      setupRegularHitbox();
+  }
+
+  private void setupLevelHitbox() {
     LevelData currentData = level.get(String.valueOf(currentLevel));
     if (currentData == null || currentData.make == null) return;
     this.boundingBox = null;
@@ -183,6 +193,13 @@ public abstract class BasePlaceableItem extends ModelAbstract implements ItemInt
           this.boundingBox.merge(partBox);
         }
       }
+    }
+
+  }
+
+  private void setupRegularHitbox() {
+    if (this.boundingBox == null) {
+      this.boundingBox = new BoundingBox(0, 0, 0, 0, 0, 0);
     }
   }
 
