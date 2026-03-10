@@ -16,6 +16,7 @@ public abstract class ModelAbstract {
   protected float scale = 1.0f;
   protected Matrix4f modelMatrix = new Matrix4f();
   protected List<Mesh> currentMeshes = new ArrayList<>();
+  protected String unit;
 
   /**
    * Combines position, rotation, and scale into one matrix for the GPU.

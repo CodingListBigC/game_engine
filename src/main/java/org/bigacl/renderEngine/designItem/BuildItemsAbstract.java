@@ -6,6 +6,7 @@ import org.bigacl.renderEngine.model.mesh.Mesh;
 import org.bigacl.renderEngine.model.mesh.OBJLoader;
 import org.bigacl.renderEngine.model.texture.Texture;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
+import org.bigacl.renderEngine.utils.Scale;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 
 import java.io.InputStream;
@@ -47,6 +48,8 @@ public abstract class BuildItemsAbstract extends BasePlaceableItem {
         if (rawData != null) {
           // Pull top-level data into class variables
           this.name = (rawData.name != null) ? rawData.name : new BuildItemData.NameInfo();
+          this.unit = (rawData.unit != null) ? rawData.unit : "meter";
+          this.scale = Scale.getScale(this.unit);
           this.numberOfTypes = rawData.number_of_types;
           System.out.println("Successfully loaded Item: " + this.name);
         }
@@ -75,7 +78,6 @@ public abstract class BuildItemsAbstract extends BasePlaceableItem {
     try {
       String partFileName = typeDetails.separateParts.model;
       String textureFile = typeDetails.separateParts.texture.values().stream().findFirst().orElse(null);
-
       if (partFileName != null) {
         Mesh mesh = OBJLoader.loadOBJ(folderPath + "/" + partFileName);
 

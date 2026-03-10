@@ -7,6 +7,8 @@ public class BuildItemData {
   // Matches JSON "name": { "main": "Stair", ... }
   public NameInfo name;
 
+  public String unit;
+
   @SerializedName("amount_of_types")
   public int number_of_types;
 

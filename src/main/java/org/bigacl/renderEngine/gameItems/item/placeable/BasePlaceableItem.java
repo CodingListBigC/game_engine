@@ -9,6 +9,7 @@ import org.bigacl.renderEngine.model.mesh.OBJLoader;
 import org.bigacl.renderEngine.player.BoundingBox;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
 import org.bigacl.renderEngine.model.texture.Texture;
+import org.bigacl.renderEngine.utils.Scale;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector3f;
@@ -155,6 +156,8 @@ public abstract class BasePlaceableItem extends ModelAbstract implements ItemInt
 
       if (data != null) {
         this.name = data.name;
+        this.unit = (data.unit != null) ? data.unit : "meter";
+        this.scale = Scale.getScale(this.unit);
         this.amount_of_levels = data.amount_of_levels;
         this.type = data.type;
 
