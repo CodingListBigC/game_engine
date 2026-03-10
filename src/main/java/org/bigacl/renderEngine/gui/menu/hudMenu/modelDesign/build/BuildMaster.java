@@ -24,6 +24,11 @@ public class BuildMaster extends ModelDesignAbstractClass {
 
   @Override
   public void checkHudInputs(Vector2d mouseLocation, int mouseAction) {
+    if (ClassConst.window.isKeyPressed(GLFW.GLFW_KEY_ESCAPE)) {
+      if (menuStatus) {
+        menuStatus = false;
+      }
+    }
     if (mouseAction == GLFW.GLFW_MOUSE_BUTTON_RIGHT) {
       leftClickInput(mouseLocation);
     }

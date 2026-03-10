@@ -35,7 +35,7 @@ public class WindowMaster {
       throw new RuntimeException("Failed to create the GLFW window");
     }
     glfwSetKeyCallback(window, (windowHandle, key, scancode, action, mods) -> {
-      if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE) {
+      if (key == GLFW_KEY_END && action == GLFW_RELEASE) {
         glfwSetWindowShouldClose(windowHandle, true);
       }
     });
