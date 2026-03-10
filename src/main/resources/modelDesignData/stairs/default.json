@@ -4,7 +4,7 @@
     "plural": "Stairs"
   },
   "unit": "feet",
-  "amount_of_types": 1,
+  "amount_of_types": 4,
   "type": "stairs",
   "modelTypes": {
     "0": {

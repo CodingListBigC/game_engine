@@ -51,7 +51,6 @@ public abstract class BuildItemsAbstract extends BasePlaceableItem {
           this.unit = (rawData.unit != null) ? rawData.unit : "meter";
           this.scale = Scale.getScale(this.unit);
           this.numberOfTypes = rawData.number_of_types;
-          System.out.println("Successfully loaded Item: " + this.name);
         }
       }
     } catch (Exception e) {

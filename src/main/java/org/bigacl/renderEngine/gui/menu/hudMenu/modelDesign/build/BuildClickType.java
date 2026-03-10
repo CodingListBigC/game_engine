@@ -38,15 +38,29 @@ public class BuildClickType extends TableMaster<Button> {
   }
 
   public void initButtons() {
-    Button stairsBtn = new Button("Stairs", btnBackGroundColor, btnTextColor);
-    stairsBtn.setOnClick(() -> {
-      Stairs newStair = new Stairs();
-      System.out.println("Item class: " + newStair.getClass());
-      this.defaultPlaceMeant(newStair);
+    createButton("Stairs 0", () -> {
+      this.defaultPlaceMeant(new Stairs(0));
     });
-    this.addItem(stairsBtn);
+    createButton("Stairs 1", () -> {
+      this.defaultPlaceMeant(new Stairs(1));
+    });
+    createButton("Stairs 2", () -> {
+      this.defaultPlaceMeant(new Stairs(2));
+    });
+    createButton("Stairs 3", () -> {
+      this.defaultPlaceMeant(new Stairs(3));
+    });
+    createButton("Stairs 4", () -> {
+      this.defaultPlaceMeant(new Stairs(4));
+    });
 
     this.setSizes();
+  }
+
+  public void createButton(String name, Runnable run) {
+    Button newButton = new Button(name, btnBackGroundColor, btnTextColor);
+    newButton.setOnClick(run);
+    this.addItem(newButton);
   }
 
   private void defaultPlaceMeant(BuildItemsAbstract defaultItem) {
