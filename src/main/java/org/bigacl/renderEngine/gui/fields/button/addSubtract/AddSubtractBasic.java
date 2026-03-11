@@ -57,7 +57,6 @@ public abstract class AddSubtractBasic extends ClickAbstract {
   protected void makeAmountOfNewItems(int amountViewAble){
     while (amountViewAble > itemArrayList.size()){
       makeNewItem();
-      System.out.println("Amount Of Items: " + itemArrayList.size());
     }
   }
 

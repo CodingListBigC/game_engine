@@ -38,10 +38,4 @@ public class TextLimits {
     return code;
   }
 
-  public void debugLog() {
-    System.out.print("Text: " + text + ",");
-    System.out.print("BoxSize: " + boxSize + ",");
-    System.out.println();
-  }
-
 }

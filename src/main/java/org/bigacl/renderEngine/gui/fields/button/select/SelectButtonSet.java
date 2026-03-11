@@ -62,7 +62,6 @@ public class SelectButtonSet extends InputSets<SelectButtonWithText> {
       itemList.get(index).setTextLabel(text);
 
     } catch (IndexOutOfBoundsException e) {
-      System.out.checkError();
     }
   }
 

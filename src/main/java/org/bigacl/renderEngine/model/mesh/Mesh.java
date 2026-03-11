@@ -118,10 +118,6 @@ public class Mesh {
     color[2] = b;
   }
 
-  public void printSize() {
-    meshSize.printSize();
-  }
-
   // Getters in case you need to check coordinates later
   public Vector3f getPosition() { return position; }
   public Vector3f getRotation() { return rotation; }

@@ -46,7 +46,6 @@ public class NanoVGUI implements RectangleShape, CircleShape, RegularText, IconW
         throw new RuntimeException("Failed to create Nerd font");
       }
 
-      System.out.println("Fonts loaded successfully!");
 
     } catch (Exception e) {
       throw new RuntimeException("Could not load fonts", e);
@@ -73,7 +72,6 @@ public class NanoVGUI implements RectangleShape, CircleShape, RegularText, IconW
       }
     }
 
-    System.out.println("Extracted font to: " + tempFile.getAbsolutePath());
     return tempFile;
   }
 

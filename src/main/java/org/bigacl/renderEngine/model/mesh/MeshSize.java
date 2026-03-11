@@ -28,8 +28,4 @@ public class MeshSize {
   public Vector3f getSize() {
     return new Vector3f(width,height,depth);
   }
-
-  public void printSize() {
-   System.out.println("Mesh Size: x:" +width + ", y:" + height + ", z:" + depth);
-  }
 }

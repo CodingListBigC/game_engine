@@ -52,7 +52,6 @@ public abstract class ClickAbstract extends InputInterface {
   }
 
   public void onClick() {
-    System.out.println("Button On click");
     if (onClick != null) onClick.run();
   }
 

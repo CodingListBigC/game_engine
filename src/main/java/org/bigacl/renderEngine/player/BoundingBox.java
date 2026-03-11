@@ -65,16 +65,6 @@ public class BoundingBox {
                     this.maxZ + myWorldPos.z >= other.minZ + otherWorldPos.z);
   }
 
-  public void log(String s) {
-    System.out.print(s);
-    System.out.print("minX: " + this.minX);
-    System.out.print("maxX: " + this.maxX);
-    System.out.print("minY: " + this.minY);
-    System.out.print("maxY: " + this.maxY);
-    System.out.print("minZ: " + this.minZ);
-    System.out.print("maxZ: " + this.maxZ);
-    System.out.println("");
-  }
   public boolean intersects(BoundingBox other) {
     // Check if there is an overlap on all three axes
     return (this.minX <= other.maxX && this.maxX >= other.minX) &&
