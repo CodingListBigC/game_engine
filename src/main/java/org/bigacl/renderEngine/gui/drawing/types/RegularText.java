@@ -51,7 +51,7 @@ public interface RegularText {
       nvgFontFace(vg, "sans");
       nvgFontSize(vg, size);
       nvgFillColor(vg, color);
-      nvgText(vg, x, y, text);
+      nvgText(vg, x, y, text == null ? "" : text);
     }
   }
 
