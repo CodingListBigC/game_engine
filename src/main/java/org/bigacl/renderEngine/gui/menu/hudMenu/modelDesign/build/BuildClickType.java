@@ -35,33 +35,15 @@ public class BuildClickType extends TableMaster<Button> {
   }
 
   public void initButtons() {
-    createButton("Stairs 0", () -> {
-      this.defaultPlaceMeant(new Stairs(0));
-    });
-    createButton("Stairs 1", () -> {
-      this.defaultPlaceMeant(new Stairs(1));
-    });
-    createButton("Stairs 2", () -> {
-      this.defaultPlaceMeant(new Stairs(2));
-    });
-    createButton("Stairs 3", () -> {
-      this.defaultPlaceMeant(new Stairs(3));
-    });
-    createButton("Stairs 4", () -> {
-      this.defaultPlaceMeant(new Stairs(4));
-    });
-    createButton("Whole Block", () -> {
-      this.defaultPlaceMeant(new Block(0));
-    });
-    createButton("Half Block 0", () -> {
-      this.defaultPlaceMeant(new Block(1));
-    });
-    createButton("Half Block 1", () -> {
-      this.defaultPlaceMeant(new Block(2));
-    });
-    createButton("Eight Block", () -> {
-      this.defaultPlaceMeant(new Block(3));
-    });
+    createButton("Stairs 0", () -> this.defaultPlaceMeant(new Stairs(0)));
+    createButton("Stairs 1", () -> this.defaultPlaceMeant(new Stairs(1)));
+    createButton("Stairs 2", () -> this.defaultPlaceMeant(new Stairs(2)));
+    createButton("Stairs 3", () -> this.defaultPlaceMeant(new Stairs(3)));
+    createButton("Stairs 4", () -> this.defaultPlaceMeant(new Stairs(4)));
+    createButton("Whole Block", () -> this.defaultPlaceMeant(new Block(0)));
+    createButton("Half Block 0", () -> this.defaultPlaceMeant(new Block(1)));
+    createButton("Half Block 1", () -> this.defaultPlaceMeant(new Block(2)));
+    createButton("Eight Block", () -> this.defaultPlaceMeant(new Block(3)));
 
 
     this.setSizes();
