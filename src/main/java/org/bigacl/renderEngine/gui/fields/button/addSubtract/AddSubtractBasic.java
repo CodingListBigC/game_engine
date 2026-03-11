@@ -71,11 +71,13 @@ public abstract class AddSubtractBasic extends ClickAbstract {
   }
 
   public Vector2f getSize(){
+    this.amountOfRows = itemArrayList.size();
     if (this.amountOfRows == 0){
-      return null;
+      return new Vector2f(0);
     }
     float x = this.guiWidth;
     float y = this.amountOfRows * (this.defaultButtonSize.y + this.rowSpacing);
+    System.out.println("Y: " + y);
     return new Vector2f(x,y);
   }
   public void setAmountViewAble(int amountViewAble){
@@ -117,6 +119,13 @@ public abstract class AddSubtractBasic extends ClickAbstract {
       itemArrayList.get(itemNumber).setTextLabel(string);
     }catch (IndexOutOfBoundsException e){
     }
+  }
+
+  public void updateLocation() {
+    for (AddSubtractButtonWithText item : itemArrayList) {
+      item.setItemPosition(new Vector2f(this.location).add(getButtonPos(itemArrayList.indexOf(item))));
+    }
+
   }
 
 }

@@ -25,6 +25,13 @@ public class Text {
     this.type = type;
   }
 
+  public Text(String text, int type, Vector2f position, Vector2f sizeLimits) {
+    this.text = text;
+    this.type = type;
+    this.position = position;
+    this.sizeLimits = sizeLimits;
+  }
+
   public Text() {
   }
 

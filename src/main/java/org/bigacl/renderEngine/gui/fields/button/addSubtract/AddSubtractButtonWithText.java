@@ -164,6 +164,7 @@ public class AddSubtractButtonWithText extends InputWithText {
 
   public void setItemPosition(Vector2f itemPosition) {
     this.itemPosition = itemPosition;
+    setItemPosition();
   }
 
   public void setItemSize(Vector2f itemSize) {

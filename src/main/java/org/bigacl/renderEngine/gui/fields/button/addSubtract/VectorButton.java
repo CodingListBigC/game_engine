@@ -17,6 +17,13 @@ public class VectorButton extends AddSubtractBasic {
     init();
   }
 
+  public VectorButton(float width) {
+    this.guiPosition = new Vector2f(0);
+    this.guiWidth = width;
+    this.size = new Vector2f();
+    init();
+  }
+
   @Override
   public void initButtons() {
     makeAmountOfNewItems(3);

@@ -39,7 +39,8 @@ public abstract class InputWithText<typeOfText extends TextWithBackground> exten
 
   @Override
   public void setLocation(Vector2f location) {
-    // your implementation
+    if (text == null) return;
+    this.text.setPosition(location);
   }
 
   @Override
