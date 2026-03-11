@@ -33,6 +33,17 @@ public class ViewData {
     return position;
   }
 
+  public Vector3f getRotation() {
+    if (viewDataList == null) return null;
+    try {
+      return viewDataList.get(viewIndex).getRotation();
+    } catch (IndexOutOfBoundsException e) {
+    }
+    return null;
+  }
+
+  ;
+
   public void setPosition(Vector3f position) {
     this.position = position;
   }
@@ -48,4 +59,5 @@ public class ViewData {
   public void setViewIndex(int viewIndex) {
     this.viewIndex = viewIndex;
   }
+
 }

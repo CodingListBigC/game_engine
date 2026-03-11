@@ -1,5 +1,7 @@
 package org.bigacl.renderEngine.utils.number.rotation;
 
+import org.joml.Vector3f;
+
 public class RotationXYZ {
   Rotation xValue;
   Rotation yValue;
@@ -32,14 +34,17 @@ public class RotationXYZ {
 
   public void setXValue(double degree) {
     this.xValue.set(degree);
+    this.xValue.checkDegree();
   }
 
   public void setYValue(double degree) {
     this.yValue.set(degree);
+    this.yValue.checkDegree();
   }
 
   public void setZValue(double degree) {
     this.zValue.set(degree);
+    this.zValue.checkDegree();
   }
 
   public void setXValue(RotationFunction.CardinalDirection cardinal) {
@@ -64,5 +69,22 @@ public class RotationXYZ {
 
   public double getZ() {
     return zValue.degree;
+  }
+
+  public void setVector(Vector3f rotationVector) {
+    this.xValue.set(rotationVector.x);
+    this.yValue.set(rotationVector.y);
+    this.zValue.set(rotationVector.z);
+    checkDegree();
+  }
+
+  public Vector3f getVector() {
+    return new Vector3f((float) xValue.degree, (float) yValue.degree, (float) zValue.degree);
+  }
+
+  private void checkDegree() {
+    this.xValue.checkDegree();
+    this.yValue.checkDegree();
+    this.zValue.checkDegree();
   }
 }

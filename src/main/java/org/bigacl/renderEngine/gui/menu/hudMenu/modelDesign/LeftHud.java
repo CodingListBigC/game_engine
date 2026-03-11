@@ -55,12 +55,13 @@ public class LeftHud extends ModelDesignAbstractClass {
     Vector3f changeRotation = this.rotationButton.checkButtonInput(
             mouseLocation,
             mouseAction,
-            HudAbstract.getViewData().getPosition(), 90f
+            HudAbstract.getViewData().getRotation(),
+            90f
     );
 
     try {
       ClassConst.itemMangerAbstract.getDefaultData().get(HudAbstract.getViewData().getViewIndex()).setWorldPosition(changeLocation);
-      //TODO: Add change location function
+      ClassConst.itemMangerAbstract.getDefaultData().get(HudAbstract.getViewData().getViewIndex()).setRotation(changeRotation);
     } catch (IndexOutOfBoundsException ignored) {
 
     }
@@ -69,6 +70,6 @@ public class LeftHud extends ModelDesignAbstractClass {
   @Override
   public void updateText() {
     positionButton.updateText(HudAbstract.getViewData().getPosition());
-    rotationButton.updateText(new Vector3f());
+    rotationButton.updateText(HudAbstract.getViewData().getRotation());
   }
 }

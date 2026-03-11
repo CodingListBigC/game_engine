@@ -43,6 +43,14 @@ public abstract class ModelAbstract {
     updateModelMatrix();
   }
 
+  public Vector3f getRotation() {
+    return rotation.getVector();
+  }
+
+  public void setRotation(Vector3f rotationVector) {
+    rotation.setVector(rotationVector);
+  }
+
   public void cleanup() {
     for (Mesh m : currentMeshes) m.cleanup();
   }

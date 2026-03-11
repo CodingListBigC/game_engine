@@ -27,4 +27,13 @@ public class Rotation {
     this.cardinal = cardinal;
     this.degree = RotationFunction.getRotationInt(cardinal);
   }
+
+  public void checkDegree() {
+    this.degree = this.degree % 360.0f;
+
+    // 2. Handle negative inputs (e.g., -10 becomes 350)
+    if (this.degree < 0) {
+      this.degree += 360.0f;
+    }
+  }
 }
