@@ -9,11 +9,17 @@ public class Stairs extends BuildItemsAbstract {
   }
 
   public Stairs() {
+    super();
     init();
   }
 
   public Stairs(int type) {
+    super();
     this.currentType = type;
     init();
+  }
+
+  public Stairs(Stairs copyStair) {
+    super(copyStair);
   }
 }

@@ -5,6 +5,7 @@ import org.bigacl.renderEngine.gameItems.item.placeable.BasePlaceableItem;
 import org.bigacl.renderEngine.model.mesh.Mesh;
 import org.bigacl.renderEngine.model.mesh.OBJLoader;
 import org.bigacl.renderEngine.model.texture.Texture;
+import org.bigacl.renderEngine.player.BoundingBox;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
 import org.bigacl.renderEngine.utils.Scale;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
@@ -24,6 +25,25 @@ public abstract class BuildItemsAbstract extends BasePlaceableItem {
 
   // Holds the raw parsed data from JSON
   protected BuildItemData rawData;
+
+  public BuildItemsAbstract() {
+    init();
+  }
+
+  public BuildItemsAbstract(BuildItemsAbstract copy) {
+    this.jsonName = copy.jsonName;
+    this.folderPath = copy.folderPath;
+    this.numberOfTypes = copy.numberOfTypes;
+    this.currentType = copy.currentType;
+    this.rawData = copy.rawData;
+    this.name = copy.name;
+    this.baseModel = copy.baseModel;
+    this.amount_of_levels = copy.amount_of_levels;
+    this.type = copy.type;
+    this.level = copy.level;
+    this.isPlaced = copy.isPlaced;
+    this.boundingBox = copy.boundingBox;
+  }
 
   public void init() {
     defaultSettings();

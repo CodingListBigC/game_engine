@@ -4,17 +4,21 @@ package org.bigacl.renderEngine.designItem.building;
 import org.bigacl.renderEngine.designItem.BuildItemsAbstract;
 
 public class Block extends BuildItemsAbstract {
+  public Block(Block copyBlock) {
+    super(copyBlock);
+  }
+
   @Override
   public void defaultSettings() {
     this.folderPath = "modelDesignData/blocks";
   }
 
   public Block() {
-    init();
+    super();
   }
 
   public Block(int type) {
+    super();
     this.currentType = type;
-    init();
   }
 }
