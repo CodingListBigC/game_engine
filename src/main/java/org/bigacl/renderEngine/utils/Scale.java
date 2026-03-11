@@ -27,6 +27,8 @@ public class Scale {
       return (float) SCALE_TO_FT;
     else if ("meter".equalsIgnoreCase(type))
       return 1;
+    else if ("half-meter".equalsIgnoreCase(type))
+      return .5f;
     else
       System.err.println("Type does not have scale: " + type);
     return 1;
