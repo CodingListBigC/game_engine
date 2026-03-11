@@ -1,0 +1,51 @@
+{
+  "name": {
+    "main": "Block",
+    "plural": "Block"
+  },
+  "unit": "half-meter",
+  "amount_of_types": 3,
+  "type": "blocks",
+  "modelTypes": {
+    "0": {
+      "partName": "Single",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "single.obj",
+        "texture": {
+          "0": ""
+        }
+      }
+    },
+    "1": {
+      "partName": "Half 0",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "half_0.obj",
+        "texture": {
+          "default": ""
+        }
+      }
+    },
+    "2": {
+      "partName": "Half 1",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "half_1.obj",
+        "texture": {
+          "default": ""
+        }
+      }
+    },
+    "3": {
+      "partName": "Eight",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "eight.obj",
+        "texture": {
+          "default": ""
+        }
+      }
+    }
+  }
+}

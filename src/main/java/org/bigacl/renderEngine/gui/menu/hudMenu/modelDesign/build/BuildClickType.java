@@ -1,11 +1,8 @@
 package org.bigacl.renderEngine.gui.menu.hudMenu.modelDesign.build;
 
 import org.bigacl.renderEngine.designItem.BuildItemsAbstract;
+import org.bigacl.renderEngine.designItem.building.Block;
 import org.bigacl.renderEngine.designItem.building.Stairs;
-import org.bigacl.renderEngine.gameItems.item.ItemMangerAbstract;
-import org.bigacl.renderEngine.gameItems.item.placeable.BasePlaceableItem;
-import org.bigacl.renderEngine.gameItems.item.placeable.aparment.Apartment;
-import org.bigacl.renderEngine.gameItems.item.placeable.house.House;
 import org.bigacl.renderEngine.gui.fields.button.Button;
 import org.bigacl.renderEngine.gui.fields.button.tables.TableMaster;
 import org.bigacl.renderEngine.utils.ColorSetter;
@@ -53,6 +50,19 @@ public class BuildClickType extends TableMaster<Button> {
     createButton("Stairs 4", () -> {
       this.defaultPlaceMeant(new Stairs(4));
     });
+    createButton("Whole Block", () -> {
+      this.defaultPlaceMeant(new Block(0));
+    });
+    createButton("Half Block 0", () -> {
+      this.defaultPlaceMeant(new Block(1));
+    });
+    createButton("Half Block 1", () -> {
+      this.defaultPlaceMeant(new Block(2));
+    });
+    createButton("Eight Block", () -> {
+      this.defaultPlaceMeant(new Block(3));
+    });
+
 
     this.setSizes();
   }
