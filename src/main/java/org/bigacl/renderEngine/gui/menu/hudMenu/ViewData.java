@@ -60,4 +60,12 @@ public class ViewData {
     this.viewIndex = viewIndex;
   }
 
+  public String getName() {
+    if (viewDataList == null) return null;
+    try {
+      return viewDataList.get(viewIndex).getMainName();
+    } catch (IndexOutOfBoundsException e) {
+    }
+    return null;
+  }
 }

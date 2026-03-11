@@ -1,6 +1,7 @@
 package org.bigacl.renderEngine.gui.menu.hudMenu.modelDesign;
 
 import org.bigacl.renderEngine.gui.drawing.NanoVGUI;
+import org.bigacl.renderEngine.gui.fields.Text;
 import org.bigacl.renderEngine.gui.fields.button.addSubtract.VectorButton;
 import org.bigacl.renderEngine.gameItems.item.ItemMangerMainGame;
 import org.bigacl.renderEngine.gui.menu.hudMenu.HudAbstract;
@@ -17,6 +18,7 @@ public class LeftHud extends ModelDesignAbstractClass {
   float panelWidth;
   float panelHeight;
 
+  Text itemName;
   VectorButton positionButton;
   VectorButton rotationButton;
 
@@ -27,7 +29,9 @@ public class LeftHud extends ModelDesignAbstractClass {
     // This is how wide the actual panel is
     this.panelWidth = screenWidth * widthPercentage;
     this.panelHeight = screenHeight * heightPercentage;
-
+    this.itemName = new Text("Item Name", 1);
+    this.itemName.setSizeLimits(new Vector2f(panelWidth - 20, 40));
+    this.itemName.setPosition(new Vector2f(10, 5));
     this.positionButton = new VectorButton(new Vector2f(0, 50), panelWidth);
     this.rotationButton = new VectorButton(new Vector2f(0, 200), panelWidth);
   }
@@ -39,6 +43,7 @@ public class LeftHud extends ModelDesignAbstractClass {
 
 
     drawSide(false, nanoVGUI, widthPercentage, heightPercentage);
+    this.itemName.render();
     this.positionButton.render();
     this.rotationButton.render();
   }
@@ -71,5 +76,6 @@ public class LeftHud extends ModelDesignAbstractClass {
   public void updateText() {
     positionButton.updateText(HudAbstract.getViewData().getPosition());
     rotationButton.updateText(HudAbstract.getViewData().getRotation());
+    this.itemName.setText(HudAbstract.getViewData().getName());
   }
 }

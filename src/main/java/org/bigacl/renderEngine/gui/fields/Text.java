@@ -2,8 +2,6 @@ package org.bigacl.renderEngine.gui.fields;
 
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.joml.Vector2f;
-import org.joml.Vector3f;
-import org.lwjgl.opencl.CLBusAddressAMD;
 
 import java.awt.*;
 
@@ -19,16 +17,15 @@ public class Text {
   protected Vector2f sizeLimits = new Vector2f();
 
   private Vector2f position = new Vector2f(0.0f);
-  private Color textColor;
+  private Color defaultTextColor = Color.WHITE;
+  private Color textColor = defaultTextColor;
 
   public Text(String text, int type) {
     this.text = text;
     this.type = type;
-    this.textColor = Color.BLACK;
   }
 
   public Text() {
-    this.textColor = Color.WHITE;
   }
 
   public Text(String text, int type, Vector2f position, Color textColor, Vector2f size) {

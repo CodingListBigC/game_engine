@@ -69,7 +69,7 @@ public class SelectButtonSet extends InputSets<SelectButtonWithText> {
 
     viewAmount(list.size());
     for (BasePlaceableItem item : list) {
-      String name = item.mainName();
+      String name = item.getMainName();
       int index = list.indexOf(item);
       String setString = name + ": " + index;
       updateListText(index, setString);

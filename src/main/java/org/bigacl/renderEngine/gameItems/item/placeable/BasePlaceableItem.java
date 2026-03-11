@@ -29,6 +29,7 @@ public abstract class BasePlaceableItem extends ModelAbstract implements ItemInt
   public Map<String, BasePlaceableItem.BaseModelParts> baseModel;
   protected int amount_of_levels;
   protected String type;
+  protected String currentTypeName = null;
   protected Map<String, LevelData> level;
   protected int currentLevel = 1;
   protected boolean isPlaced = false;
@@ -107,7 +108,7 @@ public abstract class BasePlaceableItem extends ModelAbstract implements ItemInt
     }
   }
 
-  public String mainName() {
+  public String getMainName() {
     if (name == null)
       return null;
     return name.main;
