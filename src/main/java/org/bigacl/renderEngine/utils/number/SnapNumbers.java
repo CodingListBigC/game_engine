@@ -11,6 +11,13 @@ public class SnapNumbers {
     this.currentAmount = currentAmount;
   }
 
+  public SnapNumbers(float changeAmount, float currentAmount, float minValue, float maxValue) {
+    this.changeAmount = changeAmount;
+    this.currentAmount = currentAmount;
+    this.minValue = minValue;
+    this.maxValue = maxValue;
+  }
+
   public void addChangeAmount() {
     this.currentAmount += changeAmount;
     checkValues();

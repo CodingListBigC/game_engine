@@ -27,12 +27,12 @@ public class LeftHud extends ModelDesignAbstractClass {
 
   // Position Control
   VectorButton positionButton = new VectorButton(panelWidth);
-  SnapNumbers positionSnap = new SnapNumbers(1, 1);
+  SnapNumbers positionSnap = new SnapNumbers(0.125f, 1, 0, 1);
   AddSubtractButtonWithText editPositionSnapping = new AddSubtractButtonWithText(10);
 
   // Rotation Control
   VectorButton rotationButton = new VectorButton(panelWidth);
-  SnapNumbers rotationSnap = new SnapNumbers(15, 90);
+  SnapNumbers rotationSnap = new SnapNumbers(15, 90, 0, 360);
   AddSubtractButtonWithText editRotationSnapping = new AddSubtractButtonWithText(10);
 
   public LeftHud() {
