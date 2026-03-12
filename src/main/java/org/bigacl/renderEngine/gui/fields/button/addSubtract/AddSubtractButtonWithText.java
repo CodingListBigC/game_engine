@@ -44,6 +44,7 @@ public class AddSubtractButtonWithText extends InputWithText {
     this.itemSize = new Vector2f();
     this.spacing = 20;
     this.buttonWidth = 20;
+    initDefault();
   }
 
   private void initDefault() {
@@ -53,6 +54,9 @@ public class AddSubtractButtonWithText extends InputWithText {
     this.text = new TextWithBackground("0");
     this.addBtn = new Button("+", mainCode + "-1", buttonSize, Color.darkGray, Color.white);
     this.subBtn = new Button("-", mainCode + "-2", buttonSize, Color.darkGray, Color.white);
+
+    this.addBtn.setSize(buttonSize);
+    this.subBtn.setSize(buttonSize);
     // Set there position
     setItemPosition();
 
@@ -72,8 +76,10 @@ public class AddSubtractButtonWithText extends InputWithText {
   private void setItemPosition() {
     Vector2f addBtnRenderPosition = new Vector2f(this.addBtnPosition).add(this.itemPosition);
     this.addBtn.setLocation(addBtnRenderPosition);
+    this.addBtn.setSize(buttonSize);
     Vector2f subBtnRenderPosition = new Vector2f(this.subBtnPosition).add(this.itemPosition);
     this.subBtn.setLocation(subBtnRenderPosition);
+    this.subBtn.setSize(buttonSize);
     Vector2f textRenderPosition = new Vector2f(this.textPosition).add(this.itemPosition);
     text.setPosition(textRenderPosition);
     Vector2f textLimitsSize = new Vector2f(itemSize.x - ((this.spacing * 4) + (this.buttonWidth * 2)), itemSize.y);
@@ -165,10 +171,13 @@ public class AddSubtractButtonWithText extends InputWithText {
   public void setItemPosition(Vector2f itemPosition) {
     this.itemPosition = itemPosition;
     setItemPosition();
+    setSizes();
   }
 
   public void setItemSize(Vector2f itemSize) {
     this.itemSize = itemSize;
+    setSizes();
+    setItemPosition();
   }
 }
 
