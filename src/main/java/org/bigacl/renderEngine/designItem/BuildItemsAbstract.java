@@ -70,7 +70,7 @@ public abstract class BuildItemsAbstract extends BasePlaceableItem {
           this.name = (rawData.name != null) ? rawData.name : new BuildItemData.NameInfo();
           this.unit = (rawData.unit != null) ? rawData.unit : "meter";
           this.scale = Scale.getScale(this.unit);
-          this.numberOfTypes = rawData.number_of_types;
+          this.numberOfTypes = rawData.modelTypes.size();
         }
       }
     } catch (Exception e) {
