@@ -9,7 +9,7 @@
       "partName": "Roof Type 1: 1-1-1",
       "defaultFacing": 0,
       "separateParts": {
-        "model": "type_1/T1_-1-1-1.obj",
+        "model": "type_1/T1_1-1-1.obj",
         "texture": {
           "0": ""
         }
@@ -19,7 +19,7 @@
       "partName": "Roof Type 1: 1-1-2",
       "defaultFacing": 0,
       "separateParts": {
-        "model": "type_1/T1_-1-1-2.obj",
+        "model": "type_1/T1_1-1-2.obj",
         "texture": {
           "0": ""
         }
@@ -29,7 +29,7 @@
       "partName": "Roof Type 1: 1-2-1",
       "defaultFacing": 0,
       "separateParts": {
-        "model": "type_1/T1_-1-2-1.obj",
+        "model": "type_1/T1_1-2-1.obj",
         "texture": {
           "0": ""
         }
@@ -39,7 +39,7 @@
       "partName": "Roof Type 1: 1-2-2",
       "defaultFacing": 0,
       "separateParts": {
-        "model": "type_1/T1_-1-2-2.obj",
+        "model": "type_1/T1_1-2-2.obj",
         "texture": {
           "0": ""
         }
@@ -49,7 +49,7 @@
       "partName": "Roof Type 1: 2-1-1",
       "defaultFacing": 0,
       "separateParts": {
-        "model": "type_1/T1_-2-1-1.obj",
+        "model": "type_1/T1_2-1-1.obj",
         "texture": {
           "0": ""
         }
@@ -59,7 +59,7 @@
       "partName": "Roof Type 1: 2-1-2",
       "defaultFacing": 0,
       "separateParts": {
-        "model": "type_1/T1_-2-1-2.obj",
+        "model": "type_1/T1_2-1-2.obj",
         "texture": {
           "0": ""
         }
@@ -69,7 +69,7 @@
       "partName": "Roof Type 1: 2-2-1",
       "defaultFacing": 0,
       "separateParts": {
-        "model": "type_1/T1_-2-2-1.obj",
+        "model": "type_1/T1_2-2-1.obj",
         "texture": {
           "0": ""
         }
@@ -79,7 +79,7 @@
       "partName": "Roof Type 1: 2-2-2",
       "defaultFacing": 0,
       "separateParts": {
-        "model": "type_1/T1_-2-2-2.obj",
+        "model": "type_1/T1_2-2-2.obj",
         "texture": {
           "0": ""
         }
@@ -89,7 +89,7 @@
       "partName": "Roof Type 2: 1-1-1",
       "defaultFacing": 0,
       "separateParts": {
-        "model": "type_2/T2_-1-1-1.obj",
+        "model": "type_2/T2-1-1-1.obj",
         "texture": {
           "0": ""
         }
@@ -99,7 +99,7 @@
       "partName": "Roof Type 2: 1-1-2",
       "defaultFacing": 0,
       "separateParts": {
-        "model": "type_2/T2_-1-1-2.obj",
+        "model": "type_2/T2-1-1-2.obj",
         "texture": {
           "0": ""
         }
@@ -109,7 +109,7 @@
       "partName": "Roof Type 2: 1-2-1",
       "defaultFacing": 0,
       "separateParts": {
-        "model": "type_2/T2_-1-2-1.obj",
+        "model": "type_2/T2-1-2-1.obj",
         "texture": {
           "0": ""
         }
@@ -119,7 +119,7 @@
       "partName": "Roof Type 2: 1-2-2",
       "defaultFacing": 0,
       "separateParts": {
-        "model": "type_2/T2_-1-2-2.obj",
+        "model": "type_2/T2-1-2-2.obj",
         "texture": {
           "0": ""
         }
@@ -129,7 +129,7 @@
       "partName": "Roof Type 2: 2-1-1",
       "defaultFacing": 0,
       "separateParts": {
-        "model": "type_2/T2_-2-1-1.obj",
+        "model": "type_2/T2-2-1-1.obj",
         "texture": {
           "0": ""
         }
@@ -139,7 +139,7 @@
       "partName": "Roof Type 2: 2-1-2",
       "defaultFacing": 0,
       "separateParts": {
-        "model": "type_2/T2_-2-1-2.obj",
+        "model": "type_2/T2-2-1-2.obj",
         "texture": {
           "0": ""
         }
@@ -149,7 +149,7 @@
       "partName": "Roof Type 2: 2-2-1",
       "defaultFacing": 0,
       "separateParts": {
-        "model": "type_2/T2_-2-2-1.obj",
+        "model": "type_2/T2-2-2-1.obj",
         "texture": {
           "0": ""
         }
@@ -159,7 +159,7 @@
       "partName": "Roof Type 2: 2-2-2",
       "defaultFacing": 0,
       "separateParts": {
-        "model": "type_2/T2_-2-2-2.obj",
+        "model": "type_2/T2-2-2-2.obj",
         "texture": {
           "0": ""
         }

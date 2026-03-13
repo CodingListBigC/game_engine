@@ -168,4 +168,8 @@ public abstract class BuildItemsAbstract extends BasePlaceableItem {
   public String getCurrentName() {
     return currentName;
   }
+
+  public int getNumberOfTypes() {
+    return numberOfTypes;
+  }
 }

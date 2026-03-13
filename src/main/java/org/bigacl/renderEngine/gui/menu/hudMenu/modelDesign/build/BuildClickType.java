@@ -2,6 +2,7 @@ package org.bigacl.renderEngine.gui.menu.hudMenu.modelDesign.build;
 
 import org.bigacl.renderEngine.designItem.BuildItemsAbstract;
 import org.bigacl.renderEngine.designItem.building.Block;
+import org.bigacl.renderEngine.designItem.building.Roof;
 import org.bigacl.renderEngine.designItem.building.Stairs;
 import org.bigacl.renderEngine.gui.fields.button.Button;
 import org.bigacl.renderEngine.gui.fields.button.tables.TableMaster;
@@ -45,8 +46,18 @@ public class BuildClickType extends TableMaster<Button> {
     createButton("Half Block 1", () -> this.defaultPlaceMeant(new Block(2)));
     createButton("Eight Block", () -> this.defaultPlaceMeant(new Block(3)));
 
+    initRoofButtons();
 
     this.setSizes();
+  }
+
+  private void initRoofButtons() {
+    Roof testRoof = new Roof(0);
+    int amountOfRoof = testRoof.getNumberOfTypes();
+    for (int currentItemType = 0; currentItemType < amountOfRoof; currentItemType++) {
+      Roof newRoof = new Roof(currentItemType);
+      createButton(newRoof.getCurrentName(), () -> this.defaultPlaceMeant(newRoof));
+    }
   }
 
   public void createButton(String name, Runnable run) {
