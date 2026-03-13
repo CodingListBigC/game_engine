@@ -1,0 +1,169 @@
+{
+  "main": {
+    "main": "Roof",
+    "plural": "Roofs"
+  },
+  "unit": "feet",
+  "modelTypes": {
+    "0": {
+      "partName": "Roof Type 1: 1-1-1",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "type_1/T1_-1-1-1.obj",
+        "texture": {
+          "0": ""
+        }
+      }
+    },
+    "1": {
+      "partName": "Roof Type 1: 1-1-2",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "type_1/T1_-1-1-2.obj",
+        "texture": {
+          "0": ""
+        }
+      }
+    },
+    "2": {
+      "partName": "Roof Type 1: 1-2-1",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "type_1/T1_-1-2-1.obj",
+        "texture": {
+          "0": ""
+        }
+      }
+    },
+    "3": {
+      "partName": "Roof Type 1: 1-2-2",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "type_1/T1_-1-2-2.obj",
+        "texture": {
+          "0": ""
+        }
+      }
+    },
+    "4": {
+      "partName": "Roof Type 1: 2-1-1",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "type_1/T1_-2-1-1.obj",
+        "texture": {
+          "0": ""
+        }
+      }
+    },
+    "5": {
+      "partName": "Roof Type 1: 2-1-2",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "type_1/T1_-2-1-2.obj",
+        "texture": {
+          "0": ""
+        }
+      }
+    },
+    "6": {
+      "partName": "Roof Type 1: 2-2-1",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "type_1/T1_-2-2-1.obj",
+        "texture": {
+          "0": ""
+        }
+      }
+    },
+    "7": {
+      "partName": "Roof Type 1: 2-2-2",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "type_1/T1_-2-2-2.obj",
+        "texture": {
+          "0": ""
+        }
+      }
+    },
+    "8": {
+      "partName": "Roof Type 2: 1-1-1",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "type_2/T2_-1-1-1.obj",
+        "texture": {
+          "0": ""
+        }
+      }
+    },
+    "9": {
+      "partName": "Roof Type 2: 1-1-2",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "type_2/T2_-1-1-2.obj",
+        "texture": {
+          "0": ""
+        }
+      }
+    },
+    "10": {
+      "partName": "Roof Type 2: 1-2-1",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "type_2/T2_-1-2-1.obj",
+        "texture": {
+          "0": ""
+        }
+      }
+    },
+    "11": {
+      "partName": "Roof Type 2: 1-2-2",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "type_2/T2_-1-2-2.obj",
+        "texture": {
+          "0": ""
+        }
+      }
+    },
+    "12": {
+      "partName": "Roof Type 2: 2-1-1",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "type_2/T2_-2-1-1.obj",
+        "texture": {
+          "0": ""
+        }
+      }
+    },
+    "13": {
+      "partName": "Roof Type 2: 2-1-2",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "type_2/T2_-2-1-2.obj",
+        "texture": {
+          "0": ""
+        }
+      }
+    },
+    "14": {
+      "partName": "Roof Type 2: 2-2-1",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "type_2/T2_-2-2-1.obj",
+        "texture": {
+          "0": ""
+        }
+      }
+    },
+    "15": {
+      "partName": "Roof Type 2: 2-2-2",
+      "defaultFacing": 0,
+      "separateParts": {
+        "model": "type_2/T2_-2-2-2.obj",
+        "texture": {
+          "0": ""
+        }
+      }
+    }
+  }
+}
