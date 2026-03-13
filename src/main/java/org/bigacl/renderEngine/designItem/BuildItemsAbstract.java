@@ -26,6 +26,8 @@ public abstract class BuildItemsAbstract extends BasePlaceableItem {
   // Holds the raw parsed data from JSON
   protected BuildItemData rawData;
 
+  protected String currentName = "";
+
   public BuildItemsAbstract() {
     init();
   }
@@ -97,6 +99,11 @@ public abstract class BuildItemsAbstract extends BasePlaceableItem {
     try {
       String partFileName = typeDetails.separateParts.model;
       String textureFile = typeDetails.separateParts.texture.values().stream().findFirst().orElse(null);
+      String oldName = this.currentName;
+      this.currentName = typeDetails.partName;
+      if (this.currentName == null) {
+        this.currentName = oldName;
+      }
       if (partFileName != null) {
         Mesh mesh = OBJLoader.loadOBJ(folderPath + "/" + partFileName);
 
@@ -156,5 +163,9 @@ public abstract class BuildItemsAbstract extends BasePlaceableItem {
     for (Mesh mesh : currentMeshes) {
       mesh.render(modelMatrix);
     }
+  }
+
+  public String getCurrentName() {
+    return currentName;
   }
 }
