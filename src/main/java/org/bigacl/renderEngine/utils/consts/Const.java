@@ -5,7 +5,6 @@ import org.joml.Vector3f;
 import org.joml.Vector4f;
 
 public class Const {
-  public static final float SNAP_AMOUNT = 10;
   public static String WINDOW_TITLE = "Bigacl Window";
   /**
    * Padding for text
@@ -17,6 +16,5 @@ public class Const {
    */
   public static int hudMode = 0;
 
-  public static Vector3f DEFAULT_TEXT_COLOR = new Vector3f(1.0f);
-  public static Vector4f DEFAULT_BACKGROUND_COLOR = new Vector4f(0f,0f,0f,1.0f);
+  public static Vector2f DEFAULT_BUTTON_SIZE = new Vector2f(25, 25);
 }
