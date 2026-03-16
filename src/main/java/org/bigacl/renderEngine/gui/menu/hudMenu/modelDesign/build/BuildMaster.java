@@ -67,8 +67,8 @@ public class BuildMaster extends ModelDesignAbstractClass {
 
   private void makeClickMenu() {
     Vector2f size = new Vector2f(500, 500);
-    Vector2i tableSize = new Vector2i(5, 5);
-    buildClickType.setTableSize(size);
+    Vector2i tableSize = new Vector2i(4, 4);
+    buildClickType.setWholeItemSize(size);
     buildClickType.setRowColumns(tableSize);
     buildClickType.setTableLocation(new Vector2f((screenWidth / 2) - (size.x / 2), (screenHeight / 2) - (size.y / 2)));
 

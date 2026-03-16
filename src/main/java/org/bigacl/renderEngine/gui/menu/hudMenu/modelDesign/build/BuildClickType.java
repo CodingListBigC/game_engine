@@ -27,12 +27,16 @@ public class BuildClickType extends TableMaster<Button> {
   public void checkClick(Vector2d mouseLocation) {
 
     for (Button item : this.getItemArray()) {
-      if (item.isHovered(mouseLocation)) {
+      int itemIndex = itemArray.indexOf(item);
+      int itemPage = getPage(itemIndex);
+      if (item.isHovered(mouseLocation) && itemPage == this.currentPage.getValue() - 1) {
         item.onClick();
         return;
-
       }
     }
+
+    this.checkClickDefault(mouseLocation);
+
   }
 
   public void initButtons() {
