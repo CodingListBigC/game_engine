@@ -2,15 +2,19 @@ package org.bigacl.renderEngine.gui.menu.hudMenu.modelDesign;
 
 import org.bigacl.renderEngine.gui.drawing.NanoVGUI;
 import org.bigacl.renderEngine.gui.fields.Text;
+import org.bigacl.renderEngine.gui.fields.button.Button;
 import org.bigacl.renderEngine.gui.fields.button.addSubtract.AddSubtractButtonWithText;
 import org.bigacl.renderEngine.gui.fields.button.addSubtract.VectorButton;
 import org.bigacl.renderEngine.gui.menu.hudMenu.HudAbstract;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
+import org.bigacl.renderEngine.utils.consts.Const;
 import org.bigacl.renderEngine.utils.number.SnapNumbers;
 import org.joml.Vector2d;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
+
+import java.awt.*;
 
 public class LeftHud extends ModelDesignAbstractClass {
 
@@ -35,6 +39,9 @@ public class LeftHud extends ModelDesignAbstractClass {
   SnapNumbers rotationSnap = new SnapNumbers(15, 90, 0, 360);
   AddSubtractButtonWithText editRotationSnapping = new AddSubtractButtonWithText(10);
 
+  // Delete Button
+  Button deleteButton = new Button("Delete", Color.DARK_GRAY, Color.BLACK);
+
   public LeftHud() {
     setSizes();
     setPosition();
@@ -43,6 +50,7 @@ public class LeftHud extends ModelDesignAbstractClass {
   private void setSizes() {
     positionButton.setAmountViewAble(3);
     rotationButton.setAmountViewAble(3);
+    this.deleteButton.setSize(new Vector2f((float) (this.panelWidth * .5), Const.DEFAULT_BUTTON_SIZE.y));
   }
 
   private void setPosition() {
@@ -76,6 +84,11 @@ public class LeftHud extends ModelDesignAbstractClass {
     // 5. Rotation Vector
     this.rotationButton.setLocation(new Vector2f(leftXOffset, currentY));
     this.rotationButton.updateLocation();
+    currentY += this.rotationButton.getSize().y + ySpacing;
+
+    // 6. Delete Button
+    this.deleteButton.setLocation(new Vector2f(((float) usableWidth / 2) - (this.deleteButton.getSize().x / 2), currentY));
+    this.deleteButton.setVisible(true);
   }
 
   @Override
@@ -84,6 +97,10 @@ public class LeftHud extends ModelDesignAbstractClass {
     NanoVGUI nanoVGUI = ClassConst.nanoVGUI;
 
     drawSide(false, nanoVGUI, widthPercentage, heightPercentage);
+
+    if (ClassConst.itemMangerAbstract.getDefaultData().isEmpty()) {
+      return;
+    }
 
     // Text Render
     this.itemName.render();
@@ -95,12 +112,12 @@ public class LeftHud extends ModelDesignAbstractClass {
     // Single Add Subtract Buttons
     this.editPositionSnapping.render();
     this.editRotationSnapping.render();
+    this.deleteButton.render();
   }
 
   @Override
   public void checkHudInputs(Vector2d mouseLocation, int mouseAction) {
     // Tip: Use renderer value from editPositionSnapping instead of hardcoded 1.0f
-    float snapValue = 1.0f; // TODO: Pull from editPositionSnapping.getValue()
 
     Vector3f newPos = this.positionButton.checkButtonInput(
             mouseLocation, mouseAction, HudAbstract.getViewData().getPosition(), positionSnap.getCurrentAmount()
@@ -116,7 +133,7 @@ public class LeftHud extends ModelDesignAbstractClass {
     try {
       items.get(index).setWorldPosition(newPos);
       items.get(index).setRotation(newRot);
-    } catch (IndexOutOfBoundsException e) {
+    } catch (IndexOutOfBoundsException ignored) {
     }
 
     if (mouseAction == GLFW.GLFW_MOUSE_BUTTON_LEFT) {
@@ -124,6 +141,10 @@ public class LeftHud extends ModelDesignAbstractClass {
       int rotationSnapChange = this.editRotationSnapping.getInfo(mouseLocation);
       this.positionSnap.changeByInt(positionSnapChange);
       this.rotationSnap.changeByInt(rotationSnapChange);
+    }
+
+    if (deleteButton.checkClickable(mouseLocation, mouseAction)) {
+      viewData.deleteSelected();
     }
   }
 

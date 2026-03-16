@@ -77,5 +77,9 @@ public abstract class ClickAbstract extends InputInterface {
   public void setSize(Vector2f size) {
     this.size = size;
   }
+
+  public Vector2f getSize() {
+    return new Vector2f(this.size);
+  }
 }
 

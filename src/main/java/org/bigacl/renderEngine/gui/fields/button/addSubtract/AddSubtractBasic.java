@@ -1,6 +1,7 @@
 package org.bigacl.renderEngine.gui.fields.button.addSubtract;
 
 import org.bigacl.renderEngine.gui.fields.button.ClickAbstract;
+import org.bigacl.renderEngine.utils.consts.Const;
 import org.joml.Vector2d;
 import org.joml.Vector2f;
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 
 public abstract class AddSubtractBasic extends ClickAbstract {
   // Default Button Size
-  Vector2f defaultButtonSize = new Vector2f(25, 25);
+  Vector2f defaultButtonSize = new Vector2f(Const.DEFAULT_BUTTON_SIZE);
   Color defaultButtonBackgroundColor = new Color(.2f,.2f,.2f,.2f);
   Color defaultButtonTextColor = Color.white;
   Color defaultTextColor = new Color(1, 0, 0);

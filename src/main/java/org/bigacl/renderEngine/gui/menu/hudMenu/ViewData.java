@@ -1,6 +1,8 @@
 package org.bigacl.renderEngine.gui.menu.hudMenu;
 
+import org.bigacl.renderEngine.gameItems.item.ItemMangerAbstract;
 import org.bigacl.renderEngine.gameItems.item.placeable.BasePlaceableItem;
+import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.bigacl.renderEngine.utils.consts.ItemConst;
 import org.joml.Vector3f;
 
@@ -9,6 +11,9 @@ import java.util.ArrayList;
 public class ViewData {
   Vector3f position;
   ArrayList<? extends BasePlaceableItem> viewDataList;
+  /**
+   * Get current item viewing in menu
+   */
   int viewIndex;
   ItemConst.BasicPlaceableTypes lastViewType;
   ItemConst.BasicPlaceableTypes viewType = ItemConst.BasicPlaceableTypes.ALL;
@@ -67,5 +72,9 @@ public class ViewData {
     } catch (IndexOutOfBoundsException e) {
     }
     return null;
+  }
+
+  public void deleteSelected() {
+    ClassConst.itemMangerAbstract.removeItemDefaultData(viewIndex);
   }
 }

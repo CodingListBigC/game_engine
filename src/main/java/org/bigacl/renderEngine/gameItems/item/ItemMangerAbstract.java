@@ -72,5 +72,11 @@ public abstract class ItemMangerAbstract<renderItem extends BasePlaceableItem, i
     }
   }
 
-  ;
+  public void removeItemDefaultData(int index) {
+    try {
+      this.allItems.remove(index);
+    } catch (Exception e) {
+    }
+  }
+
 }
