@@ -37,8 +37,13 @@ public class BuildMaster extends ModelDesignAbstractClass {
   private void leftClickInput(Vector2d mouseLocation) {
     if (openCloseBtn.isHovered(mouseLocation)) {
       menuStatus = !menuStatus;
+      return;
     }
-    buildClickType.checkClick(mouseLocation);
+
+    // Only check input if table is open.
+    if (this.menuStatus) {
+      buildClickType.checkClick(mouseLocation);
+    }
 
   }
 
