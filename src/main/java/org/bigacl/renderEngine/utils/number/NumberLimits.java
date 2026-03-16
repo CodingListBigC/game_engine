@@ -29,7 +29,7 @@ public class NumberLimits {
   /**
    * Set limits of number
    */
-  public void setLimits(int max, int min) {
+  public void setLimits(int min, int max) {
     this.max = max;
     this.min = min;
     this.difference = this.max - this.min;
