@@ -65,8 +65,8 @@ public class AddSubtractButtonWithText extends InputWithText {
 
   public void setSizes() {
     this.buttonSize = new Vector2f(this.buttonWidth, this.itemSize.y);
-    this.addBtnPosition = new Vector2f(this.spacing, 0);
-    this.subBtnPosition = new Vector2f(this.itemSize.x - this.spacing - this.buttonSize.x, 0);
+    this.addBtnPosition = new Vector2f(this.itemSize.x - this.spacing - this.buttonSize.x, 0);
+    this.subBtnPosition = new Vector2f(this.spacing, 0);
     float sideTextPadding = (this.spacing * 2) + this.buttonSize.x;
     float textWidth = this.itemSize.x - (sideTextPadding * 2);
     this.textPosition = new Vector2f(sideTextPadding, 0.0f);
