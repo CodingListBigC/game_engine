@@ -5,4 +5,8 @@ import org.bigacl.renderEngine.utils.consts.ItemConst;
 
 public class ItemMangerMainGame extends ItemMangerAbstract<BasePlaceableItem, ItemConst.BasicPlaceableTypes> {
 
+  @Override
+  public void copyItemDefaultData(int viewIndex) {
+
+  }
 }

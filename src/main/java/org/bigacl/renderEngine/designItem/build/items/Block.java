@@ -21,4 +21,9 @@ public class Block extends BuildItemsAbstract {
     super();
     this.currentType = type;
   }
+
+  @Override
+  public Block copy() {
+    return new Block(this); // Now this works because House is not abstract
+  }
 }

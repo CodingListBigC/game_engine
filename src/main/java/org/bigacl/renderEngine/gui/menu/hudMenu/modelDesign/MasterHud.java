@@ -28,7 +28,7 @@ public class MasterHud extends ModelDesignAbstractClass {
   HudAbstract leftMenu = new LeftHud();
   HudAbstract rightMenu = new RightHud();
   BuildMaster buildMaster = new BuildMaster();
-  Button saveButton = new Button("Updaet", Color.BLUE, Color.WHITE);
+  Button saveButton = new Button("Save Model", Color.BLUE, Color.WHITE);
 
   public MasterHud() {
     debugMenu = new DebugMenu();

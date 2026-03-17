@@ -79,4 +79,5 @@ public abstract class ItemMangerAbstract<renderItem extends BasePlaceableItem, i
     }
   }
 
+  public abstract void copyItemDefaultData(int viewIndex);
 }

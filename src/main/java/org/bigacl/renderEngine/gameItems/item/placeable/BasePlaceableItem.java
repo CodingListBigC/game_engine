@@ -114,6 +114,10 @@ public abstract class BasePlaceableItem extends ModelAbstract implements ItemInt
     return name.main;
   }
 
+  public Object copy() {
+    return null;
+  }
+
   // --- Data Structures for GSON ---
   public static class NameData { public String main, plural; }
   public static class BaseModelParts {

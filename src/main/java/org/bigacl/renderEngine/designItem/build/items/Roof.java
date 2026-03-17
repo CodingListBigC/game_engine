@@ -20,4 +20,9 @@ public class Roof extends BuildItemsAbstract {
   public Roof(Roof copy) {
     super(copy);
   }
+
+  @Override
+  public Roof copy() {
+    return new Roof(this); // Now this works because House is not abstract
+  }
 }
