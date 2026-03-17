@@ -174,4 +174,7 @@ public abstract class BuildItemsAbstract extends BasePlaceableItem {
   public int getCurrentType() {
     return currentType;
   }
+
+  @Override
+  public abstract Object copy();
 }

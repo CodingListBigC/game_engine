@@ -22,4 +22,9 @@ public class Stairs extends BuildItemsAbstract {
   public Stairs(Stairs copyStair) {
     super(copyStair);
   }
+
+  @Override
+  public Stairs copy() {
+    return new Stairs(this); // Now this works because House is not abstract
+  }
 }
