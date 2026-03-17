@@ -1,11 +1,10 @@
-package org.bigacl.renderEngine.designItem;
+package org.bigacl.renderEngine.designItem.build;
 
 import com.google.gson.Gson;
 import org.bigacl.renderEngine.gameItems.item.placeable.BasePlaceableItem;
 import org.bigacl.renderEngine.model.mesh.Mesh;
 import org.bigacl.renderEngine.model.mesh.OBJLoader;
 import org.bigacl.renderEngine.model.texture.Texture;
-import org.bigacl.renderEngine.player.BoundingBox;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
 import org.bigacl.renderEngine.utils.Scale;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
@@ -14,7 +13,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Map;
 
 public abstract class BuildItemsAbstract extends BasePlaceableItem {
   protected String jsonName = "default.json";
@@ -45,6 +43,8 @@ public abstract class BuildItemsAbstract extends BasePlaceableItem {
     this.level = copy.level;
     this.isPlaced = copy.isPlaced;
     this.boundingBox = copy.boundingBox;
+    this.scale = copy.scale;
+    this.worldPosition = copy.worldPosition;
   }
 
   public void init() {
@@ -72,7 +72,7 @@ public abstract class BuildItemsAbstract extends BasePlaceableItem {
           this.name = (rawData.name != null) ? rawData.name : new BuildItemData.NameInfo();
           this.unit = (rawData.unit != null) ? rawData.unit : "meter";
           this.scale = Scale.getScale(this.unit);
-          this.numberOfTypes = rawData.modelTypes.size();
+          this.numberOfTypes = rawData.modelTypes.size() - 1;
         }
       }
     } catch (Exception e) {
@@ -172,4 +172,11 @@ public abstract class BuildItemsAbstract extends BasePlaceableItem {
   public int getNumberOfTypes() {
     return numberOfTypes;
   }
+
+  public int getCurrentType() {
+    return currentType;
+  }
+
+  @Override
+  public abstract Object copy();
 }

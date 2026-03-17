@@ -1,9 +1,9 @@
 package org.bigacl.renderEngine.gui.menu.hudMenu.modelDesign.build;
 
-import org.bigacl.renderEngine.designItem.BuildItemsAbstract;
-import org.bigacl.renderEngine.designItem.building.Block;
-import org.bigacl.renderEngine.designItem.building.Roof;
-import org.bigacl.renderEngine.designItem.building.Stairs;
+import org.bigacl.renderEngine.designItem.build.BuildItemsAbstract;
+import org.bigacl.renderEngine.designItem.build.items.Block;
+import org.bigacl.renderEngine.designItem.build.items.Roof;
+import org.bigacl.renderEngine.designItem.build.items.Stairs;
 import org.bigacl.renderEngine.gui.fields.button.Button;
 import org.bigacl.renderEngine.gui.fields.button.tables.TableMaster;
 import org.bigacl.renderEngine.utils.ColorSetter;

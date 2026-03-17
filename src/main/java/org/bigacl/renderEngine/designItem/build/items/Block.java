@@ -1,7 +1,7 @@
-package org.bigacl.renderEngine.designItem.building;
+package org.bigacl.renderEngine.designItem.build.items;
 
 
-import org.bigacl.renderEngine.designItem.BuildItemsAbstract;
+import org.bigacl.renderEngine.designItem.build.BuildItemsAbstract;
 
 public class Block extends BuildItemsAbstract {
   public Block(Block copyBlock) {
@@ -20,5 +20,10 @@ public class Block extends BuildItemsAbstract {
   public Block(int type) {
     super();
     this.currentType = type;
+  }
+
+  @Override
+  public Block copy() {
+    return new Block(this); // Now this works because House is not abstract
   }
 }

@@ -1,6 +1,6 @@
-package org.bigacl.renderEngine.designItem.building;
+package org.bigacl.renderEngine.designItem.build.items;
 
-import org.bigacl.renderEngine.designItem.BuildItemsAbstract;
+import org.bigacl.renderEngine.designItem.build.BuildItemsAbstract;
 
 public class Stairs extends BuildItemsAbstract {
   @Override
@@ -21,5 +21,10 @@ public class Stairs extends BuildItemsAbstract {
 
   public Stairs(Stairs copyStair) {
     super(copyStair);
+  }
+
+  @Override
+  public Stairs copy() {
+    return new Stairs(this); // Now this works because House is not abstract
   }
 }

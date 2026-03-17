@@ -41,6 +41,10 @@ public class LeftHud extends ModelDesignAbstractClass {
 
   // Delete Button
   Button deleteButton = new Button("Delete", Color.DARK_GRAY, Color.BLACK);
+  // Copy Button
+  Button copyButton = new Button("Copy", Color.DARK_GRAY, Color.BLACK);
+  // Change Type Button
+  Button changeTypeButton = new Button("Change Type Button", Color.DARK_GRAY, Color.BLACK);
 
   public LeftHud() {
     setSizes();
@@ -55,42 +59,54 @@ public class LeftHud extends ModelDesignAbstractClass {
     this.editPositionSnapping.setItemSize(new Vector2f(usableWidth, Const.DEFAULT_BUTTON_SIZE.y));
     this.editRotationSnapping.setItemSize(new Vector2f(usableWidth, Const.DEFAULT_BUTTON_SIZE.y));
     this.deleteButton.setSize(new Vector2f((float) (this.panelWidth * .5), Const.DEFAULT_BUTTON_SIZE.y));
+    this.copyButton.setSize(new Vector2f((float) (this.panelWidth * .5), Const.DEFAULT_BUTTON_SIZE.y));
+    this.changeTypeButton.setSize(new Vector2f((float) (this.panelWidth * .75), Const.DEFAULT_BUTTON_SIZE.y));
   }
 
   private void setPosition() {
     float currentY = this.startY;
     int ySpacing = 10;
-    int leftXOffset = 10;
-    int usableWidth = (int) (panelWidth - (leftXOffset * 2));
+    int xOffset = 10;
+    int usableWidth = (int) (panelWidth - (xOffset * 2));
 
     // 1. Item Name
-    this.itemName.setPosition(new Vector2f(leftXOffset, currentY));
+    this.itemName.setPosition(new Vector2f(xOffset, currentY));
     this.itemName.setSizeLimits(new Vector2f(usableWidth, 40));
     currentY += 40 + ySpacing;
 
     // 2. Snapping Button (Was missing setLocation!)
     this.editPositionSnapping.setVisible(true);
-    this.editPositionSnapping.setItemPosition(new Vector2f(leftXOffset, currentY));
+    this.editPositionSnapping.setItemPosition(new Vector2f(xOffset, currentY));
     currentY += 40 + ySpacing;
 
     // 3. Position Vector
-    this.positionButton.setLocation(new Vector2f(leftXOffset, currentY));
+    this.positionButton.setLocation(new Vector2f(xOffset, currentY));
     this.positionButton.updateLocation();
     currentY += this.positionButton.getSize().y + ySpacing;
 
     // 4. Rotation Snapping Button (Was missing setLocation!)
     this.editRotationSnapping.setVisible(true);
-    this.editRotationSnapping.setItemPosition(new Vector2f(leftXOffset, currentY));
+    this.editRotationSnapping.setItemPosition(new Vector2f(xOffset, currentY));
     currentY += 40 + ySpacing;
 
     // 5. Rotation Vector
-    this.rotationButton.setLocation(new Vector2f(leftXOffset, currentY));
+    this.rotationButton.setLocation(new Vector2f(xOffset, currentY));
     this.rotationButton.updateLocation();
     currentY += this.rotationButton.getSize().y + ySpacing;
 
     // 6. Delete Button
-    this.deleteButton.setLocation(new Vector2f(((float) usableWidth / 2) - (this.deleteButton.getSize().x / 2), currentY));
+    this.deleteButton.setLocation(new Vector2f(((float) usableWidth / 2) - (this.deleteButton.getSize().x / 2) + xOffset, currentY));
     this.deleteButton.setVisible(true);
+    currentY += this.deleteButton.getSize().y + ySpacing;
+
+    // 7. Copy Button
+    this.copyButton.setLocation(new Vector2f(((float) usableWidth / 2) - (this.copyButton.getSize().x / 2) + xOffset, currentY));
+    this.copyButton.setVisible(true);
+    currentY += this.copyButton.getSize().y + ySpacing;
+
+    // 8. Change Type Button
+    this.changeTypeButton.setLocation(new Vector2f(((float) usableWidth / 2) - (this.copyButton.getSize().x / 2) + xOffset, currentY));
+    this.changeTypeButton.setVisible(true);
   }
 
   @Override
@@ -115,6 +131,8 @@ public class LeftHud extends ModelDesignAbstractClass {
     this.editPositionSnapping.render();
     this.editRotationSnapping.render();
     this.deleteButton.render();
+    this.copyButton.render();
+    this.changeTypeButton.render();
   }
 
   @Override
@@ -147,6 +165,13 @@ public class LeftHud extends ModelDesignAbstractClass {
 
     if (deleteButton.checkClickable(mouseLocation, mouseAction)) {
       viewData.deleteSelected();
+    }
+
+    if (copyButton.checkInput(mouseLocation, mouseAction, GLFW.GLFW_MOUSE_BUTTON_LEFT)) {
+      viewData.copySelected();
+    }
+    if (changeTypeButton.checkInput(mouseLocation, mouseAction, GLFW.GLFW_MOUSE_BUTTON_LEFT)) {
+      viewData.changeTypeOfSelected();
     }
   }
 

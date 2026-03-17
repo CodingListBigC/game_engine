@@ -1,6 +1,6 @@
-package org.bigacl.renderEngine.designItem.building;
+package org.bigacl.renderEngine.designItem.build.items;
 
-import org.bigacl.renderEngine.designItem.BuildItemsAbstract;
+import org.bigacl.renderEngine.designItem.build.BuildItemsAbstract;
 
 public class Roof extends BuildItemsAbstract {
   @Override
@@ -19,5 +19,10 @@ public class Roof extends BuildItemsAbstract {
 
   public Roof(Roof copy) {
     super(copy);
+  }
+
+  @Override
+  public Roof copy() {
+    return new Roof(this); // Now this works because House is not abstract
   }
 }

@@ -1,4 +1,4 @@
-package org.bigacl.renderEngine.designItem;
+package org.bigacl.renderEngine.designItem.build;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.Map;
@@ -18,8 +18,8 @@ public class BuildItemData {
   public Map<String, ModelTypeDetails> modelTypes;
 
   public static class NameInfo {
-    public String main;
-    public String plural;
+    public String main = "";
+    public String plural = "";
   }
 
   public static class ModelTypeDetails {

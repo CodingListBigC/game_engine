@@ -1,7 +1,6 @@
 package org.bigacl.renderEngine.gameItems.item.placeable;
 
-import org.bigacl.renderEngine.designItem.BuildItemData;
-import org.bigacl.renderEngine.designItem.BuildItemsAbstract;
+import org.bigacl.renderEngine.designItem.build.BuildItemData;
 
 import java.util.Map;
 

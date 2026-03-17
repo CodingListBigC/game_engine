@@ -1,7 +1,7 @@
 package org.bigacl.renderEngine.gameItems.item.placeable;
 
 import com.google.gson.Gson;
-import org.bigacl.renderEngine.designItem.BuildItemData;
+import org.bigacl.renderEngine.designItem.build.BuildItemData;
 import org.bigacl.renderEngine.gameItems.item.ItemInterface;
 import org.bigacl.renderEngine.model.ModelAbstract;
 import org.bigacl.renderEngine.model.mesh.Mesh;
@@ -112,6 +112,10 @@ public abstract class BasePlaceableItem extends ModelAbstract implements ItemInt
     if (name == null)
       return null;
     return name.main;
+  }
+
+  public Object copy() {
+    return null;
   }
 
   // --- Data Structures for GSON ---
