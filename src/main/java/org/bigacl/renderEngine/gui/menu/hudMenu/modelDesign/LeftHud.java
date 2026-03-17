@@ -43,6 +43,8 @@ public class LeftHud extends ModelDesignAbstractClass {
   Button deleteButton = new Button("Delete", Color.DARK_GRAY, Color.BLACK);
   // Copy Button
   Button copyButton = new Button("Copy", Color.DARK_GRAY, Color.BLACK);
+  // Change Type Button
+  Button changeTypeButton = new Button("Change Type Button", Color.DARK_GRAY, Color.BLACK);
 
   public LeftHud() {
     setSizes();
@@ -58,6 +60,7 @@ public class LeftHud extends ModelDesignAbstractClass {
     this.editRotationSnapping.setItemSize(new Vector2f(usableWidth, Const.DEFAULT_BUTTON_SIZE.y));
     this.deleteButton.setSize(new Vector2f((float) (this.panelWidth * .5), Const.DEFAULT_BUTTON_SIZE.y));
     this.copyButton.setSize(new Vector2f((float) (this.panelWidth * .5), Const.DEFAULT_BUTTON_SIZE.y));
+    this.changeTypeButton.setSize(new Vector2f((float) (this.panelWidth * .75), Const.DEFAULT_BUTTON_SIZE.y));
   }
 
   private void setPosition() {
@@ -99,6 +102,11 @@ public class LeftHud extends ModelDesignAbstractClass {
     // 7. Copy Button
     this.copyButton.setLocation(new Vector2f(((float) usableWidth / 2) - (this.copyButton.getSize().x / 2) + xOffset, currentY));
     this.copyButton.setVisible(true);
+    currentY += this.copyButton.getSize().y + ySpacing;
+
+    // 8. Change Type Button
+    this.changeTypeButton.setLocation(new Vector2f(((float) usableWidth / 2) - (this.copyButton.getSize().x / 2) + xOffset, currentY));
+    this.changeTypeButton.setVisible(true);
   }
 
   @Override
@@ -124,6 +132,7 @@ public class LeftHud extends ModelDesignAbstractClass {
     this.editRotationSnapping.render();
     this.deleteButton.render();
     this.copyButton.render();
+    this.changeTypeButton.render();
   }
 
   @Override
@@ -160,6 +169,9 @@ public class LeftHud extends ModelDesignAbstractClass {
 
     if (copyButton.checkInput(mouseLocation, mouseAction, GLFW.GLFW_MOUSE_BUTTON_LEFT)) {
       viewData.copySelected();
+    }
+    if (changeTypeButton.checkInput(mouseLocation, mouseAction, GLFW.GLFW_MOUSE_BUTTON_LEFT)) {
+      viewData.changeTypeOfSelected();
     }
   }
 

@@ -1,5 +1,6 @@
 package org.bigacl.renderEngine.gui.menu.hudMenu;
 
+import org.bigacl.renderEngine.designItem.build.BuildItemsAbstract;
 import org.bigacl.renderEngine.gameItems.item.ItemMangerAbstract;
 import org.bigacl.renderEngine.gameItems.item.placeable.BasePlaceableItem;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
@@ -80,5 +81,24 @@ public class ViewData {
 
   public void copySelected() {
     ClassConst.itemMangerAbstract.copyItemDefaultData(viewIndex);
+  }
+
+  public void changeTypeOfSelected() {
+    // 1. Get the list of items currently being shown in the GUI
+    ArrayList<BuildItemsAbstract> currentViewList = (ArrayList<BuildItemsAbstract>) ClassConst.itemMangerAbstract.getDefaultData();
+
+    // 2. Validate the index to prevent crashes
+    if (viewIndex >= 0 && viewIndex < currentViewList.size()) {
+
+      // 3. Get the item and update its type
+      BuildItemsAbstract item = currentViewList.get(viewIndex);
+      item.setNextType();
+
+      // Note: Since 'item' is a reference, the object inside 'allItems'
+      // is already updated! You don't usually need to call .set().
+
+      // 4. Force a GUI refresh if your UI doesn't auto-update
+      HudAbstract.getViewData().setViewDataList(currentViewList);
+    }
   }
 }
