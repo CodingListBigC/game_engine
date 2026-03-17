@@ -8,7 +8,12 @@ import java.awt.*;
 
 public class TextWithBackground extends Text{
   private Color backgroundColor = new Color(0.1f,0.1f,0.1f,1);
+
+
   private Color outlineColor = new Color(0.1f,0.1f,0.1f,1);
+
+  public TextWithBackground() {
+  }
 
   public TextWithBackground(String text) {
     super(text);
@@ -30,5 +35,9 @@ public class TextWithBackground extends Text{
 
   public void setBackgroundColor(Color backgroundColor) {
     this.backgroundColor = backgroundColor;
+  }
+
+  public void setOutlineColor(Color outlineColor) {
+    this.outlineColor = outlineColor;
   }
 }
