@@ -1,4 +1,4 @@
-package org.bigacl.renderEngine.designItem;
+package org.bigacl.renderEngine.designItem.build;
 
 import com.google.gson.annotations.SerializedName;
 import java.util.Map;
