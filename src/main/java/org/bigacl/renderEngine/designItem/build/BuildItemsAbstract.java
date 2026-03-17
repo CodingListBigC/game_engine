@@ -170,4 +170,8 @@ public abstract class BuildItemsAbstract extends BasePlaceableItem {
   public int getNumberOfTypes() {
     return numberOfTypes;
   }
+
+  public int getCurrentType() {
+    return currentType;
+  }
 }

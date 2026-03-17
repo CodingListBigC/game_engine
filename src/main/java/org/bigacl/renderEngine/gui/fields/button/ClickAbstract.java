@@ -81,5 +81,11 @@ public abstract class ClickAbstract extends InputInterface {
   public Vector2f getSize() {
     return new Vector2f(this.size);
   }
+
+  public boolean checkInput(Vector2d mouseLocation, int mouseAction, int testAction) {
+    if (isHovered(mouseLocation) && mouseAction == testAction)
+      return true;
+    return false;
+  }
 }
 
