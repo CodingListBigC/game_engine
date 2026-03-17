@@ -48,8 +48,12 @@ public class LeftHud extends ModelDesignAbstractClass {
   }
 
   private void setSizes() {
+    int xOffset = 10;
+    int usableWidth = (int) (panelWidth - (xOffset * 2));
     positionButton.setAmountViewAble(3);
     rotationButton.setAmountViewAble(3);
+    this.editPositionSnapping.setItemSize(new Vector2f(usableWidth, Const.DEFAULT_BUTTON_SIZE.y));
+    this.editRotationSnapping.setItemSize(new Vector2f(usableWidth, Const.DEFAULT_BUTTON_SIZE.y));
     this.deleteButton.setSize(new Vector2f((float) (this.panelWidth * .5), Const.DEFAULT_BUTTON_SIZE.y));
   }
 
@@ -66,7 +70,6 @@ public class LeftHud extends ModelDesignAbstractClass {
 
     // 2. Snapping Button (Was missing setLocation!)
     this.editPositionSnapping.setVisible(true);
-    this.editPositionSnapping.setItemSize(new Vector2f(usableWidth, 40));
     this.editPositionSnapping.setItemPosition(new Vector2f(leftXOffset, currentY));
     currentY += 40 + ySpacing;
 
@@ -77,7 +80,6 @@ public class LeftHud extends ModelDesignAbstractClass {
 
     // 4. Rotation Snapping Button (Was missing setLocation!)
     this.editRotationSnapping.setVisible(true);
-    this.editRotationSnapping.setItemSize(new Vector2f(usableWidth, 40));
     this.editRotationSnapping.setItemPosition(new Vector2f(leftXOffset, currentY));
     currentY += 40 + ySpacing;
 
