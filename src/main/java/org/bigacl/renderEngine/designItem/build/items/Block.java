@@ -1,7 +1,7 @@
-package org.bigacl.renderEngine.designItem.building;
+package org.bigacl.renderEngine.designItem.build.items;
 
 
-import org.bigacl.renderEngine.designItem.BuildItemsAbstract;
+import org.bigacl.renderEngine.designItem.build.BuildItemsAbstract;
 
 public class Block extends BuildItemsAbstract {
   public Block(Block copyBlock) {

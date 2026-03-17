@@ -1,11 +1,10 @@
-package org.bigacl.renderEngine.designItem;
+package org.bigacl.renderEngine.designItem.build;
 
 import com.google.gson.Gson;
 import org.bigacl.renderEngine.gameItems.item.placeable.BasePlaceableItem;
 import org.bigacl.renderEngine.model.mesh.Mesh;
 import org.bigacl.renderEngine.model.mesh.OBJLoader;
 import org.bigacl.renderEngine.model.texture.Texture;
-import org.bigacl.renderEngine.player.BoundingBox;
 import org.bigacl.renderEngine.shaders.ShaderMaster;
 import org.bigacl.renderEngine.utils.Scale;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
@@ -14,7 +13,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Map;
 
 public abstract class BuildItemsAbstract extends BasePlaceableItem {
   protected String jsonName = "default.json";
