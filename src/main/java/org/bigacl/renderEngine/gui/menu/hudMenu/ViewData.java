@@ -77,4 +77,8 @@ public class ViewData {
   public void deleteSelected() {
     ClassConst.itemMangerAbstract.removeItemDefaultData(viewIndex);
   }
+
+  public void copySelected() {
+    ClassConst.itemMangerAbstract.copyItemDefaultData(viewIndex);
+  }
 }

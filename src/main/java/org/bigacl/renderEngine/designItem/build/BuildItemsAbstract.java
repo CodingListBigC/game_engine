@@ -43,6 +43,8 @@ public abstract class BuildItemsAbstract extends BasePlaceableItem {
     this.level = copy.level;
     this.isPlaced = copy.isPlaced;
     this.boundingBox = copy.boundingBox;
+    this.scale = copy.scale;
+    this.worldPosition = copy.worldPosition;
   }
 
   public void init() {
