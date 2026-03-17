@@ -1,13 +1,10 @@
 package org.bigacl.renderEngine.gui.fields.button.addSubtract;
 
-import org.bigacl.renderEngine.gui.fields.TextWithBackground;
+import org.bigacl.renderEngine.gui.fields.text.TextWithBackground;
 import org.bigacl.renderEngine.gui.fields.button.Button;
 import org.bigacl.renderEngine.gui.fields.sets.InputWithText;
-import org.bigacl.renderEngine.utils.consts.ClassConst;
-import org.bigacl.renderEngine.utils.consts.Const;
 import org.joml.Vector2d;
 import org.joml.Vector2f;
-import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;

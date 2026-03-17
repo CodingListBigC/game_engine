@@ -1,6 +1,6 @@
-package org.bigacl.renderEngine.gui.fields;
+package org.bigacl.renderEngine.gui.fields.text;
 
-import org.bigacl.renderEngine.gui.fields.text.TextInputInterface;
+import org.bigacl.renderEngine.gui.fields.InputInterface;
 import org.bigacl.renderEngine.gui.font.FontSizing;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 

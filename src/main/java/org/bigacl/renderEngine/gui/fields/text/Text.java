@@ -1,4 +1,4 @@
-package org.bigacl.renderEngine.gui.fields;
+package org.bigacl.renderEngine.gui.fields.text;
 
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.joml.Vector2f;

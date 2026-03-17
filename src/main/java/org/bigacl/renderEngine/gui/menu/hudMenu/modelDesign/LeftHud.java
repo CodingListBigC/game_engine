@@ -1,7 +1,7 @@
 package org.bigacl.renderEngine.gui.menu.hudMenu.modelDesign;
 
 import org.bigacl.renderEngine.gui.drawing.NanoVGUI;
-import org.bigacl.renderEngine.gui.fields.Text;
+import org.bigacl.renderEngine.gui.fields.text.Text;
 import org.bigacl.renderEngine.gui.fields.button.Button;
 import org.bigacl.renderEngine.gui.fields.button.addSubtract.AddSubtractButtonWithText;
 import org.bigacl.renderEngine.gui.fields.button.addSubtract.VectorButton;

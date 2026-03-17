@@ -1,6 +1,6 @@
 package org.bigacl.renderEngine.gui.fields.button;
 
-import org.bigacl.renderEngine.gui.fields.Text;
+import org.bigacl.renderEngine.gui.fields.text.Text;
 import org.joml.Vector2f;
 
 import java.awt.*;

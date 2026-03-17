@@ -1,7 +1,6 @@
 package org.bigacl.renderEngine.gui.fields.button.select;
 
-import org.bigacl.renderEngine.gui.fields.InputInterface;
-import org.bigacl.renderEngine.gui.fields.TextWithBackground;
+import org.bigacl.renderEngine.gui.fields.text.TextWithBackground;
 import org.bigacl.renderEngine.gui.fields.sets.InputWithText;
 import org.joml.Vector2d;
 import org.joml.Vector2f;

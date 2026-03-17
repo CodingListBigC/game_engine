@@ -1,4 +1,4 @@
-package org.bigacl.renderEngine.gui.fields;
+package org.bigacl.renderEngine.gui.fields.text;
 
 import org.bigacl.renderEngine.gui.drawing.NanoVGUI;
 import org.bigacl.renderEngine.utils.consts.ClassConst;

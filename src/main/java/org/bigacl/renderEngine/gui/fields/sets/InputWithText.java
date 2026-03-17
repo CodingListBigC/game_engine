@@ -1,8 +1,7 @@
 package org.bigacl.renderEngine.gui.fields.sets;
 
 import org.bigacl.renderEngine.gui.fields.InputInterface;
-import org.bigacl.renderEngine.gui.fields.Text;
-import org.bigacl.renderEngine.gui.fields.TextWithBackground;
+import org.bigacl.renderEngine.gui.fields.text.TextWithBackground;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.joml.Vector2f;
 

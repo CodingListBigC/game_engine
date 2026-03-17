@@ -1,7 +1,7 @@
 package org.bigacl.renderEngine.gui.fields.button;
 
 import org.bigacl.renderEngine.gui.fields.InputInterface;
-import org.bigacl.renderEngine.gui.fields.Text;
+import org.bigacl.renderEngine.gui.fields.text.Text;
 import org.bigacl.renderEngine.gui.drawing.NanoVGUI;
 import org.bigacl.renderEngine.utils.consts.ClassConst;
 import org.joml.Vector2d;
