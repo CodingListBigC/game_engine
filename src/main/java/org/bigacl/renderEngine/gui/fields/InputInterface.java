@@ -19,6 +19,7 @@ public abstract class InputInterface {
     }
   }
 
+
   protected abstract void rightClick();
 
   protected abstract void leftClick();
